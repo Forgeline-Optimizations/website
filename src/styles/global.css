@@ -1,5 +1,10 @@
 /* Enige CSS-ingang van de site; alleen geïmporteerd in BaseLayout. */
 @import 'tailwindcss';
+/* Alleen de site zelf scannen; documentatie en ontwerpsnapshots zouden ongebruikte utilities opleveren. */
+@source not '../../design';
+@source not '../../docs';
+@source not '../../.claude';
+@source not '../../**/*.md';
 @import '@fontsource/saira/latin-500.css';
 @import '@fontsource/saira/latin-600.css';
 @import '@fontsource/saira/latin-700.css';
