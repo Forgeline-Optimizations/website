@@ -35,5 +35,7 @@
 - Gebruikt: `design/design-system/tokens.json` (via script), `@fontsource/saira`.
 - Gebruikt door: alles.
 
-## Bekende valkuil
-De `bundle.css` uit het design system verbergt themalogo's met `html:not([data-theme="light"]) .fl-only-light`. Op de site staat het thema per sectie, niet op `<html>`; gebruik daarom `[data-theme="dark"] .fl-only-light, [data-theme="light"] .fl-only-dark { display: none }` en zet `data-theme="dark"` op `<body>`.
+## Bekende valkuilen
+- **Themalogo's (ADR-012).** `bundle.css` verbergt ze via `html:not([data-theme="light"])`, maar op de site staat het thema per blok. Een selector-paar als `[data-theme="dark"] .fl-only-light, [data-theme="light"] .fl-only-dark` verbergt in een licht blok binnen de donkere `<body>` **beide** logo's. Daarom: per thema `--fl-show-dark/--fl-show-light`, en `.fl-only-*` gebruikt `display: var(--fl-show-*, revert-layer)`, ongelaagd in `global.css`. `components.css` en `layout.css` staan in `@layer components`.
+- **Specificiteit binnen de componentlaag.** `.fl-nav__logo img` (0,1,1) wint van een losse klasse (0,1,0). Site-aanvullingen die een logo-`img` raken schrijf je als `.fl-nav .fl-…`.
+- **Tailwind-scan.** `global.css` sluit `design/`, `docs/`, `.claude/` en alle `*.md` uit (`@source not`); anders maakt Tailwind utilities aan voor klassennamen die alleen in documentatie staan.

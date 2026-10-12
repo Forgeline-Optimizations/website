@@ -20,7 +20,7 @@ Alle teksten staan in `src/i18n/nl.ts`. Pas de tekst tussen de aanhalingstekens 
 |---|---|---|---|
 | 1 | **Web3Forms access key** | fase 3 | `WEB3FORMS_ACCESS_KEY` in `src/data/site.ts` |
 | 2 | **Plausible-snippet** (Site settings → Site Installation) | fase 6 | Analytics-component rendert niets zolang `plausibleScriptSrc` leeg is |
-| 3 | **GitHub-gebruikersnaam** voor de `www`-CNAME bij TransIP | fase 1, stap 12 | — |
+| 3 | ~~GitHub-gebruikersnaam~~ Opgelost: de repo staat in de organisatie `Forgeline-Optimizations`, dus `www` CNAME → `forgeline-optimizations.github.io.` | fase 1, stap 12 | — |
 | 4 | **Privacyverklaring** (tekst) | fase 3 | Pagina met koppen en `[TEKST VOLGT — Sander]` |
 | 5 | **Algemene voorwaarden** — let op: de NLdigital Voorwaarden mogen in principe alleen door leden van NLdigital gebruikt worden. Check dit, of kies een alternatief (bijv. eigen voorwaarden of een sjabloon van KVK/een jurist). | fase 3 | Pagina met `[TEKST VOLGT — Sander]` |
 | 6 | **Professionele portretfoto** | fase 6 | `src/assets/images/sander-portrait-tijdelijk.jpg` |

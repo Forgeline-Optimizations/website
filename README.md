@@ -24,4 +24,4 @@ npm run test:e2e   # browsertests
 | `CLAUDE.md`, `.claude/` | Werkgeheugen en bouwplannen voor Claude Code |
 
 ## Met Claude Code verder bouwen
-Open Claude Code in deze map. Eerste keer: `Follow the instructions in .claude/FIRST_SESSION.md`. Daarna: "Ga verder met de huidige fase."
+Open Claude Code in deze map en zeg: "Ga verder met de huidige fase." (De instructies voor de allereerste sessie staan in `.claude/archive/FIRST_SESSION.md`.)
