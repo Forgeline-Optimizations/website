@@ -1,3 +1,5 @@
+> Vervangen door `src/i18n/nl.ts` (fase 2). Dit document wordt niet meer bijgewerkt.
+
 # Teksten (Nederlands)
 
 Bron: storyboard versie `1791838245-b376`, inclusief Sanders tekstwijzigingen. Fase 2 zet dit om naar `src/i18n/nl.ts`; daarna is dat bestand leidend en wordt dit document niet meer bijgewerkt.

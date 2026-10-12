@@ -1,0 +1,30 @@
+---
+// Markup uit design/design-system/components/ServiceStep. Op mobiel verbergt components.css de lijst en
+// gebruikt het de kleinere maten uit MobielAanbod.dc.html; er is dus één kaart voor beide.
+interface Props {
+  num: string;
+  kicker: string;
+  title: string;
+  text: string;
+  items: readonly string[];
+  meta: string;
+  entry?: boolean;
+}
+
+const { num, kicker, title, text, items, meta, entry = false } = Astro.props;
+---
+
+<article class:list={['fl-service', { 'fl-service--entry': entry }]}>
+  <span class="fl-service__num" aria-hidden="true">
+    {num}
+  </span>
+  <p class="fl-service__kicker fl-label">{kicker}</p>
+  <h3 class="fl-service__title">{title}</h3>
+  <p class="fl-service__text">{text}</p>
+  <ul class="fl-service__list">
+    {items.map((item) => (
+      <li>{item}</li>
+    ))}
+  </ul>
+  <p class="fl-service__meta fl-label">{meta}</p>
+</article>

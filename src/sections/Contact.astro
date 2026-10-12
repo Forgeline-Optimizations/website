@@ -1,0 +1,120 @@
+---
+// 08 · Contact (licht) — design/storyboard/Contact.dc.html. Statisch: gewone POST naar Web3Forms met
+// browservalidatie (ADR-003). Fase 3 voegt JS-validatie en verzending via fetch toe (en dan pas `novalidate`).
+import Chapter from '../components/site/Chapter.astro';
+import Button from '../components/ui/Button.astro';
+import ForgeLine from '../components/site/ForgeLine.astro';
+import { t, type Locale } from '../i18n';
+import { site } from '../data/site';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'nl' } = Astro.props;
+const d = t(locale).contact;
+const f = d.fields;
+const fromName = new URL(site.url).hostname;
+---
+
+<Chapter id="contact" num="08" theme="light" kicker={d.kicker} title={d.title} lead={d.lead} end>
+  <div class="chapter__visual contact" data-motion="contact">
+    <form class="fl-form" action="https://api.web3forms.com/submit" method="POST" data-contact-form>
+      <input type="hidden" name="access_key" value={site.web3formsAccessKey} />
+      <input type="hidden" name="redirect" value={site.formRedirect} />
+      <input type="hidden" name="subject" value={d.subject} />
+      <input type="hidden" name="from_name" value={fromName} />
+      <!-- Honeypot: verborgen voor mensen; Web3Forms negeert inzendingen waarin hij aangevinkt is. -->
+      <div class="fl-honeypot" aria-hidden="true">
+        <label>
+          {f.honeypot} <input type="checkbox" name="botcheck" tabindex="-1" />
+        </label>
+      </div>
+
+      <div class="fl-field">
+        <label class="fl-field__label" for="contact-name">
+          {f.name}
+        </label>
+        <input class="fl-input" id="contact-name" name="name" autocomplete="name" required />
+      </div>
+      <div class="fl-field">
+        <label class="fl-field__label" for="contact-company">
+          {f.company}
+        </label>
+        <input class="fl-input" id="contact-company" name="company" autocomplete="organization" />
+      </div>
+      <div class="fl-field">
+        <label class="fl-field__label" for="contact-email">
+          {f.email}
+        </label>
+        <input class="fl-input" id="contact-email" name="email" type="email" autocomplete="email" required />
+      </div>
+      <div class="fl-field">
+        <label class="fl-field__label" for="contact-phone">
+          {f.phone} <small>{f.optional}</small>
+        </label>
+        <input class="fl-input" id="contact-phone" name="phone" type="tel" autocomplete="tel" />
+      </div>
+      <div class="fl-field fl-form__full">
+        <label class="fl-field__label" for="contact-message">
+          {f.message}
+        </label>
+        <textarea
+          class="fl-input"
+          id="contact-message"
+          name="message"
+          placeholder={f.messagePlaceholder}
+        ></textarea>
+      </div>
+      <label class="fl-check fl-form__full">
+        <input type="checkbox" name="privacy" required />
+        <!-- prettier-ignore: geen witruimte tussen de delen, anders staat er een spatie vóór de punt -->
+        <!-- prettier-ignore -->
+        <span>{d.privacy.before}<a href="/privacy">{d.privacy.linkText}</a>{d.privacy.after}</span>
+      </label>
+      <div class="fl-form__full contact__submit">
+        <ForgeLine part="end" locale={locale} />
+        <Button variant="primary" type="submit" arrow data-forge-anchor="end">
+          {d.submit}
+        </Button>
+      </div>
+    </form>
+
+    <aside class="fl-next" aria-labelledby="contact-next-title">
+      <h3 class="fl-label fl-next__title" id="contact-next-title">
+        {d.next.title}
+      </h3>
+      <ol class="fl-next__steps">
+        {d.next.steps.map((step, i) => (
+          <li>
+            <span class="fl-label">{String(i + 1).padStart(2, '0')}</span>
+            <span>{step}</span>
+          </li>
+        ))}
+      </ol>
+      <Button variant="link" href={`mailto:${site.email}`}>
+        {site.email}
+      </Button>
+    </aside>
+  </div>
+</Chapter>
+
+<style>
+  .contact {
+    display: grid;
+    gap: var(--space-12);
+  }
+  .contact__submit {
+    position: relative;
+  }
+  .contact .fl-form {
+    max-width: none;
+  }
+  @media (min-width: 1200px) {
+    .contact {
+      grid-template-columns: minmax(0, 680px) 320px;
+      justify-content: space-between;
+      align-items: start;
+    }
+  }
+</style>

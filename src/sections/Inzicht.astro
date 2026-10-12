@@ -1,0 +1,97 @@
+---
+// 02 · Inzicht — design/storyboard/Inzicht.dc.html.
+import Chapter from '../components/site/Chapter.astro';
+import ProcessNode from '../components/ui/ProcessNode.astro';
+import { t, type Locale } from '../i18n';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'nl' } = Astro.props;
+const d = t(locale).inzicht;
+---
+
+<Chapter id="inzicht" num="02" theme="dark" kicker={d.kicker} title={d.title} lead={d.lead}>
+  <ol class="chapter__visual map" data-motion="inzicht-map">
+    {d.steps.map((step, i) => (
+      <li class="map__item">
+        <ProcessNode class="map__node" state="mapped" index={step.index} name={step.name} port />
+        {i < d.steps.length - 1 && (
+          <div class="map__link">{step.painpoint && <p class="fl-tag map__pain">{step.painpoint}</p>}</div>
+        )}
+      </li>
+    ))}
+  </ol>
+
+  <ul class="fl-columns">
+    {d.method.map((m) => (
+      <li>
+        <p class="fl-label fl-columns__label">{m.label}</p>
+        <p class="fl-columns__text">{m.text}</p>
+      </li>
+    ))}
+  </ul>
+</Chapter>
+
+<style>
+  /* Stapel (mobiel en smal): node, daaronder de verbinding met eventueel het knelpunt ernaast. */
+  .map {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .map__item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .map__link {
+    display: flex;
+    align-items: center;
+    min-height: var(--space-8);
+    margin-left: var(--space-6);
+    padding: var(--space-2) 0 var(--space-2) var(--space-4);
+    border-left: 1.5px solid var(--line-strong);
+  }
+  .map__pain {
+    margin: 0;
+  }
+
+  /* Rij zoals op het board: vijf nodes op natuurlijke breedte, de verbindingen vullen de ruimte ertussen,
+     knelpunten boven de verbindingen. Pas vanaf 1280px is de inhoudskolom breed genoeg. */
+  @media (min-width: 1280px) {
+    .map {
+      flex-direction: row;
+      align-items: center;
+      padding-top: var(--space-16);
+    }
+    .map__item {
+      flex: 1 1 auto;
+      flex-direction: row;
+      align-items: center;
+    }
+    .map__item:last-child {
+      flex: 0 0 auto;
+    }
+    .map__item :global(.map__node) {
+      white-space: nowrap;
+    }
+    .map__link {
+      position: relative;
+      flex: 1 0 var(--space-6);
+      min-height: 0;
+      margin: 0;
+      padding: 0;
+      border-left: 0;
+      border-top: 1.5px solid var(--line-strong);
+    }
+    .map__pain {
+      position: absolute;
+      left: calc(-1 * var(--space-4));
+      bottom: calc(var(--space-16) + var(--space-6));
+      white-space: nowrap;
+    }
+  }
+</style>

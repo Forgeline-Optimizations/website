@@ -8,16 +8,17 @@
 | Component | Map | Design-system-bron | Props | Fase |
 |---|---|---|---|---|
 | `Button.astro` | ui | Button | `variant: 'primary' \| 'secondary' \| 'link'`, `size?: 'sm'`, `href?`, `type?`, `arrow?: boolean` | 1 |
-| `SectionHeader.astro` | ui | SectionHeader | `kicker`, `title`, `lead?`, `number?` (toont `numeral`) , `level?: 2 \| 1` | 2 |
+| `SectionHeader.astro` | ui | SectionHeader | `kicker`, `title`, `lead?`, `titleId`, `level?: 2 \| 1` (het nummer staat in `Chapter`) | 2 ✓ |
 | `ProcessNode.astro` | ui | ProcessNode | `name`, `index?`, `state: 'chaos' \| 'mapped' \| 'standard' \| 'automated'`, `port?: boolean`, `rotate?: number` | 2 |
 | `Badge.astro` | ui | VerdictCard (badge) | `verdict: 'go' \| 'wait' \| 'no'` | 2 |
 | `Icon.astro` | ui | Iconografie | `name: 'arrow' \| 'pause' \| 'no' \| 'check' \| 'alert'` | 2 |
 | `Field.astro` | ui | ContactForm (veld) | `id`, `name`, `label`, `type?`, `required?`, `autocomplete?`, `hint?`, `textarea?: boolean`, `optionalLabel?` | 3 |
-| `ServiceCard.astro` | ui | ServiceStep | `num`, `kicker`, `title`, `text`, `items: string[]`, `meta`, `entry?: boolean`, `compact?: boolean` | 2 |
-| `NavBar.astro` | site | NavBar | `locale` | 1 |
+| `ServiceCard.astro` | ui | ServiceStep | `num`, `kicker`, `title`, `text`, `items: string[]`, `meta`, `entry?: boolean` (mobiel compact via CSS, geen prop) | 2 ✓ |
+| `NavBar.astro` | site | NavBar | `locale`, `showChapters?`; laadt `nav-progress.ts` | 1 ✓, 2 ✓ |
 | `Footer.astro` | site | Footer | `locale` | 1 |
-| `ForgeLine.astro` | site | ForgeLine | geen; rendert de SVG-laag + ticks | 2 (statisch), 4 (beweging) |
-| `NextSteps.astro` | site | ContactForm (zijblok) | `locale` | 3 |
+| `ForgeLine.astro` | site | ForgeLine | `part: 'start' \| 'end'`, `locale?`: begin (Hero) en eindhaak (Contact); fase 4 voegt de SVG-laag toe | 2 ✓ (statisch), 4 (beweging) |
+| `Chapter.astro` | site | SectionHeader + raster | `id`, `num`, `theme`, `kicker`, `title`, `lead?`, `end?`; slot = inhoud | 2 ✓ |
+| `NextSteps.astro` | site | ContactForm (zijblok) | `locale` — staat in fase 2 nog inline in `Contact.astro` (`.fl-next`); fase 3 haalt hem eruit voor hergebruik op `/request-received` | 3 |
 | `Analytics.astro` | site | — | geen; rendert Plausible alleen in productie | 6 |
 | `StructuredData.astro` | site | — | geen; JSON-LD op `/` | 6 |
 | `SkipLink.astro` | site | — | `locale` | 1 |

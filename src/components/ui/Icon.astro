@@ -1,0 +1,31 @@
+---
+// Eigen lijniconen, 14 × 14, currentColor. Paden uit VerdictCard/preview.html en ContactForm/preview.html.
+export type IconName = 'arrow' | 'pause' | 'no' | 'check' | 'alert';
+
+interface Props {
+  name: IconName;
+  class?: string;
+}
+
+const { name, class: className } = Astro.props;
+---
+
+<svg class={className} width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" focusable="false">
+  {name === 'arrow' && (
+    <path d="M2 7h8M7 3.5 10.5 7 7 10.5" fill="none" stroke="currentColor" stroke-width="2" />
+  )}
+  {name === 'pause' && <path d="M4.5 2.5v9M9.5 2.5v9" fill="none" stroke="currentColor" stroke-width="2" />}
+  {name === 'no' && (
+    <>
+      <rect x="1.5" y="1.5" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5" />
+      <path d="M3 11 11 3" stroke="currentColor" stroke-width="1.5" />
+    </>
+  )}
+  {name === 'check' && <path d="M2 7.5 5.5 11 12 3.5" fill="none" stroke="currentColor" stroke-width="2" />}
+  {name === 'alert' && (
+    <>
+      <rect x="1" y="1" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" />
+      <path d="M7 3.5v4.5M7 9.5v1.2" stroke="currentColor" stroke-width="1.6" />
+    </>
+  )}
+</svg>

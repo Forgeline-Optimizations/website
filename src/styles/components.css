@@ -188,7 +188,7 @@
 }
 .fl-node[data-state='chaos'] {
   border-style: dashed;
-  transform: rotate(-3deg);
+  transform: rotate(var(--fl-rotate, -3deg)); /* site: rotatie per node via ProcessNode `rotate` */
 }
 .fl-node[data-state='chaos'] .fl-node__name {
   color: var(--ink-muted);
@@ -920,4 +920,243 @@ textarea.fl-input {
 }
 .fl-skip:focus {
   transform: none;
+}
+
+/* ======================================================================
+   Site-aanvullingen fase 2: hoofdstukken
+   ====================================================================== */
+
+/* ---------- Lead buiten de SectionHeader (hero) en mobiele leadmaat ---------- */
+.fl-lead {
+  margin: 0;
+  max-width: 560px;
+  font-size: 20px;
+  line-height: 31px;
+  color: var(--ink-muted);
+}
+@media (max-width: 899px) {
+  .fl-lead,
+  .fl-section-head p {
+    font-size: 18px;
+    line-height: 28px;
+  }
+}
+
+/* ---------- Drie kolommen met haarlijn (Inzicht: werkwijze, Automatisch: beloftes) ---------- */
+.fl-columns {
+  list-style: none;
+  margin: var(--space-16) 0 0;
+  padding: var(--space-6) 0 0;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: var(--space-6);
+}
+@media (min-width: 900px) {
+  .fl-columns {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-12);
+  }
+}
+.fl-columns__label {
+  margin: 0 0 var(--space-2);
+  color: var(--ink-muted);
+}
+/* Oranje labels alleen in het donkere thema (oranje tekst op licht: 2,1:1). */
+[data-theme='dark'] .fl-columns--forge .fl-columns__label {
+  color: var(--forge);
+}
+.fl-columns__text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 23px;
+}
+
+/* ---------- ServiceStep: kicker, en compacte kaart op mobiel (MobielAanbod.dc.html) ---------- */
+.fl-service__kicker {
+  margin: 0;
+  color: var(--ink-muted);
+}
+@media (max-width: 1199px) {
+  .fl-ladder {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 899px) {
+  .fl-ladder {
+    gap: var(--space-4);
+  }
+  .fl-service {
+    padding: var(--space-6) var(--space-4) var(--space-4);
+    gap: var(--space-3);
+  }
+  .fl-service__num {
+    font-size: 32px;
+    line-height: 32px;
+  }
+  .fl-service__title {
+    font-size: 24px;
+    line-height: 30px;
+  }
+  .fl-service__text {
+    font-size: 15px;
+    line-height: 23px;
+  }
+  .fl-service__kicker,
+  .fl-service__list {
+    display: none;
+  }
+  .fl-service__meta {
+    padding-top: var(--space-3);
+  }
+}
+
+/* ---------- VerdictCard op de site ---------- */
+.fl-verdict__panels {
+  min-width: 0;
+}
+@media (min-width: 900px) {
+  .fl-verdict {
+    grid-template-columns: 340px minmax(0, 1fr);
+    min-height: 340px;
+  }
+}
+.fl-verdict__short {
+  display: none;
+}
+/* Met JS: één paneel, al vóór het script draait (geen sprong). `hidden` werkt hier niet, want
+   .fl-verdict__panel heeft display: flex. */
+html.js .fl-verdict__panel:not([data-active]) {
+  display: none;
+}
+/* Zonder JS: geen knoppen die niets doen, en alle panelen onder elkaar. */
+html:not(.js) .fl-verdict__steps {
+  display: none;
+}
+html:not(.js) .fl-verdict {
+  grid-template-columns: minmax(0, 1fr);
+}
+html:not(.js) .fl-verdict__panels {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+html:not(.js) .fl-verdict__panel + .fl-verdict__panel {
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--line);
+}
+@media (max-width: 899px) {
+  .fl-verdict {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+    padding: 0;
+    background: none;
+    border: 0;
+  }
+  .fl-verdict__steps {
+    flex-direction: row;
+    overflow-x: auto;
+    margin-right: calc(-1 * var(--space-4));
+    padding: 0 var(--space-4) var(--space-1) 0;
+  }
+  .fl-verdict__steps li {
+    flex: none;
+  }
+  .fl-verdict__step {
+    width: auto;
+    white-space: nowrap;
+    padding: 10px 14px;
+    font-size: 15px;
+  }
+  .fl-verdict__step .fl-label,
+  .fl-verdict__long {
+    display: none;
+  }
+  .fl-verdict__short {
+    display: inline;
+  }
+  .fl-verdict__panel {
+    min-height: 0;
+    padding: var(--space-6) var(--space-4);
+    background: var(--surface-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+  }
+  .fl-verdict__title {
+    font-size: 24px;
+    line-height: 30px;
+  }
+  .fl-verdict__reason {
+    font-size: 16px;
+    line-height: 25px;
+  }
+}
+
+/* ---------- ProfileCard op de site (OverMij.dc.html) ---------- */
+.fl-profile {
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: var(--space-16);
+}
+.fl-profile__text {
+  margin: 0 0 var(--space-4);
+  max-width: 600px;
+}
+.fl-profile__text:last-of-type {
+  margin-bottom: var(--space-6);
+}
+@media (max-width: 1199px) {
+  .fl-profile {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-8);
+  }
+  .fl-profile__photo {
+    max-width: 280px;
+  }
+}
+@media (max-width: 899px) {
+  .fl-profile__facts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- Contactformulier en "Wat er daarna gebeurt" ---------- */
+@media (max-width: 899px) {
+  .fl-form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.fl-next {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding: var(--space-6);
+  background: var(--surface-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+}
+.fl-next__title {
+  margin: 0;
+  color: var(--ink-muted);
+}
+.fl-next__steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.fl-next__steps li {
+  display: flex;
+  gap: var(--space-4);
+  font-size: 15px;
+  line-height: 22px;
+}
+.fl-next__steps .fl-label {
+  flex: none;
+  width: var(--space-6);
+  color: var(--ink);
+}
+.fl-next .fl-btn--link {
+  font-size: 13px;
+  align-self: flex-start;
 }

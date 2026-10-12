@@ -2,7 +2,7 @@
 
 > Waarom dit bestaat en wat nooit mag: [`.claude/SOUL.md`](.claude/SOUL.md).
 
-Eén-pagina visitekaartje voor forgelineoptimizations.nl: een scroll-verhaal langs **de forge line**, één doorlopende lijn die een klantproces van chaos naar automatisering volgt, in acht hoofdstukken. Statische Astro-site op GitHub Pages, domein bij TransIP. Huidige fase: **Fase 2 — De statische pagina** (zie `.claude/docs/`).
+Eén-pagina visitekaartje voor forgelineoptimizations.nl: een scroll-verhaal langs **de forge line**, één doorlopende lijn die een klantproces van chaos naar automatisering volgt, in acht hoofdstukken. Statische Astro-site op GitHub Pages, domein bij TransIP. Huidige fase: **Fase 3 — Interactie en formulier** (zie `.claude/docs/`).
 
 ## Start van elke sessie
 
@@ -56,41 +56,40 @@ De `.dc.html`-bestanden zijn **referentie, geen broncode**. Ze gebruiken absolut
 | Fase | Plan | Doel | Status |
 |---|---|---|---|
 | 1 | `.claude/docs/fase-1-fundament.md` | Astro-project, tokens, fonts, layout, deploy naar GitHub Pages | ✓ |
-| 2 | `.claude/docs/fase-2-statische-pagina.md` | Alle 8 secties statisch, met echte tekst, desktop + mobiel | 🔨 Huidig |
-| 3 | `.claude/docs/fase-3-interactie-en-formulier.md` | Verdict-interactie, contactformulier, losse pagina's | ⏳ |
+| 2 | `.claude/docs/fase-2-statische-pagina.md` | Alle 8 secties statisch, met echte tekst, desktop + mobiel | ✓ |
+| 3 | `.claude/docs/fase-3-interactie-en-formulier.md` | Verdict-interactie, contactformulier, losse pagina's | 🔨 Huidig |
 | 4 | `.claude/docs/fase-4-beweging.md` | Forge line + scroll-animaties per hoofdstuk | ⏳ |
 | 5 | `.claude/docs/fase-5-kwaliteit.md` | Mobiel, toegankelijkheid, prestaties, Lighthouse-gate | ⏳ |
 | 6 | `.claude/docs/fase-6-lancering.md` | SEO, OG, Plausible, DNS, livegang | ⏳ |
 
 Overzicht en volgorde: `.claude/docs/README.md`.
 
-## Huidige fase: Fase 2 — De statische pagina
-**Doel:** alle acht hoofdstukken als statische, volledig leesbare HTML met de echte teksten, op desktop en mobiel, met een statische forge line en meelopende navigatievoortgang.
-**Taken:** zie `.claude/docs/fase-2-statische-pagina.md`, stap 1 t/m 13. Branch: `fase-2-statische-pagina`.
-- [ ] Stap 1–2: `nl.ts` volledig, `verdicts.ts`, `hero-chaos.ts`
-- [ ] Stap 3–4: UI-componenten, statische `ForgeLine`
-- [ ] Stap 5–12: de acht secties
-- [ ] Stap 13: `index.astro` samenstellen, `nav-progress.ts`
-**Eerst beslissen:** het mobiele raster uit fase 1 zet de inhoud op x = 56 en de lijn op x = 24; het storyboard wil x = 40 en x = 16. Aanpassen in `layout.css` vraagt een ADR (zie session-log).
-**Blokkades:** geen. De DNS-stappen voor Sander (session-log, fase 1) lopen los hiervan.
+## Huidige fase: Fase 3 — Interactie en formulier
+**Doel:** het verdict-paneel reageert op klik en toetsenbord; het contactformulier valideert in het Nederlands, verstuurt via Web3Forms en stuurt door naar `/request-received`; `/request-received`, `/privacy`, `/voorwaarden` en `404` bestaan.
+**Taken:** zie `.claude/docs/fase-3-interactie-en-formulier.md`, stap 1 t/m 6. Branch: `fase-3-interactie-en-formulier`.
+- [ ] Stap 1: `verdict.ts` (paneel wisselt via `data-active`, niet `hidden`; zie fase-2-CSS)
+- [ ] Stap 2–3: `Field.astro`, formulier omzetten, `contact-form.ts` (dan pas `novalidate`)
+- [ ] Stap 4–6: `/request-received`, `/privacy`, `/voorwaarden`, `404`
+**Blokkades:** Web3Forms access key (open punt 1) is nodig om echt te versturen; tot die tijd de placeholder. Juridische teksten (open punt 4–5) schrijft Sander.
 
 ## Mijlpalen
 - Fase 0 — Ontwerp vastgelegd: design system, storyboard, geheugen-workspace. ✓
 - Fase 1 — Fundament: Astro 7, tokens, fonts, layout, nav, footer, tests, CI + deploy naar GitHub Pages (2026-10-12). ✓
+- Fase 2 — De statische pagina: acht hoofdstukken, statische forge line, nav-voortgang, desktop + mobiel (2026-10-13). ✓
 
 ## Modulekaart
 
 | Map | Verantwoordelijkheid | Fase | Status |
 |---|---|---|---|
-| `src/styles/` | Tokens, Tailwind-koppeling, componentstijlen | 1 | ✓ (fase 2 past `layout.css` aan) |
+| `src/styles/` | Tokens, Tailwind-koppeling, componentstijlen | 1–2 | ✓ |
 | `src/layouts/` | `BaseLayout.astro`: head, meta, fonts, nav, footer | 1 | ✓ |
-| `src/components/` | UI-bouwstenen (`ui/`) en site-chrome (`site/`) | 1–2 | 🔨 |
-| `src/sections/` | De acht hoofdstukken | 2 | ⏳ |
-| `src/i18n/` | Alle teksten, `t()`-helper | 1–2 | 🔨 (basis staat) |
-| `src/data/` | Bedrijfsgegevens, verdict-voorbeelden | 1–2 | 🔨 (`site.ts` staat) |
-| `src/scripts/` | Verdict-interactie, formulier, motion | 3–4 | ⏳ |
+| `src/components/` | UI-bouwstenen (`ui/`) en site-chrome (`site/`) | 1–3 | 🔨 (fase 3: `Field`, `NextSteps`) |
+| `src/sections/` | De acht hoofdstukken | 2 | ✓ (fase 3 voegt gedrag toe) |
+| `src/i18n/` | Alle teksten, `t()`-helper | 1–2 | ✓ (`nl.ts` is nu de bron) |
+| `src/data/` | Bedrijfsgegevens, verdict-voorbeelden | 1–2 | ✓ |
+| `src/scripts/` | Verdict-interactie, formulier, motion | 2–4 | 🔨 (`nav-progress.ts` staat) |
 | `src/pages/` | Routes | 1–3 | 🔨 |
-| `tests/` | Playwright, Vitest | 1–5 | 🔨 (opzet + fase-1-tests) |
+| `tests/` | Playwright, Vitest | 1–5 | 🔨 (tests fase 1–2) |
 
 Elke map onder `src/` heeft een eigen `CLAUDE.md`, behalve `src/pages/`: daar heet hij `_CLAUDE.md`, omdat Astro elk `.md`-bestand in `pages/` als route bouwt.
 
@@ -118,6 +117,7 @@ Elke map onder `src/` heeft een eigen `CLAUDE.md`, behalve `src/pages/`: daar he
 - **ADR-011 Type-check-pakketten:** `@astrojs/check`, `typescript`, `@types/node` als dev-deps; meldt Astro "requires the following dependency", dan is de check níet gedraaid.
 - **ADR-012 Themazichtbaarheid via variabelen:** `fl-only-dark/-light` lezen `--fl-show-*`, zodat het dichtstbijzijnde `data-theme` wint; `components.css` staat in `@layer components`.
 - **ADR-013 Logo ≥ 140px breed:** horizontaal logo 140 × 42 in nav en footer, ook al tekent het board 34px hoog.
+- **ADR-014 Mobiel hoofdstukraster:** lijn op x = 16, inhoud op x = 40 (zoals het storyboard); nummer boven de kop.
 
 ## Wat NIET te doen
 - Geen teksten, kleuren of maten hard-coded in componenten.

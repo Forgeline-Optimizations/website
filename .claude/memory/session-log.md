@@ -4,6 +4,32 @@
 
 ---
 
+## Fase 2 — Sessie 1
+**Datum:** 2026-10-13
+**Doel:** fase 2 volledig: alle acht hoofdstukken statisch, desktop + mobiel, statische forge line, nav-voortgang.
+**Gedaan:**
+- Branch `fase-2-statische-pagina`, gemerged naar `main`.
+- `nl.ts` volledig (`docs/content-nl.md` heeft nu de "vervangen"-melding). Toegevoegd t.o.v. content-nl: `oordeel.items.inkoop.shortTitle = 'Leverancier'` (test eist een shortTitle voor elke stap; inkoop is mobiel verborgen), `contact.fields.honeypot`, `contact.privacy.{before,linkText,after}`, `inzicht.steps[].painpoint` (knelpunt hangt aan de verbinding ná die stap).
+- `verdicts.ts`, `hero-chaos.ts` (incl. mobiele doos 334 × 200).
+- UI: `SectionHeader`, `ProcessNode` (`--fl-rotate`), `Icon`, `Badge`, `ServiceCard` (mobiel compact via CSS, geen `compact`-prop).
+- Site: **`Chapter.astro`** (de vaste hoofdstukstructuur als component, met tick en `data-forge-anchor="chapter"`), **`ForgeLine.astro`** met `part="start"` (Hero) en `part="end"` (Contact) i.p.v. één component in `<main>`.
+- Acht secties in `src/sections/`, `index.astro`, `nav-progress.ts` (`initNavProgress()`, geladen vanuit `NavBar`).
+- `layout.css`: mobiel raster volgens het storyboard ([ADR-014](../decisions/ADR-014-mobiel-hoofdstukraster.md)); rail = `forge` en loopt over de volle sectiehoogte (`chapter__inner` vult de sectie via flex, anders gaten bij `min-height: 100svh`); `chapter--end` voor Contact.
+**Beslissingen:** [ADR-014](../decisions/ADR-014-mobiel-hoofdstukraster.md). Kleinere keuzes staan in `src/sections/CLAUDE.md` → "Zoals gebouwd (fase 2)" (breekpunten 1200/1280, hero-schaal per breekpunt, flow als CSS-gradient, mobiele verdict-volgorde).
+**Tests:** check 0 errors · unit 11/11 · e2e 42 groen + 2 bewust overgeslagen (mobiel-only op desktop en omgekeerd). Nieuw: `tests/unit/i18n.test.ts`, `tests/e2e/sections.spec.ts` (incl. extra: geen horizontale scroll op 900/1024/1199/1200/1279/1280, en "met JS precies één paneel"), `a11y.spec.ts` draait nu met `#chaos`, `#oordeel`, `#aanbod`, `#contact` in beeld.
+**Visuele controle (1440 × 900 en 390 × 844, naast de artboards):**
+- Binnen ± 32px: raster (rail x ≈ 134, nummer x ≈ 154, inhoud x ≈ 314 tegen 120/160/320 op het board), hero (tekst x 108, chaos-veld 772–1372), alle koppen en blokken.
+- Afwijkingen > 32px, bewust: (1) inhoudskolom is 1012 breed i.p.v. 1060, dus Inzicht/Automatisch staan iets dichter op elkaar; (2) Automatisch-nodes zijn breder dan op het board (index "Stap 01 · Automatisch" op één regel), tussenruimte 24 i.p.v. 72; (3) Standaard: banenkolom krimpt tot de inhoud (curves sluiten direct aan op de chips, op het board zat er ± 100px lucht).
+- Mobiel: geen horizontale scroll; lijn x = 16, inhoud x = 40; nav + logo wisselen naar licht bij Aanbod/Contact; voortgangsbalk werkt.
+**Niet af / bekend:**
+- Tussen 900 en 1200/1280px vallen Inzicht, Automatisch, Standaard, Contact, ladder en profiel terug op de mobiele stapel (rijen passen niet in de smalle kolom). Werkt, maar is niet ontworpen; eventueel in fase 5 verfijnen.
+- `NextSteps` staat nog inline in `Contact.astro` (`.fl-next`); fase 3 haalt hem eruit voor `/request-received`.
+- Tussen hero en Inzicht is de statische lijn onderbroken (hero: midden, hoofdstukken: links). Fase 4 verbindt ze met de SVG-laag.
+- DNS: Sander heeft de records aangepast (2026-10-13); custom domain + "Enforce HTTPS" in GitHub nog controleren zodra DNS is doorgekomen.
+**Voor de volgende sessie:** fase 3 op branch `fase-3-interactie-en-formulier`. Verdict-panelen wisselen via `data-active` (CSS in `components.css` regelt de zichtbaarheid met en zonder JS); de knoppen hebben al `aria-pressed`/`aria-controls`. Formulier staat zonder `novalidate`; zet dat pas aan samen met `contact-form.ts`. Screenshots maken: zet `scroll-behavior: auto`, anders vangt Playwright een smooth-scroll halverwege.
+
+---
+
 ## Fase 1 — Sessie 1
 **Datum:** 2026-10-12
 **Doel:** oriëntatie (FIRST_SESSION) en fase 1 volledig: Astro-project, tokens, fonts, layout, nav, footer, tests, CI + deploy.
