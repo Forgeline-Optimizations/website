@@ -1,0 +1,30 @@
+<!-- @dsCard group="Forge line" height=340 subtitle="interactief · klik een stap" -->
+<!doctype html>
+<html lang="nl">
+<head><meta charset="utf-8"><title>VerdictCard</title>
+<style>html,body{margin:0} body{background:var(--surface)} .pad{padding:24px} </style></head>
+<body class="fl-root">
+<div class="pad"><div class="fl-verdict">
+<ul class="fl-verdict__steps" aria-label="Processtappen">
+<li><button class="fl-verdict__step" data-k="offerte" aria-pressed="true" aria-controls="panel">Offerte opstellen <span class="fl-label">01</span></button></li>
+<li><button class="fl-verdict__step" data-k="planning" aria-pressed="false" aria-controls="panel">Productieplanning <span class="fl-label">02</span></button></li>
+<li><button class="fl-verdict__step" data-k="klant" aria-pressed="false" aria-controls="panel">Klachten afhandelen <span class="fl-label">03</span></button></li>
+</ul>
+<div class="fl-verdict__panel" id="panel" aria-live="polite"></div>
+</div></div>
+<script>
+var data={
+ offerte:{meta:"± 40× per week · 25 min per offerte · 2 systemen",title:"Offerte opstellen",v:"go",reason:"Elke week dezelfde stappen, gegevens staan al in het ERP. Een sjabloon dat zichzelf vult scheelt ± 13 uur per week."},
+ planning:{meta:"Dagelijks · wisselend per order · in Excel",title:"Productieplanning",v:"wait",reason:"Iedere planner doet het anders. Eerst één werkwijze vastleggen; pas daarna loont automatiseren."},
+ klant:{meta:"± 6× per week · persoonlijk contact",title:"Klachten afhandelen",v:"no",reason:"Weinig volume, veel maatwerk, en de klant wil een mens. Hier verdient automatiseren zich niet terug."}};
+var lab={go:["Automatiseren",'GO'],wait:["Eerst standaardiseren",'WAIT'],no:["Niet automatiseren",'NO']};
+var icons={go:'<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 7h8M7 3.5 10.5 7 7 10.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>',wait:'<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M4.5 2.5v9M9.5 2.5v9" fill="none" stroke="currentColor" stroke-width="2"/></svg>',no:'<svg viewBox="0 0 14 14" aria-hidden="true"><rect x="1.5" y="1.5" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 11 11 3" stroke="currentColor" stroke-width="1.5"/></svg>'};
+function show(k){var d=data[k];
+ document.querySelectorAll('.fl-verdict__step').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.k===k?'true':'false')});
+ var p=document.getElementById('panel');
+ p.innerHTML='<p class="fl-verdict__meta">'+d.meta+'</p><h3 class="fl-verdict__title">'+d.title+'</h3><span class="fl-badge fl-badge--'+d.v+'">'+icons[d.v]+lab[d.v][0]+'</span><p class="fl-verdict__reason">'+d.reason+'</p>';}
+document.querySelectorAll('.fl-verdict__step').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.k)})});
+show('offerte');
+</script>
+</body>
+</html>

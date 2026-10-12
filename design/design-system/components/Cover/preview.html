@@ -1,0 +1,50 @@
+<!-- @dsCard height=288 -->
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>Forgeline</title>
+<style>
+  html, body { margin:0; height:100%; }
+  body { background:var(--surface); color:var(--ink); font-family:var(--font-sans); overflow:hidden; }
+  .cover { position:relative; height:288px; overflow:hidden; }
+  .art { position:absolute; top:0; left:480px; width:480px; height:288px; overflow:hidden; }
+  .art svg { display:block; width:480px; height:288px; }
+  .brand { fill:var(--forge); }
+  .tint { fill:var(--forge-soft); }
+  .steel { fill:var(--staalgrijs); }
+  .deep { fill:var(--ink); }
+  .blk { rx:var(--radius-md); }
+  .plus { stroke:var(--line-strong); stroke-width:2; }
+  .words { position:absolute; left:var(--space-8); bottom:var(--space-8); max-width:440px; }
+  .name { margin:0; font-family:var(--font-display); font-size:80px; line-height:.92; font-weight:700; letter-spacing:-0.01em; color:var(--ink); }
+  .tag { margin:var(--space-3) 0 0 3px; font-size:14px; line-height:20px; color:var(--ink-muted); }
+</style>
+</head>
+<body>
+<div class="cover">
+<div class="art" aria-hidden="true">
+<svg viewBox="0 0 480 288" width="480" height="288">
+<!--
+  blocks      forge 128×232 slab bled off the top (identity, largest) · ink 208×112 bled off the right (Smeedzwart/Werkplaatswit flip per theme) · staalgrijs 96×176 · forge-soft 96×48 — ≈40% of 960×288
+  arrangement one tall forge slab with satellites, bottoms on one line space-16 above the edge, space-4 gutters
+  pattern     plus grid at a space-6 pitch, from "precies, technisch, bouwtekening-raster" (README Beeld): two rows along the bottom, like a blueprint margin
+  scales      sides in space-4 multiples; gutters space-4; pitch space-6; corners radius-md
+-->
+<rect class="brand blk" x="16" y="-8" width="128" height="232" rx="4"/>
+<rect class="steel blk" x="160" y="48" width="96" height="176" rx="4"/>
+<rect class="tint blk" x="272" y="48" width="96" height="48" rx="4"/>
+<rect class="deep blk" x="272" y="112" width="224" height="112" rx="4"/>
+<g class="plus">
+<path d="M20 248h8M24 244v8M44 248h8M48 244v8M68 248h8M72 244v8M92 248h8M96 244v8M116 248h8M120 244v8M140 248h8M144 244v8M164 248h8M168 244v8M188 248h8M192 244v8M212 248h8M216 244v8M236 248h8M240 244v8M260 248h8M264 244v8M284 248h8M288 244v8M308 248h8M312 244v8M332 248h8M336 244v8M356 248h8M360 244v8M380 248h8M384 244v8M404 248h8M408 244v8M428 248h8M432 244v8M452 248h8M456 244v8"/>
+<path d="M20 272h8M24 268v8M44 272h8M48 268v8M68 272h8M72 268v8M92 272h8M96 268v8M116 272h8M120 268v8M140 272h8M144 268v8M164 272h8M168 268v8M188 272h8M192 268v8M212 272h8M216 268v8M236 272h8M240 268v8"/>
+</g>
+</svg>
+</div>
+<div class="words">
+<h1 class="name">Forgeline</h1>
+<p class="tag">Procesautomatisering &amp; AI voor het mkb</p>
+</div>
+</div>
+</body>
+</html>

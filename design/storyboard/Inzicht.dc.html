@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>Forgeline · 02 Inzicht</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="styles/tokens.css">
+<link rel="stylesheet" href="ds/forgeline/components/bundle.css">
+<link rel="stylesheet" href="styles/site.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#ff8700}a:hover{color:#f2f0ec}
+</style>
+</helmet>
+<div class="sb sb-grid" data-theme="dark" style="width: 1440px; height: 900px;">
+<nav class="fl-nav" aria-label="Hoofdnavigatie" style="position: absolute; left: 0; right: 0; top: 0; padding: 0 48px; border-bottom: 1px solid var(--line);">
+<a href="#top" style="display: block;"><img class="sb-nav-logo" src="/_blob/9e8f29cd678cfd7b6434d40336ed5441" alt="Forgeline Optimizations"></a>
+<ol class="fl-nav__chapters fl-label">
+<li><a class="is-done" href="#chaos">Chaos</a></li>
+<li><a aria-current="step" href="#inzicht">Inzicht</a></li>
+<li><a href="#standaard">Standaard</a></li>
+<li><a href="#automatisch">Automatisch</a></li>
+<li><a href="#oordeel">Oordeel</a></li>
+<li><a href="#aanbod">Aanbod</a></li>
+</ol>
+<a class="fl-btn fl-btn--primary fl-btn--sm" href="#contact">Kennismaken</a>
+</nav>
+
+<div class="sb-rail" style="left: 119px; top: 72px; height: 112px;"></div>
+<div class="sb-rail sb-rail--dim" style="left: 119px; top: 184px;"></div>
+<div class="sb-tick" style="left: 114px; top: 178px;"></div>
+
+<div style="position: absolute; left: 160px; top: 140px; display: flex; gap: 48px; align-items: flex-start;">
+<div class="fl-numeral" aria-hidden="true">02</div>
+<header class="fl-section-head">
+<p class="fl-kicker fl-label">Hoofdstuk 02 · Inzicht</p>
+<h2>Eerst de kaart, dan de machine</h2>
+<p>Ik loop mee met de mensen die het werk doen. Zo zie ik waar informatie wordt overgetypt, blijft liggen of kwijtraakt, en hoeveel tijd dat kost.</p>
+</header>
+</div>
+
+<div style="position: absolute; left: 320px; top: 470px; width: 1060px; height: 160px;">
+<svg width="1060" height="160" viewBox="0 0 1060 160" aria-hidden="true" style="position: absolute; left: 0; top: 0;">
+<path class="sb-wire" d="M168 102 H 218"></path>
+<path class="sb-wire" d="M386 102 H 436"></path>
+<path class="sb-wire" d="M604 102 H 654"></path>
+<path class="sb-wire" d="M822 102 H 872"></path>
+</svg>
+<p class="sb-tag" style="position: absolute; left: 150px; top: 0; margin: 0;">Overgetypt 2×</p>
+<p class="sb-tag" style="position: absolute; left: 380px; top: 0; margin: 0;">Wacht ± 2 dagen</p>
+<p class="sb-tag" style="position: absolute; left: 812px; top: 0; margin: 0;">Kwijt in de mailbox</p>
+<div class="fl-node" data-state="mapped" style="position: absolute; left: 0; top: 66px;"><span class="fl-node__index fl-label">Stap 01</span><span class="fl-node__name">Order uit e-mail</span><span class="fl-node__port"></span></div>
+<div class="fl-node" data-state="mapped" style="position: absolute; left: 218px; top: 66px;"><span class="fl-node__index fl-label">Stap 02</span><span class="fl-node__name">Overtypen in ERP</span><span class="fl-node__port"></span></div>
+<div class="fl-node" data-state="mapped" style="position: absolute; left: 436px; top: 66px;"><span class="fl-node__index fl-label">Stap 03</span><span class="fl-node__name">Offerte in Word</span><span class="fl-node__port"></span></div>
+<div class="fl-node" data-state="mapped" style="position: absolute; left: 654px; top: 66px;"><span class="fl-node__index fl-label">Stap 04</span><span class="fl-node__name">Planning in Excel</span><span class="fl-node__port"></span></div>
+<div class="fl-node" data-state="mapped" style="position: absolute; left: 872px; top: 66px;"><span class="fl-node__index fl-label">Stap 05</span><span class="fl-node__name">Factuur handmatig</span><span class="fl-node__port"></span></div>
+</div>
+
+<div style="position: absolute; left: 320px; top: 700px; width: 1060px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px; border-top: 1px solid var(--line); padding-top: 24px;">
+<div style="display: flex; flex-direction: column; gap: 8px;"><p class="fl-label" style="margin: 0; color: var(--ink-muted);">Meelopen</p><p style="margin: 0; font-size: 15px; line-height: 23px;">Ik kijk mee op de werkvloer, niet alleen vanaf het organogram.</p></div>
+<div style="display: flex; flex-direction: column; gap: 8px;"><p class="fl-label" style="margin: 0; color: var(--ink-muted);">Meten</p><p style="margin: 0; font-size: 15px; line-height: 23px;">Per stap: hoe vaak, hoe lang, in welk systeem.</p></div>
+<div style="display: flex; flex-direction: column; gap: 8px;"><p class="fl-label" style="margin: 0; color: var(--ink-muted);">Vastleggen</p><p style="margin: 0; font-size: 15px; line-height: 23px;">Eén proceskaart waar je hele team zich in herkent.</p></div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

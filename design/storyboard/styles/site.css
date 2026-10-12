@@ -1,0 +1,23 @@
+/* Storyboard helpers on top of the Forgeline tokens + bundle.css */
+body { margin: 0; }
+.sb { position: relative; box-sizing: border-box; overflow: hidden; background-color: var(--surface); color: var(--ink); font-family: var(--font-sans); font-size: 17px; line-height: 27px; -webkit-font-smoothing: antialiased; }
+.sb * { box-sizing: border-box; }
+.sb-grid { background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 48px 48px; background-position: -1px -1px; }
+.sb-nav-logo { height: 34px; width: auto; display: block; }
+.sb-display { font-family: var(--font-display); font-size: 72px; line-height: 76px; font-weight: 700; letter-spacing: -0.01em; margin: 0; }
+.sb-lead { font-size: 20px; line-height: 31px; color: var(--ink-muted); margin: 0; }
+.sb-rail { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--forge); }
+.sb-rail--dim { background: var(--forge-soft); }
+.sb-tick { position: absolute; width: 12px; height: 12px; background: var(--forge); box-shadow: var(--glow-forge); }
+.sb-tag { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-display); font-size: 12px; line-height: 16px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); }
+.sb-tag::before { content: ""; width: 8px; height: 8px; border: 2px solid var(--forge); flex: none; }
+.sb-wire { stroke: var(--line-strong); stroke-width: 1.5; fill: none; }
+.sb-wire--chaos { stroke-dasharray: 4 6; }
+.sb-wire--lit { stroke: var(--forge); stroke-width: 2; }
+.sb-wire--flow { stroke: var(--ink); stroke-width: 2; stroke-dasharray: 8 72; fill: none; animation: fl-flow var(--dur-flow) linear infinite; }
+.sb-wire--soft { stroke: var(--forge-soft); stroke-width: 2; }
+.sb-wire--ink { stroke: var(--ink); stroke-width: 1.5; }
+.sb-sq { fill: var(--forge); }
+.sb-sq--off { fill: var(--surface); stroke: var(--line-strong); stroke-width: 2; }
+.sb-chip { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border: 1px solid var(--line-strong); border-radius: 2px; font-size: 14px; line-height: 20px; color: var(--ink); background: var(--surface); }
+@media (prefers-reduced-motion: reduce) { .sb-wire--flow { animation: none; } }

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>Forgeline · 04 Automatiseren</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="styles/tokens.css">
+<link rel="stylesheet" href="ds/forgeline/components/bundle.css">
+<link rel="stylesheet" href="styles/site.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#ff8700}a:hover{color:#f2f0ec}
+@keyframes fl-flow { to { stroke-dashoffset: -80; } }
+</style>
+</helmet>
+<div class="sb sb-grid" data-theme="dark" style="width: 1440px; height: 900px;">
+<nav class="fl-nav" aria-label="Hoofdnavigatie" style="position: absolute; left: 0; right: 0; top: 0; padding: 0 48px; border-bottom: 1px solid var(--line);">
+<a href="#top" style="display: block;"><img class="sb-nav-logo" src="/_blob/9e8f29cd678cfd7b6434d40336ed5441" alt="Forgeline Optimizations"></a>
+<ol class="fl-nav__chapters fl-label">
+<li><a class="is-done" href="#chaos">Chaos</a></li>
+<li><a class="is-done" href="#inzicht">Inzicht</a></li>
+<li><a class="is-done" href="#standaard">Standaard</a></li>
+<li><a aria-current="step" href="#automatisch">Automatisch</a></li>
+<li><a href="#oordeel">Oordeel</a></li>
+<li><a href="#aanbod">Aanbod</a></li>
+</ol>
+<a class="fl-btn fl-btn--primary fl-btn--sm" href="#contact">Kennismaken</a>
+</nav>
+
+<div class="sb-rail" style="left: 119px; top: 72px; height: 112px;"></div>
+<div class="sb-rail sb-rail--dim" style="left: 119px; top: 184px;"></div>
+<div class="sb-tick" style="left: 114px; top: 178px;"></div>
+
+<div style="position: absolute; left: 160px; top: 140px; display: flex; gap: 48px; align-items: flex-start;">
+<div class="fl-numeral" aria-hidden="true">04</div>
+<header class="fl-section-head">
+<p class="fl-kicker fl-label">Hoofdstuk 04 · Automatiseren</p>
+<h2>Dan gaat de lijn aan</h2>
+<p>Ik bouw de oplossing, test hem en documenteer hem. Geen demo die na een maand stilvalt, maar iets dat in productie blijft draaien.</p>
+</header>
+</div>
+
+<div style="position: absolute; left: 320px; top: 460px; width: 1060px; height: 200px;">
+<p class="sb-tag" style="position: absolute; left: 0; top: 0; margin: 0;">Voorbeeld · orderverwerking</p>
+<svg width="1060" height="200" viewBox="0 0 1060 200" aria-hidden="true" style="position: absolute; left: 0; top: 0;">
+<path class="sb-wire sb-wire--lit" d="M168 82 H 1060"/>
+<path class="sb-wire--flow" d="M168 82 H 1060"/>
+<rect class="sb-sq" x="1048" y="76" width="12" height="12"/>
+</svg>
+<div class="fl-node" data-state="automated" style="position: absolute; left: 0; top: 48px;"><span class="fl-node__index fl-label">Stap 01 · Automatisch</span><span class="fl-node__name">Order inlezen</span><span class="fl-node__port"></span></div>
+<div class="fl-node" data-state="automated" style="position: absolute; left: 240px; top: 48px;"><span class="fl-node__index fl-label">Stap 02 · Automatisch</span><span class="fl-node__name">Offerte opstellen</span><span class="fl-node__port"></span></div>
+<div class="fl-node" data-state="automated" style="position: absolute; left: 480px; top: 48px;"><span class="fl-node__index fl-label">Stap 03 · Automatisch</span><span class="fl-node__name">Inplannen</span><span class="fl-node__port"></span></div>
+<div class="fl-node" data-state="standard" style="position: absolute; left: 720px; top: 48px;"><span class="fl-node__index fl-label">Stap 04 · Mens</span><span class="fl-node__name">Controle planner</span><span class="fl-node__port"></span></div>
+<span class="sb-chip" style="position: absolute; left: 0; top: 140px;">25 → 4 min</span>
+<span class="sb-chip" style="position: absolute; left: 240px; top: 140px;">2× overtypen → 0×</span>
+<span class="sb-chip" style="position: absolute; left: 480px; top: 140px;">± 2 dagen → zelfde dag</span>
+<span class="sb-chip" style="position: absolute; left: 720px; top: 140px;">Blijft mensenwerk</span>
+</div>
+
+<div style="position: absolute; left: 320px; top: 700px; width: 1060px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px; border-top: 1px solid var(--line); padding-top: 24px;">
+<div style="display: flex; flex-direction: column; gap: 8px;"><p class="fl-label" style="margin: 0; color: var(--forge);">Getest</p><p style="margin: 0; font-size: 15px; line-height: 23px;">Elke automatisering draait eerst op een testomgeving, met echte voorbeelden uit jouw bedrijf.</p></div>
+<div style="display: flex; flex-direction: column; gap: 8px;"><p class="fl-label" style="margin: 0; color: var(--forge);">Gedocumenteerd</p><p style="margin: 0; font-size: 15px; line-height: 23px;">Je krijgt een handleiding en een draaiboek voor als er iets misgaat.</p></div>
+<div style="display: flex; flex-direction: column; gap: 8px;"><p class="fl-label" style="margin: 0; color: var(--forge);">Overgedragen</p><p style="margin: 0; font-size: 15px; line-height: 23px;">Een overdrachtssessie met je team, en 30 dagen garantie.</p></div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

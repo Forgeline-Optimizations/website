@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>Forgeline · 01 Chaos (hero)</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="styles/tokens.css">
+<link rel="stylesheet" href="ds/forgeline/components/bundle.css">
+<link rel="stylesheet" href="styles/site.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#ff8700}a:hover{color:#f2f0ec}
+</style>
+</helmet>
+<div class="sb sb-grid" data-theme="dark" style="width: 1440px; height: 900px;">
+<nav class="fl-nav" aria-label="Hoofdnavigatie" style="position: absolute; left: 0; right: 0; top: 0; padding: 0 48px; background: transparent; border-bottom: 1px solid var(--line);">
+<a href="#top" style="display: block;"><img class="sb-nav-logo" src="/_blob/9e8f29cd678cfd7b6434d40336ed5441" alt="Forgeline Optimizations"></a>
+<ol class="fl-nav__chapters fl-label">
+<li><a aria-current="step" href="#chaos">Chaos</a></li>
+<li><a href="#inzicht">Inzicht</a></li>
+<li><a href="#standaard">Standaard</a></li>
+<li><a href="#automatisch">Automatisch</a></li>
+<li><a href="#oordeel">Oordeel</a></li>
+<li><a href="#aanbod">Aanbod</a></li>
+</ol>
+<a class="fl-btn fl-btn--primary fl-btn--sm" href="#contact">Kennismaken</a>
+</nav>
+
+<div style="position: absolute; left: 120px; top: 176px; width: 680px; display: flex; flex-direction: column; gap: 32px;">
+<p class="fl-kicker fl-label" style="margin: 0;">Procesautomatisering &amp; AI voor het mkb</p>
+<h1 class="sb-display">Automatiseer wat het waard is. Ik help te vinden wat dat is.</h1>
+<p class="sb-lead" style="max-width: 560px;">Voor productie-, handels- en dienstverlenende bedrijven met 10 tot 100 mensen. Eerst je processen in kaart, dan pas de software.</p>
+<div style="display: flex; gap: 32px; align-items: center; margin-top: 8px;">
+<a class="fl-btn fl-btn--primary" href="#contact">Plan een kennismaking <span class="fl-btn__arrow" aria-hidden="true">→</span></a>
+<a class="fl-btn fl-btn--link" href="#inzicht">Hoe ik werk</a>
+</div>
+</div>
+
+<div style="position: absolute; left: 800px; top: 150px; width: 600px; height: 580px;">
+<svg width="600" height="580" viewBox="0 0 600 580" aria-hidden="true" style="position: absolute; left: 0; top: 0;">
+<path class="sb-wire sb-wire--chaos" d="M115 62 C 220 -10, 300 120, 395 32"></path>
+<path class="sb-wire sb-wire--chaos" d="M115 62 C 40 140, 240 160, 155 252"></path>
+<path class="sb-wire sb-wire--chaos" d="M395 32 C 520 60, 380 140, 455 202"></path>
+<path class="sb-wire sb-wire--chaos" d="M455 202 C 360 300, 260 160, 155 252"></path>
+<path class="sb-wire sb-wire--chaos" d="M155 252 C 260 260, 200 400, 345 362"></path>
+<path class="sb-wire sb-wire--chaos" d="M345 362 C 520 340, 560 260, 455 202"></path>
+<path class="sb-wire sb-wire--chaos" d="M345 362 C 300 460, 160 380, 135 462"></path>
+<path class="sb-wire sb-wire--chaos" d="M135 462 C 250 560, 330 430, 425 502"></path>
+<path class="sb-wire sb-wire--chaos" d="M425 502 C 560 470, 420 400, 345 362"></path>
+<path class="sb-wire sb-wire--chaos" d="M395 32 C 300 200, 470 280, 345 362"></path>
+</svg>
+<div class="fl-node" data-state="chaos" style="position: absolute; left: 20px; top: 30px; transform: rotate(-4deg);"><span class="fl-node__index fl-label">Stap ?</span><span class="fl-node__name">Order uit e-mail</span></div>
+<div class="fl-node" data-state="chaos" style="position: absolute; left: 300px; top: 0px; transform: rotate(3deg);"><span class="fl-node__index fl-label">Stap ?</span><span class="fl-node__name">Offerte in Word</span></div>
+<div class="fl-node" data-state="chaos" style="position: absolute; left: 370px; top: 170px; transform: rotate(-2deg);"><span class="fl-node__index fl-label">Stap ?</span><span class="fl-node__name">Planning in Excel</span></div>
+<div class="fl-node" data-state="chaos" style="position: absolute; left: 60px; top: 220px; transform: rotate(5deg);"><span class="fl-node__index fl-label">Stap ?</span><span class="fl-node__name">Overtypen in ERP</span></div>
+<div class="fl-node" data-state="chaos" style="position: absolute; left: 250px; top: 330px; transform: rotate(-6deg);"><span class="fl-node__index fl-label">Stap ?</span><span class="fl-node__name">Voorraad nabellen</span></div>
+<div class="fl-node" data-state="chaos" style="position: absolute; left: 40px; top: 430px; transform: rotate(2deg);"><span class="fl-node__index fl-label">Stap ?</span><span class="fl-node__name">Factuur handmatig</span></div>
+<div class="fl-node" data-state="chaos" style="position: absolute; left: 330px; top: 470px; transform: rotate(4deg);"><span class="fl-node__index fl-label">Stap ?</span><span class="fl-node__name">Welke versie klopt?</span></div>
+</div>
+
+<div class="sb-rail" style="left: 719px; top: 812px;"></div>
+<div class="sb-tick" style="left: 714px; top: 806px;"></div>
+<p class="sb-tag" style="position: absolute; left: 744px; top: 802px; margin: 0;">Scroll · volg de lijn</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

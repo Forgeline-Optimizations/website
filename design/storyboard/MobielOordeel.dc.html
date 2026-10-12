@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>Forgeline · mobiel oordeel</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="styles/tokens.css">
+<link rel="stylesheet" href="ds/forgeline/components/bundle.css">
+<link rel="stylesheet" href="styles/site.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#ff8700}a:hover{color:#f2f0ec}
+</style>
+</helmet>
+<div class="sb sb-grid" data-theme="dark" style="width: 390px; height: 844px;">
+<nav style="position: absolute; left: 0; right: 0; top: 0; height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; border-bottom: 1px solid var(--line);" aria-label="Hoofdnavigatie">
+<a href="#top" style="display: block;"><img src="/_blob/6c8b7058af2e6aebec152d58121d79cd" alt="Forgeline Optimizations" style="width: 32px; height: 32px; display: block;"></a>
+<a class="fl-btn fl-btn--primary fl-btn--sm" href="#contact">Kennismaken</a>
+</nav>
+<div style="position: absolute; left: 0; top: 59px; width: 64%; height: 2px; background: var(--forge);"></div>
+<div class="sb-rail" style="left: 15px; top: 60px;"></div>
+
+<div style="position: absolute; left: 40px; top: 96px; width: 334px; display: flex; flex-direction: column; gap: 16px;">
+<div class="fl-numeral" aria-hidden="true" style="font-size: 56px; line-height: 56px;">05</div>
+<p class="fl-kicker fl-label" style="margin: 0;">Eerlijk oordeel</p>
+<h2 style="margin: 0; font-family: var(--font-display); font-size: 32px; line-height: 38px; font-weight: 600;">Niet alles moet automatisch</h2>
+<p style="margin: 0; font-size: 16px; line-height: 25px; color: var(--ink-muted);">Tik op een stap en zie mijn oordeel.</p>
+</div>
+
+<div style="position: absolute; left: 40px; top: 356px; width: 350px; display: flex; gap: 8px; overflow-x: auto; padding-right: 16px;" aria-label="Processtappen">
+<sc-for list="{{steps}}" as="s" hint-placeholder-count="4">
+<button class="fl-verdict__step" type="button" aria-pressed="{{s.pressed}}" onClick="{{s.pick}}" style="width: auto; flex: none; white-space: nowrap; padding: 10px 14px; font-size: 15px;">{{s.title}}</button>
+</sc-for>
+</div>
+
+<div class="fl-verdict__panel" aria-live="polite" style="position: absolute; left: 40px; top: 430px; width: 334px; padding: 20px; background: var(--surface-raised); border: 1px solid var(--line); border-radius: 4px; min-height: 0;">
+<p class="fl-verdict__meta">{{cur.meta}}</p>
+<h3 class="fl-verdict__title" style="font-size: 24px; line-height: 30px;">{{cur.title}}</h3>
+<sc-if value="{{isGo}}" hint-placeholder-val="{{true}}">
+<span class="fl-badge fl-badge--go"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 7h8M7 3.5 10.5 7 7 10.5" fill="none" stroke="currentColor" stroke-width="2"></path></svg>Automatiseren</span>
+</sc-if>
+<sc-if value="{{isWait}}" hint-placeholder-val="{{false}}">
+<span class="fl-badge fl-badge--wait"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M4.5 2.5v9M9.5 2.5v9" fill="none" stroke="currentColor" stroke-width="2"></path></svg>Eerst standaardiseren</span>
+</sc-if>
+<sc-if value="{{isNo}}" hint-placeholder-val="{{false}}">
+<span class="fl-badge fl-badge--no"><svg viewBox="0 0 14 14" aria-hidden="true"><rect x="1.5" y="1.5" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5"></rect><path d="M3 11 11 3" stroke="currentColor" stroke-width="1.5"></path></svg>Niet automatiseren</span>
+</sc-if>
+<p class="fl-verdict__reason" style="font-size: 16px; line-height: 25px;">{{cur.reason}}</p>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { picked: 'klacht' }; }
+  renderVals() {
+    var data = [
+      { id: 'offerte', title: 'Offerte opstellen', v: 'go', meta: '± 40× per week · 25 min per stuk', reason: 'Elke week dezelfde stappen, gegevens staan al in het ERP. Scheelt ± 13 uur per week.' },
+      { id: 'planning', title: 'Planning', v: 'wait', meta: 'Dagelijks · drie planners', reason: 'Iedere planner doet het anders. Eerst één werkwijze; daarna loont automatiseren.' },
+      { id: 'klacht', title: 'Klachten', v: 'no', meta: '± 6× per week · veel maatwerk', reason: 'Weinig volume, veel uitzonderingen, en de klant wil een mens. Verdient zich niet terug.' },
+      { id: 'factuur', title: 'Facturen', v: 'go', meta: '± 60× per maand · 10 min per stuk', reason: 'Pure overdracht tussen twee systemen, met een controle op afwijkende bedragen.' }
+    ];
+    var self = this, picked = this.state.picked;
+    var cur = data.filter(function (d) { return d.id === picked; })[0] || data[0];
+    return {
+      steps: data.map(function (d) { return { title: d.title, pressed: d.id === picked ? 'true' : 'false', pick: function () { self.setState({ picked: d.id }); } }; }),
+      cur: cur, isGo: cur.v === 'go', isWait: cur.v === 'wait', isNo: cur.v === 'no'
+    };
+  }
+}
+</script>
+</body>
+</html>

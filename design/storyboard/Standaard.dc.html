@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>Forgeline · 03 Standaardiseren</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="styles/tokens.css">
+<link rel="stylesheet" href="ds/forgeline/components/bundle.css">
+<link rel="stylesheet" href="styles/site.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#ff8700}a:hover{color:#f2f0ec}
+</style>
+</helmet>
+<div class="sb sb-grid" data-theme="dark" style="width: 1440px; height: 900px;">
+<nav class="fl-nav" aria-label="Hoofdnavigatie" style="position: absolute; left: 0; right: 0; top: 0; padding: 0 48px; border-bottom: 1px solid var(--line);">
+<a href="#top" style="display: block;"><img class="sb-nav-logo" src="/_blob/9e8f29cd678cfd7b6434d40336ed5441" alt="Forgeline Optimizations"></a>
+<ol class="fl-nav__chapters fl-label">
+<li><a class="is-done" href="#chaos">Chaos</a></li>
+<li><a class="is-done" href="#inzicht">Inzicht</a></li>
+<li><a aria-current="step" href="#standaard">Standaard</a></li>
+<li><a href="#automatisch">Automatisch</a></li>
+<li><a href="#oordeel">Oordeel</a></li>
+<li><a href="#aanbod">Aanbod</a></li>
+</ol>
+<a class="fl-btn fl-btn--primary fl-btn--sm" href="#contact">Kennismaken</a>
+</nav>
+
+<div class="sb-rail" style="left: 119px; top: 72px; height: 112px;"></div>
+<div class="sb-rail sb-rail--dim" style="left: 119px; top: 184px;"></div>
+<div class="sb-tick" style="left: 114px; top: 178px;"></div>
+
+<div style="position: absolute; left: 160px; top: 140px; display: flex; gap: 48px; align-items: flex-start;">
+<div class="fl-numeral" aria-hidden="true">03</div>
+<header class="fl-section-head">
+<p class="fl-kicker fl-label">Hoofdstuk 03 · Standaardiseren</p>
+<h2>Geen standaard, geen automatisering</h2>
+<p>Doen drie mensen hetzelfde werk op drie manieren, dan automatiseer je de chaos. Eerst spreken we één werkwijze af. Pas daarna komt er software.</p>
+</header>
+</div>
+
+<div style="position: absolute; left: 320px; top: 470px; width: 1060px; height: 340px;">
+<svg width="1060" height="340" viewBox="0 0 1060 340" aria-hidden="true" style="position: absolute; left: 0; top: 0;">
+<path class="sb-wire sb-wire--chaos" d="M580 77 C 630 77, 610 166, 660 166"/>
+<path class="sb-wire sb-wire--chaos" d="M580 167 H 660"/>
+<path class="sb-wire sb-wire--chaos" d="M580 257 C 630 257, 610 166, 660 166"/>
+<path class="sb-wire sb-wire--ink" d="M660 166 H 720"/>
+<path class="sb-wire sb-wire--ink" d="M806 70 V 262"/>
+</svg>
+<div style="position: absolute; left: 0; top: 60px; display: flex; flex-direction: column; gap: 56px;">
+<div style="display: flex; gap: 8px; align-items: center;"><span class="fl-label" style="width: 96px; color: var(--ink-muted);">Planner 1</span><span class="sb-chip">Order lezen</span><span class="sb-chip">Excel bijwerken</span><span class="sb-chip">Mail werkplaats</span></div>
+<div style="display: flex; gap: 8px; align-items: center;"><span class="fl-label" style="width: 96px; color: var(--ink-muted);">Planner 2</span><span class="sb-chip">Order lezen</span><span class="sb-chip">Werkplaats bellen</span><span class="sb-chip">Excel bijwerken</span></div>
+<div style="display: flex; gap: 8px; align-items: center;"><span class="fl-label" style="width: 96px; color: var(--ink-muted);">Planner 3</span><span class="sb-chip">Briefje op bureau</span><span class="sb-chip">Excel bijwerken</span><span class="sb-chip">Order lezen</span></div>
+</div>
+<p class="sb-tag" style="position: absolute; left: 722px; top: -32px; margin: 0;">Eén werkwijze</p>
+<div class="fl-node" data-state="standard" style="position: absolute; left: 722px; top: 6px;"><span class="fl-node__index fl-label">Stap 01</span><span class="fl-node__name">Order vastleggen</span></div>
+<div class="fl-node" data-state="standard" style="position: absolute; left: 722px; top: 134px;"><span class="fl-node__index fl-label">Stap 02</span><span class="fl-node__name">Capaciteit checken</span></div>
+<div class="fl-node" data-state="standard" style="position: absolute; left: 722px; top: 262px;"><span class="fl-node__index fl-label">Stap 03</span><span class="fl-node__name">Inplannen + melden</span></div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

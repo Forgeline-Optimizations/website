@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>Forgeline · mobiel hero</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="styles/tokens.css">
+<link rel="stylesheet" href="ds/forgeline/components/bundle.css">
+<link rel="stylesheet" href="styles/site.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#ff8700}a:hover{color:#f2f0ec}
+</style>
+</helmet>
+<div class="sb sb-grid" data-theme="dark" style="width: 390px; height: 844px;">
+<nav style="position: absolute; left: 0; right: 0; top: 0; height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; border-bottom: 1px solid var(--line);" aria-label="Hoofdnavigatie">
+<a href="#top" style="display: block;"><img src="/_blob/6c8b7058af2e6aebec152d58121d79cd" alt="Forgeline Optimizations" style="width: 32px; height: 32px; display: block;"></a>
+<a class="fl-btn fl-btn--primary fl-btn--sm" href="#contact">Kennismaken</a>
+</nav>
+<div style="position: absolute; left: 0; top: 59px; width: 12%; height: 2px; background: var(--forge);"></div>
+
+<div class="sb-rail" style="left: 15px; top: 640px;"></div>
+<div class="sb-tick" style="left: 10px; top: 634px;"></div>
+
+<div style="position: absolute; left: 40px; top: 100px; width: 334px; display: flex; flex-direction: column; gap: 20px;">
+<p class="fl-kicker fl-label" style="margin: 0;">Procesautomatisering &amp; AI</p>
+<h1 class="sb-display" style="font-size: 44px; line-height: 48px;">Ik automatiseer wat het waard is. En zeg eerlijk wat niet.</h1>
+<p class="sb-lead" style="font-size: 18px; line-height: 28px;">Voor bedrijven met 10 tot 50 mensen. Eerst je processen in kaart, dan pas software.</p>
+<a class="fl-btn fl-btn--primary" href="#contact" style="align-self: flex-start;">Plan een kennismaking <span class="fl-btn__arrow" aria-hidden="true">→</span></a>
+</div>
+
+<div style="position: absolute; left: 40px; top: 560px; width: 334px; height: 240px;">
+<div class="fl-node" data-state="chaos" style="position: absolute; left: 0; top: 0; transform: rotate(-4deg); min-width: 0;"><span class="fl-node__name">Order uit e-mail</span></div>
+<div class="fl-node" data-state="chaos" style="position: absolute; left: 150px; top: 60px; transform: rotate(3deg); min-width: 0;"><span class="fl-node__name">Overtypen in ERP</span></div>
+<div class="fl-node" data-state="chaos" style="position: absolute; left: 20px; top: 130px; transform: rotate(-2deg); min-width: 0;"><span class="fl-node__name">Planning in Excel</span></div>
+<p class="sb-tag" style="position: absolute; left: 0; top: 214px; margin: 0;">Scroll · volg de lijn</p>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

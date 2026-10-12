@@ -1,0 +1,24 @@
+<!-- @dsCard group="Formulier" height=640 subtitle="Web3Forms · honeypot · fout- en bevestigingsstaat" -->
+<!doctype html>
+<html lang="nl">
+<head><meta charset="utf-8"><title>ContactForm</title>
+<style>html,body{margin:0} body{background:var(--surface)} .pad{padding:24px} </style></head>
+<body class="fl-root">
+<div class="pad">
+<form class="fl-form" action="https://api.web3forms.com/submit" method="POST" onsubmit="event.preventDefault()">
+<input type="hidden" name="access_key" value="WEB3FORMS_ACCESS_KEY">
+<input type="hidden" name="redirect" value="https://forgelineoptimizations.nl/request-received">
+<input type="hidden" name="subject" value="Nieuwe aanvraag via forgelineoptimizations.nl">
+<div class="fl-honeypot" aria-hidden="true"><label>Laat dit veld leeg <input type="checkbox" name="botcheck" tabindex="-1"></label></div>
+<div class="fl-field"><label class="fl-field__label" for="naam">Naam</label><input class="fl-input" id="naam" name="name" autocomplete="name" required value="Marieke de Vries"></div>
+<div class="fl-field"><label class="fl-field__label" for="bedrijf">Bedrijf</label><input class="fl-input" id="bedrijf" name="company" autocomplete="organization" placeholder="Naam van je bedrijf"></div>
+<div class="fl-field fl-field--error"><label class="fl-field__label" for="email">E-mailadres</label><input class="fl-input" id="email" name="email" type="email" autocomplete="email" value="marieke@" aria-invalid="true" aria-describedby="email-msg"><p class="fl-field__msg" id="email-msg"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><rect x="1" y="1" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 3.5v4.5M7 9.5v1.2" stroke="currentColor" stroke-width="1.6"/></svg>Vul een volledig e-mailadres in.</p></div>
+<div class="fl-field"><label class="fl-field__label" for="tel">Telefoon <small>(optioneel)</small></label><input class="fl-input" id="tel" name="phone" type="tel" autocomplete="tel"></div>
+<div class="fl-field fl-form__full"><label class="fl-field__label" for="vraag">Welk proces kost je te veel tijd?</label><textarea class="fl-input" id="vraag" name="message" placeholder="Bijvoorbeeld: we typen elke order over van de mail naar het ERP."></textarea><p class="fl-field__hint">Eén zin is genoeg. Ik reageer binnen twee werkdagen.</p></div>
+<label class="fl-check fl-form__full"><input type="checkbox" name="privacy" required><span>Ik ga akkoord met de verwerking van mijn gegevens volgens de <a href="/privacy">privacyverklaring</a>.</span></label>
+<div class="fl-form__full" style="display:flex;gap:24px;align-items:center;flex-wrap:wrap"><button class="fl-btn fl-btn--primary" type="submit">Verstuur aanvraag <span class="fl-btn__arrow" aria-hidden="true">→</span></button>
+<p class="fl-notice" role="status"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 7.5 5.5 11 12 3.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Verzonden. Je hoort binnen twee werkdagen van me.</p></div>
+</form></div>
+
+</body>
+</html>

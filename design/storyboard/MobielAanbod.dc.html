@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>Forgeline · mobiel aanbod</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="styles/tokens.css">
+<link rel="stylesheet" href="ds/forgeline/components/bundle.css">
+<link rel="stylesheet" href="styles/site.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#111111}a:hover{color:#5b5b5b}
+</style>
+</helmet>
+<div class="sb sb-grid" data-theme="light" style="width: 390px; height: 1300px;">
+<nav style="position: absolute; left: 0; right: 0; top: 0; height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; border-bottom: 1px solid var(--line); background: var(--surface);" aria-label="Hoofdnavigatie">
+<a href="#top" style="display: block;"><img src="/_blob/f7e55aebdbf893ebe4642183071ab418" alt="Forgeline Optimizations" style="height: 28px; width: auto; display: block;"></a>
+<a class="fl-btn fl-btn--primary fl-btn--sm" href="#contact">Kennismaken</a>
+</nav>
+<div style="position: absolute; left: 0; top: 59px; width: 78%; height: 2px; background: var(--forge);"></div>
+<div class="sb-rail" style="left: 15px; top: 60px;"></div>
+
+<div style="position: absolute; left: 40px; top: 96px; width: 334px; display: flex; flex-direction: column; gap: 16px;">
+<div class="fl-numeral" aria-hidden="true" style="font-size: 56px; line-height: 56px;">06</div>
+<p class="fl-kicker fl-label" style="margin: 0;">Aanbod</p>
+<h2 style="margin: 0; font-family: var(--font-display); font-size: 32px; line-height: 38px; font-weight: 600;">Drie stappen, één richting</h2>
+<p style="margin: 0; font-size: 16px; line-height: 25px; color: var(--ink-muted);">Klein beginnen met een audit. Wat eruit komt, bouw ik. Wat ik bouw, houd ik draaiend.</p>
+</div>
+
+<div class="fl-ladder" style="position: absolute; left: 40px; top: 380px; width: 334px; grid-template-columns: minmax(0, 1fr); gap: 16px;">
+<article class="fl-service fl-service--entry" style="padding: 24px 20px 20px; gap: 12px;"><span class="fl-service__num" style="font-size: 32px; line-height: 32px;">01</span><h3 class="fl-service__title" style="font-size: 24px; line-height: 30px;">Automation Audit</h3><p class="fl-service__text" style="font-size: 15px; line-height: 23px;">Een week, een eerlijk rapport: waar je tijd weglekt en wat automatiseren oplevert.</p><p class="fl-service__meta fl-label" style="padding-top: 12px;">± 1 week · vaste prijs</p></article>
+<article class="fl-service" style="padding: 24px 20px 20px; gap: 12px;"><span class="fl-service__num" style="font-size: 32px; line-height: 32px;">02</span><h3 class="fl-service__title" style="font-size: 24px; line-height: 30px;">Implementatie</h3><p class="fl-service__text" style="font-size: 15px; line-height: 23px;">Ik bouw de beste kans uit de audit, test hem en draag hem over.</p><p class="fl-service__meta fl-label" style="padding-top: 12px;">Vaste scope · vaste prijs</p></article>
+<article class="fl-service" style="padding: 24px 20px 20px; gap: 12px;"><span class="fl-service__num" style="font-size: 32px; line-height: 32px;">03</span><h3 class="fl-service__title" style="font-size: 24px; line-height: 30px;">Care &amp; Development</h3><p class="fl-service__text" style="font-size: 15px; line-height: 23px;">Ik houd het draaiend en verbeter het, maand na maand.</p><p class="fl-service__meta fl-label" style="padding-top: 12px;">Maandelijks</p></article>
+</div>
+
+<div style="position: absolute; left: 40px; top: 1150px; width: 334px; display: flex; flex-direction: column; gap: 16px;">
+<p style="margin: 0; font-size: 14px; line-height: 21px; color: var(--ink-muted);">Prijzen bespreek ik in een eerste gesprek.</p>
+<a class="fl-btn fl-btn--primary" href="#contact" style="align-self: flex-start;">Vraag een audit aan <span class="fl-btn__arrow" aria-hidden="true">→</span></a>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1300}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

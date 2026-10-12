@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>Forgeline · 05 Eerlijk oordeel</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="styles/tokens.css">
+<link rel="stylesheet" href="ds/forgeline/components/bundle.css">
+<link rel="stylesheet" href="styles/site.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#ff8700}a:hover{color:#f2f0ec}
+</style>
+</helmet>
+<div class="sb sb-grid" data-theme="dark" style="width: 1440px; height: 900px;">
+<nav class="fl-nav" aria-label="Hoofdnavigatie" style="position: absolute; left: 0; right: 0; top: 0; padding: 0 48px; border-bottom: 1px solid var(--line);">
+<a href="#top" style="display: block;"><img class="sb-nav-logo" src="/_blob/9e8f29cd678cfd7b6434d40336ed5441" alt="Forgeline Optimizations"></a>
+<ol class="fl-nav__chapters fl-label">
+<li><a class="is-done" href="#chaos">Chaos</a></li>
+<li><a class="is-done" href="#inzicht">Inzicht</a></li>
+<li><a class="is-done" href="#standaard">Standaard</a></li>
+<li><a class="is-done" href="#automatisch">Automatisch</a></li>
+<li><a aria-current="step" href="#oordeel">Oordeel</a></li>
+<li><a href="#aanbod">Aanbod</a></li>
+</ol>
+<a class="fl-btn fl-btn--primary fl-btn--sm" href="#contact">Kennismaken</a>
+</nav>
+
+<div class="sb-rail" style="left: 119px; top: 72px; height: 112px;"></div>
+<div class="sb-rail sb-rail--dim" style="left: 119px; top: 184px;"></div>
+<div class="sb-tick" style="left: 114px; top: 178px;"></div>
+
+<div style="position: absolute; left: 160px; top: 140px; display: flex; gap: 48px; align-items: flex-start;">
+<div class="fl-numeral" aria-hidden="true">05</div>
+<header class="fl-section-head">
+<p class="fl-kicker fl-label">Hoofdstuk 05 · Eerlijk oordeel</p>
+<h2>Niet alles moet automatisch</h2>
+<p>Klik op een processtap en zie mijn oordeel. Het lijstje met wat je níet moet automatiseren is net zo belangrijk als de rest van het rapport.</p>
+</header>
+</div>
+
+<div style="position: absolute; left: 320px; top: 430px; width: 1060px; display: flex; flex-direction: column; gap: 16px;">
+<p class="sb-tag" style="margin: 0;">Voorbeeld · fictief productiebedrijf, 28 medewerkers</p>
+<div class="fl-verdict" style="grid-template-columns: 340px 1fr; min-height: 340px;">
+<ul class="fl-verdict__steps" aria-label="Processtappen">
+<sc-for list="{{steps}}" as="s" hint-placeholder-count="5">
+<li><button class="fl-verdict__step" type="button" aria-pressed="{{s.pressed}}" onClick="{{s.pick}}">{{s.title}} <span class="fl-label">{{s.num}}</span></button></li>
+</sc-for>
+</ul>
+<div class="fl-verdict__panel" aria-live="polite">
+<p class="fl-verdict__meta">{{cur.meta}}</p>
+<h3 class="fl-verdict__title">{{cur.title}}</h3>
+<sc-if value="{{isGo}}" hint-placeholder-val="{{true}}">
+<span class="fl-badge fl-badge--go"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 7h8M7 3.5 10.5 7 7 10.5" fill="none" stroke="currentColor" stroke-width="2"></path></svg>Automatiseren</span>
+</sc-if>
+<sc-if value="{{isWait}}" hint-placeholder-val="{{false}}">
+<span class="fl-badge fl-badge--wait"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M4.5 2.5v9M9.5 2.5v9" fill="none" stroke="currentColor" stroke-width="2"></path></svg>Eerst standaardiseren</span>
+</sc-if>
+<sc-if value="{{isNo}}" hint-placeholder-val="{{false}}">
+<span class="fl-badge fl-badge--no"><svg viewBox="0 0 14 14" aria-hidden="true"><rect x="1.5" y="1.5" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5"></rect><path d="M3 11 11 3" stroke="currentColor" stroke-width="1.5"></path></svg>Niet automatiseren</span>
+</sc-if>
+<p class="fl-verdict__reason">{{cur.reason}}</p>
+</div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { picked: 'offerte' }; }
+  renderVals() {
+    var data = [
+      { id: 'offerte', num: '01', title: 'Offerte opstellen', v: 'go', meta: '± 40× per week · 25 min per offerte · 2 systemen', reason: 'Elke week dezelfde stappen en de gegevens staan al in het ERP. Een sjabloon dat zichzelf vult scheelt ± 13 uur per week.' },
+      { id: 'factuur', num: '02', title: 'Factuur naar boekhouding', v: 'go', meta: '± 60× per maand · 10 min per factuur · gegevens al in ERP', reason: 'Pure overdracht tussen twee systemen. Goed te automatiseren, met een controle op afwijkende bedragen.' },
+      { id: 'planning', num: '03', title: 'Productieplanning', v: 'wait', meta: 'Dagelijks · drie planners · in Excel', reason: 'Iedere planner doet het anders. Eerst één werkwijze vastleggen; pas daarna loont automatiseren.' },
+      { id: 'klacht', num: '04', title: 'Klachten afhandelen', v: 'no', meta: '± 6× per week · veel maatwerk', reason: 'Weinig volume, veel uitzonderingen, en de klant wil een mens spreken. Hier verdient automatiseren zich niet terug.' },
+      { id: 'inkoop', num: '05', title: 'Leverancier kiezen', v: 'no', meta: 'Paar keer per maand · relatie en prijs', reason: 'Dit is een afweging, geen proces. Ik maak de cijfers inzichtelijk; de keuze blijft bij jou.' }
+    ];
+    var self = this;
+    var picked = this.state.picked;
+    var cur = data.filter(function (d) { return d.id === picked; })[0] || data[0];
+    return {
+      steps: data.map(function (d) { return { title: d.title, num: d.num, pressed: d.id === picked ? 'true' : 'false', pick: function () { self.setState({ picked: d.id }); } }; }),
+      cur: cur,
+      isGo: cur.v === 'go', isWait: cur.v === 'wait', isNo: cur.v === 'no'
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+/* Forgeline tokens for the storyboard — mirrors the Forgeline design system's tokens.json */
+@font-face { font-family: 'Saira'; src: url('../ds/forgeline/fonts/saira-latin-500-normal.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+@font-face { font-family: 'Saira'; src: url('../ds/forgeline/fonts/saira-latin-600-normal.woff2') format('woff2'); font-weight: 600; font-display: swap; }
+@font-face { font-family: 'Saira'; src: url('../ds/forgeline/fonts/saira-latin-700-normal.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+
+:root, [data-theme="dark"] {
+  --smeedoranje: #ff8700; --smeedzwart: #111111; --staalgrijs: #5b5b5b; --werkplaatswit: #f2f0ec;
+  --surface: #111111; --surface-raised: #1b1a18; --surface-sunken: #0a0a0a;
+  --line: #2b2a27; --line-strong: #706c65; --grid: #f2f0ec12;
+  --ink: #f2f0ec; --ink-muted: #a8a49d;
+  --forge: #ff8700; --forge-soft: #ff870033; --on-forge: #111111;
+  --link: #ff8700; --focus-ring: #ff8700;
+  --verdict-go: var(--forge); --verdict-wait: var(--ink); --verdict-no: var(--ink-muted);
+  --status-ok: #8ec5e6; --status-error: #ff9a8a;
+  --glow-forge: 0 0 24px 0 rgba(255, 135, 0, 0.35);
+  color: var(--ink);
+}
+[data-theme="light"] {
+  --surface: #f2f0ec; --surface-raised: #fbfaf7; --surface-sunken: #e7e3dc;
+  --line: #d8d3ca; --line-strong: #7a766f; --grid: #1111110d;
+  --ink: #111111; --ink-muted: #5b5b5b;
+  --forge-soft: #ff870029;
+  --link: #111111; --focus-ring: #111111;
+  --verdict-go: var(--forge); --verdict-wait: var(--ink); --verdict-no: var(--ink-muted);
+  --status-ok: #1d5f8a; --status-error: #b42318;
+  --glow-forge: 0 0 0 1px rgba(255, 135, 0, 0.6);
+  color: var(--ink);
+}
+:root {
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px; --space-8: 32px;
+  --space-12: 48px; --space-16: 64px; --space-24: 96px; --space-32: 128px; --space-48: 192px;
+  --radius-0: 0px; --radius-sm: 2px; --radius-md: 4px;
+  --dur-fast: 160ms; --dur-base: 320ms; --dur-slow: 640ms; --dur-flow: 1600ms;
+  --ease-out: cubic-bezier(0.2, 0, 0, 1); --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --container: 1200px; --measure: 66ch; --nav-height: 72px; --line-width: 2px;
+  --font-display: Saira, Arial, sans-serif;
+  --font-sans: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}

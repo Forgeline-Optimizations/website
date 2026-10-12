@@ -1,0 +1,214 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "Aanbod.dc.html": {
+      "h": 900,
+      "title": "06 · Aanbod (licht)",
+      "w": 1440,
+      "x": 1520,
+      "y": 1600
+    },
+    "Automatisch.dc.html": {
+      "h": 900,
+      "title": "04 · Automatiseren",
+      "w": 1440,
+      "x": 4560,
+      "y": 0
+    },
+    "Contact.dc.html": {
+      "h": 1240,
+      "title": "08 · Contact + footer",
+      "w": 1440,
+      "x": 4560,
+      "y": 1600
+    },
+    "Inzicht.dc.html": {
+      "h": 900,
+      "title": "02 · Inzicht",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "Main.dc.html": {
+      "h": 900,
+      "title": "01 · Chaos (hero)",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "MobielAanbod.dc.html": {
+      "h": 1300,
+      "title": "Mobiel · aanbod",
+      "w": 390,
+      "x": 940,
+      "y": 3300
+    },
+    "MobielHero.dc.html": {
+      "h": 844,
+      "title": "Mobiel · hero",
+      "w": 390,
+      "x": 0,
+      "y": 3300
+    },
+    "MobielOordeel.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "title": "Mobiel · oordeel",
+      "w": 390,
+      "x": 470,
+      "y": 3300
+    },
+    "Oordeel.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "title": "05 · Eerlijk oordeel (interactief)",
+      "w": 1440,
+      "x": 0,
+      "y": 1600
+    },
+    "OverMij.dc.html": {
+      "h": 900,
+      "title": "07 · Over mij",
+      "w": 1440,
+      "x": 3040,
+      "y": 1600
+    },
+    "Standaard.dc.html": {
+      "h": 900,
+      "title": "03 · Standaardiseren",
+      "w": 1440,
+      "x": 3040,
+      "y": 0
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-10-12T20:26:00Z",
+    "v": 1
+  },
+  "designSystems": [
+    {
+      "artifact": "https://claude.ai/artifact/8PAneU9PBmjifEr2sNGg92",
+      "copiedAt": "2026-10-12T20:26:00Z",
+      "namespace": "forgeline",
+      "title": "Forgeline",
+      "version": "1791835914-59ed"
+    }
+  ],
+  "launch": {
+    "view": "canvas"
+  },
+  "notes": {
+    "s1": {
+      "fill": "orange",
+      "maxH": 220,
+      "text": "SCROLL: bij laden zweven de processtappen licht (2–3px), de gestippelde lijnen lopen in elkaar. Onderaan gloeit het beginpunt van de forge line. Eerste scroll: de lijn tekent zich naar beneden en 'pakt' de stappen op.",
+      "w": 680,
+      "x": 0,
+      "y": 960
+    },
+    "s2": {
+      "fill": "orange",
+      "maxH": 220,
+      "text": "SCROLL: dezelfde stappen uit de hero schuiven naar hun plek in de proceskaart (dur-slow, ease-in-out). Gestippeld wordt massief. Daarna verschijnen de knelpunt-labels één voor één.",
+      "w": 680,
+      "x": 1520,
+      "y": 960
+    },
+    "s3": {
+      "fill": "orange",
+      "maxH": 220,
+      "text": "SCROLL: de drie werkwijzen schuiven samen tot één rechte baan. Afwijkende stappen vervagen, de lijn trekt recht. Randen van de stappen worden ink (gestandaardiseerd).",
+      "w": 680,
+      "x": 3040,
+      "y": 960
+    },
+    "s4": {
+      "fill": "orange",
+      "maxH": 220,
+      "text": "SCROLL: de stappen springen één voor één aan (forge-rand + gloed), de stroom gaat over de lijn lopen. Tijdlabels tellen af van oud naar nieuw. Het enige moment met doorlopende beweging.",
+      "w": 680,
+      "x": 4560,
+      "y": 960
+    },
+    "s5": {
+      "fill": "orange",
+      "maxH": 220,
+      "text": "INTERACTIE: klik een stap, het paneel wisselt in dur-base. Geen scroll-animatie hier: de bezoeker heeft de controle. Laat altijd minstens één 'niet automatiseren' zien.",
+      "w": 680,
+      "x": 0,
+      "y": 2560
+    },
+    "s6": {
+      "fill": "orange",
+      "maxH": 220,
+      "text": "SCROLL: overgang naar het lichte thema als 'het licht gaat aan'. De forge line loopt als rung-lijn door de drie treden; elke kaart komt binnen als de lijn hem raakt.",
+      "w": 680,
+      "x": 1520,
+      "y": 2560
+    },
+    "s7": {
+      "fill": "orange",
+      "maxH": 220,
+      "text": "SCROLL: rustig hoofdstuk. Alleen de foto en tekst faden in; de forge line loopt langs de foto en eindigt in de oranje streep eronder.",
+      "w": 680,
+      "x": 3040,
+      "y": 2560
+    },
+    "s8": {
+      "fill": "orange",
+      "maxH": 220,
+      "text": "EINDE VAN DE LIJN: de forge line eindigt in de verzendknop. Na verzenden: redirect naar /request-received (zelfde stijl, bedankt + wat er nu gebeurt).",
+      "w": 680,
+      "x": 4560,
+      "y": 2900
+    },
+    "s9": {
+      "fill": "teal",
+      "maxH": 300,
+      "text": "MOBIEL: geen chaos-veld maar drie stappen onder elkaar; de forge line is een dunne verticale lijn links langs alle hoofdstukken. Oordeel: stappen als horizontale rij chips. Aanbod: kaarten onder elkaar. Navigatie: icoon + knop, voortgang als 2px balk.",
+      "w": 520,
+      "x": 1410,
+      "y": 3300
+    },
+    "t1": {
+      "kind": "title1",
+      "maxW": 6000,
+      "text": "Desktop · de forge line, hoofdstuk 01–04",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "t2": {
+      "kind": "title1",
+      "maxW": 6000,
+      "text": "Desktop · oordeel, aanbod, mens, contact",
+      "w": 240,
+      "x": 0,
+      "y": 1300
+    },
+    "t3": {
+      "kind": "title1",
+      "maxW": 2400,
+      "text": "Mobiel · vereenvoudigd",
+      "w": 240,
+      "x": 0,
+      "y": 3000
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Inzicht.dc.html",
+    "Standaard.dc.html",
+    "Automatisch.dc.html",
+    "Oordeel.dc.html",
+    "Aanbod.dc.html",
+    "OverMij.dc.html",
+    "Contact.dc.html",
+    "MobielHero.dc.html",
+    "MobielOordeel.dc.html",
+    "MobielAanbod.dc.html"
+  ],
+  "pages": [],
+  "title": "Forgeline website — storyboard"
+}
