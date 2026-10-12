@@ -1,0 +1,20 @@
+---
+// Markup uit design/design-system/components/SectionHeader. Het hoofdstuknummer staat bewust niet hier,
+// maar in kolom 2 van .chapter__inner (src/sections/CLAUDE.md).
+interface Props {
+  kicker: string;
+  title: string;
+  lead?: string;
+  titleId: string;
+  level?: 1 | 2;
+}
+
+const { kicker, title, lead, titleId, level = 2 } = Astro.props;
+const H = level === 1 ? 'h1' : 'h2';
+---
+
+<header class="fl-section-head">
+  <p class="fl-kicker fl-label">{kicker}</p>
+  <H id={titleId}>{title}</H>
+  {lead && <p>{lead}</p>}
+</header>

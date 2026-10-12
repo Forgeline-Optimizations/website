@@ -1,0 +1,22 @@
+---
+// Markup uit design/design-system/components/ProcessNode. Rotatie via --fl-rotate (niet via een inline
+// transform), zodat GSAP in fase 4 kan animeren zonder hem te overschrijven.
+interface Props {
+  name: string;
+  index?: string;
+  state: 'chaos' | 'mapped' | 'standard' | 'automated';
+  port?: boolean;
+  rotate?: number;
+  class?: string;
+  style?: string;
+}
+
+const { name, index, state, port = false, rotate, class: className, style } = Astro.props;
+const styles = [rotate !== undefined && `--fl-rotate: ${rotate}deg`, style].filter(Boolean).join('; ');
+---
+
+<div class:list={['fl-node', className]} data-state={state} style={styles || undefined}>
+  {index && <span class="fl-node__index fl-label">{index}</span>}
+  <span class="fl-node__name">{name}</span>
+  {port && <span class="fl-node__port"></span>}
+</div>
