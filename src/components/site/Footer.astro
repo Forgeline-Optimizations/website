@@ -1,0 +1,61 @@
+---
+import { t, type Locale } from '../../i18n';
+import { site } from '../../data/site';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'nl' } = Astro.props;
+const f = t(locale).footer;
+// Bouwjaar: de site wordt bij elke push opnieuw gebouwd.
+const copyright = f.copyright.replace('{year}', String(new Date().getFullYear()));
+---
+
+<footer class="fl-footer" data-theme="dark">
+  <div>
+    <img src="/brand/logo-horizontal-white.svg" width="140" height="42" alt={site.name} />
+    <p class="m-0">{f.tagline}</p>
+  </div>
+  <div>
+    <h2 class="fl-label">{f.contactTitle}</h2>
+    <ul>
+      <li>
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+      </li>
+      <li>
+        <a href="/#contact">{f.contactCta}</a>
+      </li>
+    </ul>
+  </div>
+  <div>
+    <h2 class="fl-label">{f.companyTitle}</h2>
+    <ul>
+      <li>{site.address.street}</li>
+      <li>
+        {site.address.postalCode} {site.address.city}
+      </li>
+      <li>
+        {f.kvk} {site.kvk}
+      </li>
+      <li>
+        {f.vat} {site.vat}
+      </li>
+    </ul>
+  </div>
+  <div>
+    <h2 class="fl-label">{f.legalTitle}</h2>
+    <ul>
+      <li>
+        <a href="/privacy">{f.privacy}</a>
+      </li>
+      <li>
+        <a href="/voorwaarden">{f.terms}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="fl-footer__legal">
+    <span>{copyright}</span>
+    <span>{f.analytics}</span>
+  </div>
+</footer>

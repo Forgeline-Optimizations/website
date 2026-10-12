@@ -1,0 +1,35 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+// Markup en klassen uit design/design-system/components/Button. <a> met href, anders <button>.
+interface Props extends Omit<HTMLAttributes<'a'> & HTMLAttributes<'button'>, 'type'> {
+  variant?: 'primary' | 'secondary' | 'link';
+  size?: 'sm';
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  arrow?: boolean;
+}
+
+const { variant = 'primary', size, href, type, arrow = false, class: className, ...rest } = Astro.props;
+const classes = ['fl-btn', `fl-btn--${variant}`, size && `fl-btn--${size}`, className];
+---
+
+{href ? (
+  <a href={href} class:list={classes} {...rest}>
+    <slot />
+    {arrow && (
+      <span class="fl-btn__arrow" aria-hidden="true">
+        →
+      </span>
+    )}
+  </a>
+) : (
+  <button type={type ?? 'button'} class:list={classes} {...rest}>
+    <slot />
+    {arrow && (
+      <span class="fl-btn__arrow" aria-hidden="true">
+        →
+      </span>
+    )}
+  </button>
+)}

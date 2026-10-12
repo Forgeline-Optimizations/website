@@ -1,5 +1,7 @@
 # Module: pages
 
+> Heet `_CLAUDE.md` omdat Astro elk `.md`-bestand in `src/pages/` als route bouwt; het `_`-voorvoegsel sluit het uit.
+
 **Verantwoordelijkheid:** routes. Elke pagina gebruikt `BaseLayout`.
 **Fase:** 1–3 — 🔨
 
