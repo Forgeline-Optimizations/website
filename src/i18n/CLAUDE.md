@@ -5,7 +5,7 @@
 
 ## Bestanden
 - `nl.ts` — `export const nl = { … } as const` met de sleutels uit `docs/content-nl.md`.
-- `types.ts` — `export type Dictionary = typeof nl;` (later moet `en.ts` hieraan voldoen: `export const en: Dictionary = …`).
+- `types.ts` — `export type Dictionary = Widen<typeof nl>;` (zelfde vorm als `nl`, maar letterlijke strings verbreed tot `string`, anders zou `en.ts` exact de Nederlandse tekst moeten bevatten). Later: `export const en: Dictionary = …`.
 - `index.ts` — `export type Locale = 'nl' | 'en'; export function t(locale: Locale): Dictionary` (valt terug op `nl`).
 
 ## Ontwerpkeuzes
