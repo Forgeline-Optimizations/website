@@ -1,0 +1,88 @@
+/* Enige CSS-ingang van de site; alleen geïmporteerd in BaseLayout. */
+@import 'tailwindcss';
+/* Alleen de site zelf scannen; documentatie en ontwerpsnapshots zouden ongebruikte utilities opleveren. */
+@source not '../../design';
+@source not '../../docs';
+@source not '../../.claude';
+@source not '../../**/*.md';
+@import '@fontsource/saira/latin-500.css';
+@import '@fontsource/saira/latin-600.css';
+@import '@fontsource/saira/latin-700.css';
+@import './tokens.css';
+/* In de components-layer zodat Tailwind-utilities ze kunnen overschrijven (en voor ADR-012). */
+@import './components.css' layer(components);
+@import './layout.css' layer(components);
+
+@theme {
+  --color-*: initial; /* alleen tokenkleuren bestaan; voorkomt text-gray-500 e.d. */
+  --font-*: initial; /* Tailwind-fontnamen mogen niet botsen met --font-display/--font-sans uit tokens.css */
+  --breakpoint-desk: 900px; /* desktop-layout vanaf 900px (docs/storyboard.md → Mobiel) */
+}
+
+@theme inline {
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-forge: var(--forge);
+  --color-forge-soft: var(--forge-soft);
+  --color-on-forge: var(--on-forge);
+  --color-status-ok: var(--status-ok);
+  --color-status-error: var(--status-error);
+  /* Andere namen dan in tokens.css: `--font-display: var(--font-display)` zou naar zichzelf verwijzen. */
+  --font-heading: var(--font-display); /* utility: font-heading */
+  --font-body: var(--font-sans); /* utility: font-body */
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--nav-height); /* ankers niet onder de sticky nav */
+    -webkit-text-size-adjust: 100%;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+  body {
+    margin: 0;
+    background: var(--surface);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 27px;
+    -webkit-font-smoothing: antialiased;
+  }
+  [data-theme] {
+    background: var(--surface);
+    color: var(--ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 3px;
+  }
+  [hidden] {
+    display: none !important; /* componentklassen met display: flex mogen hidden niet overrulen */
+  }
+}
+
+/* Thema-afhankelijke elementen (logo wit/zwart): het dichtstbijzijnde data-theme wint.
+   Bewust buiten elke layer; zie ADR-012. */
+[data-theme='dark'] {
+  --fl-show-dark: initial;
+  --fl-show-light: none;
+}
+[data-theme='light'] {
+  --fl-show-dark: none;
+  --fl-show-light: initial;
+}
+.fl-only-dark {
+  display: var(--fl-show-dark, revert-layer);
+}
+.fl-only-light {
+  display: var(--fl-show-light, revert-layer);
+}

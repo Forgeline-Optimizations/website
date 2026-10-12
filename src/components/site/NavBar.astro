@@ -1,0 +1,52 @@
+---
+import Button from '../ui/Button.astro';
+import { t, type Locale } from '../../i18n';
+import { site } from '../../data/site';
+
+interface Props {
+  locale?: Locale;
+  showChapters?: boolean;
+}
+
+const { locale = 'nl', showChapters = false } = Astro.props;
+const d = t(locale);
+---
+
+<!-- data-theme wisselt later mee met de sectie eronder (src/scripts/nav-progress.ts, fase 2). -->
+<header class="sticky top-0 z-50">
+  <nav class="fl-nav" data-theme="dark" aria-label={d.nav.label}>
+    <a class="fl-nav__logo" href="/" aria-label={site.name}>
+      <img
+        class="fl-nav__logo-full fl-only-dark"
+        src="/brand/logo-horizontal-white.svg"
+        width="140"
+        height="42"
+        alt=""
+      />
+      <img
+        class="fl-nav__logo-full fl-only-light"
+        src="/brand/logo-horizontal-black.svg"
+        width="140"
+        height="42"
+        alt=""
+      />
+      <img class="fl-nav__icon fl-only-dark" src="/brand/icon-white.svg" width="32" height="32" alt="" />
+      <img class="fl-nav__icon fl-only-light" src="/brand/icon-black.svg" width="32" height="32" alt="" />
+    </a>
+    {showChapters && (
+      <ol class="fl-nav__chapters fl-label">
+        {d.nav.chapters.map((c) => (
+          <li>
+            <a href={`#${c.id}`} data-nav-chapter={c.id}>
+              {c.label}
+            </a>
+          </li>
+        ))}
+      </ol>
+    )}
+    <Button variant="primary" size="sm" href={showChapters ? '#contact' : '/#contact'}>
+      {d.nav.cta}
+    </Button>
+    <div class="fl-nav__progress" aria-hidden="true"></div>
+  </nav>
+</header>

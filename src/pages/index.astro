@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { t } from '../i18n';
+const d = t('nl');
+---
+
+<BaseLayout title={d.meta.title} description={d.meta.description} showChapters>
+  <!-- Fase 2 vervangt dit door de acht secties. -->
+  <section id="chaos" class="chapter fl-grid-bg" data-theme="dark">
+    <div class="chapter__inner">
+      <div></div>
+      <div></div>
+      <h1 class="fl-display col-start-2 desk:col-start-3">{d.hero.title}</h1>
+    </div>
+  </section>
+</BaseLayout>

@@ -86,7 +86,7 @@ Overzicht en volgorde: `.claude/docs/README.md`.
 | `src/pages/` | Routes | 1–3 | 🔨 |
 | `tests/` | Playwright, Vitest | 1–5 | ⏳ |
 
-Elke map onder `src/` heeft een eigen `CLAUDE.md`.
+Elke map onder `src/` heeft een eigen `CLAUDE.md`, behalve `src/pages/`: daar heet hij `_CLAUDE.md`, omdat Astro elk `.md`-bestand in `pages/` als route bouwt.
 
 ## Conventies
 

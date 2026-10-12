@@ -1,0 +1,13 @@
+---
+import { t, type Locale } from '../../i18n';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'nl' } = Astro.props;
+---
+
+<a class="fl-skip fl-btn fl-btn--primary fl-btn--sm" href="#main">
+  {t(locale).nav.skip}
+</a>
