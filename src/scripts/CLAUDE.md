@@ -1,13 +1,13 @@
 # Module: scripts
 
 **Verantwoordelijkheid:** al het client-side gedrag. `verdict.ts` en `contact-form.ts` (fase 3), `nav-progress.ts` (fase 2/4), `motion/` (fase 4). Niet: inhoud of opmaak.
-**Fase:** 3–4 — ⏳
+**Fase:** 2–4 — 🔨
 
 ## Bestanden
 | Bestand | Rol | Fase |
 |---|---|---|
-| `nav-progress.ts` | IntersectionObserver zet `aria-current="step"`/`is-done` in de nav; mobiel de breedte van de voortgangsbalk | 2 |
-| `verdict.ts` | Stapknoppen ↔ paneel; `aria-pressed`, `hidden`, pijltjestoetsen | 3 |
+| `nav-progress.ts` | `initNavProgress()`: IntersectionObserver zet `aria-current="step"`/`is-done` en het `data-theme` van de nav; `--progress` voor de mobiele balk (scroll via `requestAnimationFrame`) | 2 ✓ |
+| `verdict.ts` | Stapknoppen ↔ paneel; `aria-pressed`, `data-active` op het paneel (niet `hidden`: `.fl-verdict__panel` heeft `display: flex`), pijltjestoetsen | 3 |
 | `contact-form.ts` | Validatie, foutmeldingen, `fetch` naar Web3Forms, redirect | 3 |
 | `motion/index.ts` | Laadt GSAP + ScrollTrigger, `gsap.matchMedia()`, registreert hoofdstukken | 4 |
 | `motion/forge-line.ts` | Bouwt het pad van de forge line uit de sectieposities, tekent het mee met scrollen | 4 |

@@ -1,7 +1,7 @@
 # Module: sections
 
 **Verantwoordelijkheid:** de acht hoofdstukken van de one-pager, elk één `<section>` met anker-id. Niet: losse pagina's (dat is `src/pages/`), gedrag (dat is `src/scripts/`).
-**Fase:** 2 — ⏳ (fase 3 voegt gedrag toe aan Oordeel en Contact)
+**Fase:** 2 — ✓ (fase 3 voegt gedrag toe aan Oordeel en Contact)
 
 ## Inventaris
 
@@ -17,6 +17,9 @@
 | `Contact.astro` | `#contact` | `Contact.dc.html` | licht |
 
 ## Vaste structuur van elke sectie (behalve Hero)
+
+Deze structuur zit in **`src/components/site/Chapter.astro`** (props `id`, `num`, `theme`, `kicker`, `title`, `lead?`, `end?`); een sectie levert alleen de inhoud onder de kop als slot. Chapter rendert ook de tick in de rail en `data-forge-anchor="chapter"`. Wat hij rendert:
+
 ```astro
 <section id="inzicht" class="chapter" data-chapter="02" data-theme="dark" aria-labelledby="inzicht-title">
   <div class="chapter__inner">
@@ -39,6 +42,15 @@
 - **Voorbeeldlabels** ("Voorbeeld · …") zijn verplicht in Automatisch en Oordeel.
 - **Mobiel (< 900px):** één kolom; rail-kolom 16px met lijn op x = 16; nummer boven de kop (56px); rijen nodes worden stapels; zie `docs/storyboard.md` → Mobiel.
 
+## Zoals gebouwd (fase 2)
+- **Breekpunten per sectie.** Onder 900px mobiel. Rijen van nodes (Inzicht, Automatisch) pas vanaf **1280px**, Standaard, Contact en de dienstenladder vanaf **1200px**: daaronder is de inhoudskolom (1260 − 48 − 200) te smal en vallen ze terug op de stapel. Op 1440 is de inhoudskolom 1012px, niet de 1060 van het board.
+- **Sectiespecifieke layout** staat in een scoped `<style>` in de sectie; gedeelde patronen (`.fl-columns`, verdict, profiel, `.fl-next`) in `components.css`.
+- **Hero:** chaos-veld is een vaste doos van 600 × 580 met `scale()` per breekpunt (0,62 / 0,8 / 1); geen container-query-deling (Firefox kan geen lengte door lengte delen). Mobiel: drie nodes in een doos van 334 × 200.
+- **Forge line:** `ForgeLine part="start"` in de Hero (vierkant + scroll-cue, lijn naar de onderrand), `part="end"` in Contact (L-vormige haak naar de verzendknop; `Chapter end` knipt hem af met `overflow: clip` en verbergt de eigen rail).
+- **Automatisch:** de stroom is een geanimeerde CSS-gradient (geen SVG), zodat hij met de flex-layout meeschaalt; stil bij reduced motion.
+- **Oordeel:** mobiel toont de vier `verdictsMobile` in de desktopvolgorde (niet de boardvolgorde), zodat de tabvolgorde gelijk blijft aan de visuele volgorde. Panelen wisselen via `data-active`.
+- **Tekst met inline link** (privacy-checkbox): op één regel houden met `<!-- prettier-ignore -->`, anders komt er een spatie vóór de punt.
+
 ## Afhankelijkheden
-- Gebruikt: `src/components/ui/*`, `src/i18n`, `src/data/*`.
+- Gebruikt: `src/components/ui/*`, `src/components/site/{Chapter,ForgeLine}.astro`, `src/i18n`, `src/data/*`.
 - Gebruikt door: `src/pages/index.astro`.

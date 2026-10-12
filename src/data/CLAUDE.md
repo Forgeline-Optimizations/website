@@ -1,7 +1,7 @@
 # Module: data
 
 **Verantwoordelijkheid:** taalonafhankelijke gegevens en configuratie.
-**Fase:** 2 — ⏳
+**Fase:** 2 — ✓
 
 ## Bestanden
 - `site.ts` — bedrijfsgegevens en externe diensten:
@@ -20,7 +20,8 @@
   } as const;
   ```
 - `verdicts.ts` — `{ id, verdict: 'go' | 'wait' | 'no' }[]` in volgorde; teksten via `t(locale).oordeel.items[id]`.
-- `hero-chaos.ts` — posities, rotaties en curvepaden van het chaos-veld, overgenomen uit `design/storyboard/Main.dc.html`.
+- `verdicts.ts` exporteert ook `verdictsMobile` (welke vier mobiel zichtbaar zijn) en `defaultVerdict`.
+- `hero-chaos.ts` — posities, rotaties en curvepaden van het chaos-veld uit `Main.dc.html` (`chaosNodes`, `chaosWires`, doos 600 × 580) en `MobielHero.dc.html` (`chaosNodesMobile`, doos 334 × 200). Elke node verwijst met `node` naar de index in `t().hero.nodes`.
 
 ## Regel
 Wijzig bedrijfsgegevens alleen hier. Footer, privacypagina en structured data lezen allemaal uit `site.ts`.
