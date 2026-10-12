@@ -1,0 +1,163 @@
+---
+// 03 · Standaardiseren — design/storyboard/Standaard.dc.html.
+import Chapter from '../components/site/Chapter.astro';
+import ProcessNode from '../components/ui/ProcessNode.astro';
+import { t, type Locale } from '../i18n';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'nl' } = Astro.props;
+const d = t(locale).standaard;
+---
+
+<Chapter id="standaard" num="03" theme="dark" kicker={d.kicker} title={d.title} lead={d.lead}>
+  <div class="chapter__visual std" data-motion="standaard">
+    <ul class="std__lanes">
+      {d.lanes.map((lane) => (
+        <li class="std__lane">
+          <span class="fl-label std__lane-label">{lane.label}</span>
+          {lane.chips.map((chip) => (
+            <span class="fl-chip">{chip}</span>
+          ))}
+        </li>
+      ))}
+    </ul>
+
+    <!-- Paden uit het artboard, verschoven met −580 op x. -->
+    <svg class="std__merge" width="140" height="340" viewBox="0 0 140 340" aria-hidden="true">
+      <path class="fl-wire fl-wire--chaos" d="M0 77 C 50 77, 30 166, 80 166"></path>
+      <path class="fl-wire fl-wire--chaos" d="M0 167 H 80"></path>
+      <path class="fl-wire fl-wire--chaos" d="M0 257 C 50 257, 30 166, 80 166"></path>
+      <path class="fl-wire fl-wire--ink" d="M80 166 H 140"></path>
+    </svg>
+
+    <div class="std__result">
+      <p class="fl-tag std__label">{d.standardLabel}</p>
+      <ol class="std__nodes">
+        {d.standard.map((step) => (
+          <li>
+            <ProcessNode state="standard" index={step.index} name={step.name} />
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</Chapter>
+
+<style>
+  .std {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+  .std__lanes {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+  .std__lane {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+  }
+  .std__lane-label {
+    width: 100%; /* smal: label boven de chips */
+    color: var(--ink-muted);
+  }
+  .std__merge {
+    display: none;
+  }
+  .std__label {
+    margin: 0 0 var(--space-4);
+  }
+  /* Drie standaardstappen met een ink-lijn erachter. */
+  .std__nodes {
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-8);
+  }
+  .std__nodes::before {
+    content: '';
+    position: absolute;
+    left: var(--space-6);
+    top: 0;
+    bottom: 0;
+    width: 1.5px;
+    background: var(--ink);
+  }
+  .std__nodes li {
+    position: relative;
+  }
+  /* Mobiel: korte ink-lijn tussen de banen en de standaard. */
+  .std__result {
+    position: relative;
+    padding-top: var(--space-8);
+  }
+  .std__result::before {
+    content: '';
+    position: absolute;
+    left: var(--space-6);
+    top: calc(-1 * var(--space-8));
+    height: var(--space-12);
+    width: 1.5px;
+    background: var(--ink);
+  }
+
+  /* Board: banen | samenvoeging | standaard, verticaal gecentreerd. */
+  @media (min-width: 1200px) {
+    .std {
+      display: grid;
+      grid-template-columns: max-content 140px max-content; /* curves sluiten direct aan op de banen */
+      align-items: center;
+      gap: 0;
+    }
+    .std__lanes {
+      gap: 56px;
+    }
+    .std__lane {
+      flex-wrap: nowrap;
+    }
+    .std__lane-label {
+      width: 96px;
+    }
+    .std__merge {
+      display: block;
+    }
+    .std__result {
+      padding-top: 0;
+    }
+    .std__result::before {
+      display: none;
+    }
+    .std__label {
+      position: absolute;
+      top: calc(-1 * var(--space-8));
+      margin: 0;
+      white-space: nowrap;
+    }
+    .std__nodes {
+      align-items: stretch;
+      gap: 56px;
+    }
+    .std__nodes::before {
+      left: 50%;
+    }
+    .std__nodes li {
+      display: flex;
+    }
+    .std__nodes :global(.fl-node) {
+      flex: 1;
+    }
+  }
+</style>

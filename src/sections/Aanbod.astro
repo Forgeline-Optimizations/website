@@ -1,0 +1,64 @@
+---
+// 06 · Aanbod (licht) — design/storyboard/Aanbod.dc.html en MobielAanbod.dc.html. Geen prijzen (ADR-009).
+import Chapter from '../components/site/Chapter.astro';
+import ServiceCard from '../components/ui/ServiceCard.astro';
+import Button from '../components/ui/Button.astro';
+import { t, type Locale } from '../i18n';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'nl' } = Astro.props;
+const d = t(locale).aanbod;
+---
+
+<Chapter id="aanbod" num="06" theme="light" kicker={d.kicker} title={d.title} lead={d.lead}>
+  <div class="chapter__visual" data-motion="aanbod">
+    <div class="fl-ladder">
+      {d.services.map((s, i) => (
+        <ServiceCard {...s} entry={i === 0} />
+      ))}
+    </div>
+    <div class="offer__footer">
+      <p class="offer__note">
+        <span class="desk:hidden">{d.noteMobile}</span>
+        <span class="hidden desk:inline">{d.note}</span>
+      </p>
+      <Button variant="primary" href="#contact" arrow>
+        {d.cta}
+      </Button>
+    </div>
+  </div>
+</Chapter>
+
+<style>
+  .offer__footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+    margin-top: var(--space-8);
+  }
+  .offer__note {
+    margin: 0;
+    max-width: 620px;
+    font-size: 14px;
+    line-height: 21px;
+    color: var(--ink-muted);
+  }
+  @media (min-width: 900px) {
+    .offer__footer {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-8);
+      padding-top: var(--space-6);
+      border-top: 1px solid var(--line);
+    }
+    .offer__note {
+      font-size: 15px;
+      line-height: 23px;
+    }
+  }
+</style>

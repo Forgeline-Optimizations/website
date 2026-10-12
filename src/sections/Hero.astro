@@ -1,0 +1,176 @@
+---
+// 01 · Chaos — design/storyboard/Main.dc.html en MobielHero.dc.html.
+// Uitzondering op het hoofdstukraster: twee kolommen (tekst | chaos-veld), geen rail en geen nummer.
+import Button from '../components/ui/Button.astro';
+import ProcessNode from '../components/ui/ProcessNode.astro';
+import ForgeLine from '../components/site/ForgeLine.astro';
+import { t, type Locale } from '../i18n';
+import { chaosBox, chaosNodes, chaosWires, chaosBoxMobile, chaosNodesMobile } from '../data/hero-chaos';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'nl' } = Astro.props;
+const d = t(locale).hero;
+---
+
+<section id="chaos" class="hero fl-grid-bg" data-theme="dark" data-chapter="01" aria-labelledby="hero-title">
+  <div class="hero__inner">
+    <div class="hero__text">
+      <p class="fl-kicker fl-label">
+        <span class="desk:hidden">{d.kickerShort}</span>
+        <span class="hidden desk:inline">{d.kicker}</span>
+      </p>
+      <h1 class="fl-display" id="hero-title">
+        {d.title}
+      </h1>
+      <p class="fl-lead">{d.lead}</p>
+      <div class="hero__actions">
+        <Button variant="primary" href="#contact" arrow>
+          {d.ctaPrimary}
+        </Button>
+        <Button variant="link" href="#inzicht" class="hidden desk:inline-flex">
+          {d.ctaSecondary}
+        </Button>
+      </div>
+    </div>
+
+    <!-- Decoratief: dezelfde inhoud staat in de tekst. -->
+    <div class="hero__chaos-wrap hidden desk:block" aria-hidden="true">
+      <div
+        class="hero__chaos"
+        data-motion="hero-chaos"
+        style={`width: ${chaosBox.width}px; height: ${chaosBox.height}px`}
+      >
+        <svg
+          class="hero__wires"
+          width={chaosBox.width}
+          height={chaosBox.height}
+          viewBox={`0 0 ${chaosBox.width} ${chaosBox.height}`}
+        >
+          {chaosWires.map((path) => (
+            <path class="fl-wire fl-wire--chaos" d={path} />
+          ))}
+        </svg>
+        {chaosNodes.map((n) => (
+          <ProcessNode
+            class="hero__node"
+            state="chaos"
+            index={d.nodeIndex}
+            name={d.nodes[n.node]}
+            rotate={n.rotate}
+            style={`left: ${n.x}px; top: ${n.y}px`}
+          />
+        ))}
+      </div>
+    </div>
+
+    <div
+      class="hero__chaos-mobile desk:hidden"
+      aria-hidden="true"
+      style={`max-width: ${chaosBoxMobile.width}px; height: ${chaosBoxMobile.height}px`}
+    >
+      {chaosNodesMobile.map((n) => (
+        <ProcessNode
+          class="hero__node hero__node--mobile"
+          state="chaos"
+          name={d.nodes[n.node]}
+          rotate={n.rotate}
+          style={`left: ${n.x}px; top: ${n.y}px`}
+        />
+      ))}
+    </div>
+  </div>
+
+  <ForgeLine part="start" locale={locale} />
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: calc(100svh - var(--nav-height));
+    padding-block: var(--space-12) var(--space-24);
+  }
+  .hero__inner {
+    width: 100%;
+    max-width: 1352px;
+    margin-inline: auto;
+    /* Mobiel: inhoud op x = 40, net als de hoofdstukken (ADR-014). */
+    padding-inline: calc(var(--space-8) + var(--space-2)) var(--space-4);
+    display: grid;
+    row-gap: var(--space-12);
+  }
+  .hero__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+  .hero__text > * {
+    margin: 0;
+  }
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-8);
+    margin-top: var(--space-2);
+  }
+
+  /* Het chaos-veld is een vaste doos van 600 × 580 met de board-coördinaten; hij schaalt als geheel. */
+  .hero__chaos-wrap {
+    --chaos-scale: 0.62;
+    position: relative;
+    width: calc(600px * var(--chaos-scale));
+    height: calc(580px * var(--chaos-scale));
+  }
+  .hero__chaos {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: scale(var(--chaos-scale));
+    transform-origin: 0 0;
+  }
+  .hero__wires {
+    position: absolute;
+    inset: 0;
+    overflow: visible;
+  }
+  .hero__chaos-mobile {
+    position: relative;
+    width: 100%;
+  }
+  :global(.hero__node) {
+    position: absolute;
+  }
+  :global(.hero__node--mobile) {
+    min-width: 0;
+  }
+
+  @media (min-width: 900px) {
+    .hero {
+      padding-block: var(--space-16) var(--space-24);
+    }
+    .hero__inner {
+      padding-inline: var(--space-16) var(--space-6);
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      column-gap: var(--space-12);
+    }
+    .hero__text {
+      gap: var(--space-8);
+    }
+  }
+  @media (min-width: 1100px) {
+    .hero__chaos-wrap {
+      --chaos-scale: 0.8;
+    }
+  }
+  @media (min-width: 1300px) {
+    .hero__chaos-wrap {
+      --chaos-scale: 1;
+    }
+  }
+</style>
