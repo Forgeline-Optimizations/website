@@ -1,0 +1,9 @@
+design/
+dist/
+.astro/
+src/styles/tokens.css
+package-lock.json
+test-results/
+playwright-report/
+.claude/
+*.md
