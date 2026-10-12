@@ -1,0 +1,41 @@
+---
+// De vaste structuur van elk hoofdstuk 02–08 (src/sections/CLAUDE.md): rail | nummer | kop + inhoud.
+// Eén component, zodat de haakjes voor fase 4 (data-chapter, data-forge-anchor) overal gelijk zijn.
+import SectionHeader from '../ui/SectionHeader.astro';
+
+interface Props {
+  id: string;
+  num: string;
+  theme: 'dark' | 'light';
+  kicker: string;
+  title: string;
+  lead?: string;
+  /** Contact: de rail eindigt in de haak naar de verzendknop i.p.v. door te lopen. */
+  end?: boolean;
+  class?: string;
+}
+
+const { id, num, theme, kicker, title, lead, end = false, class: className } = Astro.props;
+const titleId = `${id}-title`;
+---
+
+<section
+  id={id}
+  class:list={['chapter fl-grid-bg', { 'chapter--end': end }, className]}
+  data-chapter={num}
+  data-theme={theme}
+  aria-labelledby={titleId}
+>
+  <div class="chapter__inner">
+    <div class="chapter__rail" data-forge-anchor="chapter" aria-hidden="true">
+      <span class="fl-tick chapter__tick"></span>
+    </div>
+    <div class="fl-numeral chapter__num" aria-hidden="true">
+      {num}
+    </div>
+    <div class="chapter__body">
+      <SectionHeader kicker={kicker} title={title} lead={lead} titleId={titleId} />
+      <slot />
+    </div>
+  </div>
+</section>

@@ -1,0 +1,83 @@
+---
+// Statische forge line (fase 2). De verticale lijn per hoofdstuk komt uit .chapter__rail::before
+// (layout.css); deze component levert de twee uiteinden:
+// - `start`: het gloeiende vierkant onderaan de hero, met "Scroll · volg de lijn".
+// - `end`: de haak in Contact die van de rail met een rechte hoek naar de verzendknop loopt.
+// Fase 4 legt hier een SVG-laag overheen en zoekt de punten via data-forge-anchor.
+import { t, type Locale } from '../../i18n';
+
+interface Props {
+  part: 'start' | 'end';
+  locale?: Locale;
+}
+
+const { part, locale = 'nl' } = Astro.props;
+---
+
+{part === 'start' ? (
+  <div class="fl-forge-start">
+    <span class="fl-tick fl-forge-start__tick" data-forge-anchor="start" aria-hidden="true" />
+    <p class="fl-tag fl-forge-start__cue">{t(locale).common.scrollCue}</p>
+  </div>
+) : (
+  <span class="fl-forge-end" aria-hidden="true" />
+)}
+
+<style is:global>
+  /* Ongelaagd, maar alleen eigen klassen; hoort bij de component. */
+  .fl-forge-start {
+    position: absolute;
+    bottom: 0;
+    left: var(--space-2); /* mobiel: zelfde lijn als de hoofdstukken (x = 16, ADR-014) */
+    height: calc(var(--space-12) + 12px);
+    display: flex;
+    align-items: flex-start;
+  }
+  @media (min-width: 900px) {
+    .fl-forge-start {
+      left: calc(50% - 8px);
+    }
+  }
+  .fl-forge-start__tick {
+    position: relative;
+    margin: 0 var(--space-6) 0 2px;
+  }
+  /* Lijn van het vierkant naar de onderkant van de hero, waar Inzicht hem overneemt. */
+  .fl-forge-start::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 12px;
+    bottom: 0;
+    width: var(--line-width);
+    background: var(--forge);
+  }
+  .fl-forge-start__cue {
+    margin: -2px 0 0;
+  }
+  html.forge-js .fl-forge-start::before {
+    display: none;
+  }
+
+  /* Haak in Contact: verticaal vanaf de bovenkant van de sectie (overflow: clip knipt hem af) en met een
+     rechte hoek naar de verzendknop. --fl-forge-reach = afstand van de rail-lijn tot de inhoudskolom. */
+  .fl-forge-end {
+    --fl-forge-reach: 25px; /* mobiel: inhoud x = 40, lijn x = 16 */
+    position: absolute;
+    right: 100%;
+    bottom: 50%;
+    width: var(--fl-forge-reach);
+    height: 10000px;
+    border-left: var(--line-width) solid var(--forge);
+    border-bottom: var(--line-width) solid var(--forge);
+    pointer-events: none;
+  }
+  @media (min-width: 900px) {
+    .fl-forge-end {
+      --fl-forge-reach: 181px; /* nummerkolom 160 + halve railkolom 20 + 1 (lijn gecentreerd) */
+    }
+  }
+  html.forge-js .fl-forge-end {
+    display: none;
+  }
+</style>
