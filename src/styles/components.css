@@ -1028,6 +1028,20 @@ textarea.fl-input {
 html.js .fl-verdict__panel:not([data-active]) {
   display: none;
 }
+/* Paneelwissel: alleen na een keuze van de bezoeker (verdict.ts zet data-switched), niet bij het laden. */
+.fl-verdict[data-switched] .fl-verdict__panel[data-active] {
+  animation: fl-fade-in var(--dur-base) var(--ease-out);
+}
+@keyframes fl-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fl-verdict[data-switched] .fl-verdict__panel[data-active] {
+    animation: none;
+  }
+}
 /* Zonder JS: geen knoppen die niets doen, en alle panelen onder elkaar. */
 html:not(.js) .fl-verdict__steps {
   display: none;
