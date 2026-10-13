@@ -16,3 +16,18 @@ for (const id of ['chaos', 'oordeel', 'aanbod', 'contact']) {
     expect(await blockingViolations(page)).toEqual([]);
   });
 }
+
+test('no serious or critical axe violations with form errors shown', async ({ page }) => {
+  await page.route('https://api.web3forms.com/**', (route) => route.abort());
+  await page.goto('/#contact');
+  await page.locator('form[data-contact-form] button[type="submit"]').click();
+  await expect(page.locator('[data-field="name"] [data-error]')).toBeVisible();
+  expect(await blockingViolations(page)).toEqual([]);
+});
+
+for (const path of ['/request-received/', '/privacy/', '/voorwaarden/', '/bestaat-niet']) {
+  test(`no serious or critical axe violations on ${path}`, async ({ page }) => {
+    await page.goto(path);
+    expect(await blockingViolations(page)).toEqual([]);
+  });
+}

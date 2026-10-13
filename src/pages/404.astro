@@ -1,0 +1,68 @@
+---
+// GitHub Pages serveert 404.html bij elk onbekend pad. Beeld: drie losse, gestippelde lijnen die op één
+// vierkant doodlopen.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+import { t } from '../i18n';
+
+const locale = 'nl';
+const d = t(locale).notFound;
+---
+
+<BaseLayout title={d.metaTitle} description={d.metaDescription} locale={locale} noindex>
+  <section
+    id="not-found"
+    class="chapter chapter--page fl-grid-bg"
+    data-theme="dark"
+    aria-labelledby="not-found-title"
+  >
+    <div class="chapter__inner">
+      <div class="chapter__body not-found">
+        <div class="not-found__lines" aria-hidden="true">
+          <svg viewBox="0 0 320 120" width="320" height="120" focusable="false">
+            <path class="fl-wire fl-wire--chaos" d="M0 14 C 120 10, 180 40, 274 60" />
+            <path class="fl-wire fl-wire--chaos" d="M0 62 C 90 70, 190 52, 274 60" />
+            <path class="fl-wire fl-wire--chaos" d="M0 108 C 110 112, 200 84, 274 60" />
+          </svg>
+          <span class="fl-tick not-found__tick"></span>
+        </div>
+        <h1 class="fl-display not-found__title" id="not-found-title">
+          {d.title}
+        </h1>
+        <p class="fl-lead">{d.lead}</p>
+        <Button variant="primary" href="/" arrow>
+          {d.back}
+        </Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-8);
+  }
+  .not-found__lines {
+    position: relative;
+    width: min(320px, 100%);
+  }
+  .not-found__lines svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+  /* Middelpunt op het eindpunt van de lijnen (274, 60 van 320 × 120). */
+  .not-found__tick {
+    left: calc(274 / 320 * 100%);
+    top: 50%;
+    margin: -6px 0 0 -6px;
+  }
+  .not-found__title {
+    font-size: clamp(40px, 2vw + 28px, 56px);
+    max-width: 16ch;
+  }
+</style>

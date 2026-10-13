@@ -1,0 +1,81 @@
+---
+// Juridische pagina's (/privacy, /voorwaarden): licht, één leeskolom, h1 + "Laatst bijgewerkt", koppen h2.
+// De tekst zelf schrijft Sander; tot die tijd staat t().legal.placeholder onder elke kop.
+import BaseLayout from './BaseLayout.astro';
+import { t, type Locale } from '../i18n';
+
+interface Props {
+  metaTitle: string;
+  description: string;
+  title: string;
+  /** Datum van de laatste wijziging, zoals hij op de pagina moet staan. */
+  updated: string;
+  locale?: Locale;
+}
+
+const { metaTitle, description, title, updated, locale = 'nl' } = Astro.props;
+const d = t(locale).legal;
+---
+
+<BaseLayout title={metaTitle} description={description} locale={locale}>
+  <section id="legal" class="legal" data-theme="light" aria-labelledby="legal-title">
+    <article class="legal__inner">
+      <h1 class="legal__title" id="legal-title">
+        {title}
+      </h1>
+      <p class="fl-label legal__updated">
+        {d.updated}: {updated}
+      </p>
+      <slot />
+    </article>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal {
+    padding: var(--space-16) var(--space-4) var(--space-24);
+  }
+  @media (min-width: 900px) {
+    .legal {
+      padding-block: var(--space-24) var(--space-32);
+    }
+  }
+  .legal__inner {
+    max-width: var(--measure);
+    margin-inline: auto;
+  }
+  .legal__title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 1.6vw + 26px, 48px);
+    line-height: 1.12;
+    font-weight: 700;
+    margin: 0 0 var(--space-4);
+  }
+  .legal__updated {
+    color: var(--ink-muted);
+    margin: 0 0 var(--space-12);
+  }
+  .legal__inner :global(h2) {
+    font-family: var(--font-display);
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: 600;
+    margin: var(--space-12) 0 var(--space-4);
+  }
+  .legal__inner :global(p),
+  .legal__inner :global(ul) {
+    margin: 0 0 var(--space-4);
+  }
+  .legal__inner :global(ul) {
+    list-style: square;
+    padding-left: var(--space-6);
+  }
+  .legal__inner :global(li::marker) {
+    color: var(--forge);
+  }
+  .legal__inner :global(a) {
+    color: var(--link);
+    text-decoration-color: var(--forge);
+    text-underline-offset: 3px;
+  }
+</style>

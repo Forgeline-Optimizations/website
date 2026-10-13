@@ -1,0 +1,61 @@
+---
+// Privacyverklaring. Juridische tekst schrijft Sander (docs/README.md, open punt 4); deze pagina zet de koppen
+// klaar met een placeholder. Bedrijfsgegevens en verwerkers zijn feiten en staan er al.
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { t } from '../i18n';
+import { site } from '../data/site';
+
+const locale = 'nl';
+const legal = t(locale).legal;
+const d = legal.privacy;
+const s = d.sections;
+---
+
+<LegalLayout
+  metaTitle={d.metaTitle}
+  description={d.metaDescription}
+  title={d.title}
+  updated={legal.placeholder}
+  locale={locale}
+>
+  <h2>{s.who}</h2>
+  <p>
+    {site.name}
+    <br />
+    {site.address.street}
+    <br />
+    {`${site.address.postalCode} ${site.address.city}`}
+    <br />
+    {`${d.kvk} ${site.kvk}`}
+  </p>
+  <p>{legal.placeholder}</p>
+
+  <h2>{s.data}</h2>
+  <p>{legal.placeholder}</p>
+
+  <h2>{s.purpose}</h2>
+  <p>{legal.placeholder}</p>
+
+  <h2>{s.processors}</h2>
+  <ul>
+    <li>{d.processors.web3forms}</li>
+    <li>{d.processors.github}</li>
+    <li>{d.processors.plausible}</li>
+  </ul>
+  <p>{legal.placeholder}</p>
+
+  <h2>{s.retention}</h2>
+  <p>{legal.placeholder}</p>
+
+  <h2>{s.cookies}</h2>
+  <p>{legal.placeholder}</p>
+
+  <h2>{s.rights}</h2>
+  <p>{legal.placeholder}</p>
+
+  <h2>{s.contact}</h2>
+  <p>
+    <a href={`mailto:${site.email}`}>{site.email}</a>
+  </p>
+  <p>{legal.placeholder}</p>
+</LegalLayout>

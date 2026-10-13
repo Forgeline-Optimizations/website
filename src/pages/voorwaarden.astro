@@ -1,0 +1,22 @@
+---
+// Algemene voorwaarden. Tekst volgt van Sander (docs/README.md, open punt 5). Let op bij het invullen: de
+// NLdigital Voorwaarden mogen in principe alleen door leden van NLdigital gebruikt worden; check dit, of kies
+// een alternatief (eigen voorwaarden, of een sjabloon van KVK of een jurist). Deze notitie staat bewust alleen
+// hier en niet op de pagina.
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { t } from '../i18n';
+
+const locale = 'nl';
+const legal = t(locale).legal;
+const d = legal.terms;
+---
+
+<LegalLayout
+  metaTitle={d.metaTitle}
+  description={d.metaDescription}
+  title={d.title}
+  updated={legal.placeholder}
+  locale={locale}
+>
+  <p>{legal.placeholder}</p>
+</LegalLayout>
