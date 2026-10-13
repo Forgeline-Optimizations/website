@@ -42,6 +42,12 @@ Deze structuur zit in **`src/components/site/Chapter.astro`** (props `id`, `num`
 - **Voorbeeldlabels** ("Voorbeeld · …") zijn verplicht in Automatisch en Oordeel.
 - **Mobiel (< 900px):** één kolom; rail-kolom 16px met lijn op x = 16; nummer boven de kop (56px); rijen nodes worden stapels; zie `docs/storyboard.md` → Mobiel.
 
+## Haakjes voor beweging (fase 4)
+- `data-motion="…"` op het blok van elk hoofdstuk; motion zoekt daarbinnen op klasse.
+- **Standaard:** chips die niet in elke baan voorkomen krijgen `data-deviation` (berekend uit `nl.ts`, niet hard-coded). Aan het eind van de beweging staan ze op 25% (zonder beweging: 100%, zoals het board).
+- **Automatisch:** een resultaat met `→` wordt `<span data-old>` `<span data-arrow>` `<span data-new>` (zonder `→`, bijv. "Blijft mensenwerk", blijft één chip). `.is-before` verbergt pijl en nieuwe waarde.
+- **Aanbod:** `.fl-dawn` (`data-motion="dawn"`, `data-theme="light"`) hangt boven de sectie, over de onderrand van Oordeel: een verloop naar licht, ter hoogte van de hoofdstuk-padding (niet 30vh zoals het plan: dat zou over het verdict-blok vallen). Alleen zichtbaar onder `forge-js`.
+
 ## Zoals gebouwd (fase 2)
 - **Breekpunten per sectie.** Onder 900px mobiel. Rijen van nodes (Inzicht, Automatisch) pas vanaf **1280px**, Standaard, Contact en de dienstenladder vanaf **1200px**: daaronder is de inhoudskolom (1260 − 48 − 200) te smal en vallen ze terug op de stapel. Op 1440 is de inhoudskolom 1012px, niet de 1060 van het board.
 - **Sectiespecifieke layout** staat in een scoped `<style>` in de sectie; gedeelde patronen (`.fl-columns`, verdict, profiel, `.fl-next`) in `components.css`.

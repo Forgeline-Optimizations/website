@@ -2,7 +2,7 @@
 
 > Waarom dit bestaat en wat nooit mag: [`.claude/SOUL.md`](.claude/SOUL.md).
 
-Eén-pagina visitekaartje voor forgelineoptimizations.nl: een scroll-verhaal langs **de forge line**, één doorlopende lijn die een klantproces van chaos naar automatisering volgt, in acht hoofdstukken. Statische Astro-site op GitHub Pages, domein bij TransIP. Huidige fase: **Fase 4 — Beweging** (zie `.claude/docs/`).
+Eén-pagina visitekaartje voor forgelineoptimizations.nl: een scroll-verhaal langs **de forge line**, één doorlopende lijn die een klantproces van chaos naar automatisering volgt, in acht hoofdstukken. Statische Astro-site op GitHub Pages, domein bij TransIP. Huidige fase: **Fase 5 — Kwaliteit** (zie `.claude/docs/`).
 
 ## Start van elke sessie
 
@@ -58,19 +58,20 @@ De `.dc.html`-bestanden zijn **referentie, geen broncode**. Ze gebruiken absolut
 | 1 | `.claude/docs/fase-1-fundament.md` | Astro-project, tokens, fonts, layout, deploy naar GitHub Pages | ✓ |
 | 2 | `.claude/docs/fase-2-statische-pagina.md` | Alle 8 secties statisch, met echte tekst, desktop + mobiel | ✓ |
 | 3 | `.claude/docs/fase-3-interactie-en-formulier.md` | Verdict-interactie, contactformulier, losse pagina's | ✓ |
-| 4 | `.claude/docs/fase-4-beweging.md` | Forge line + scroll-animaties per hoofdstuk | 🔨 Huidig |
-| 5 | `.claude/docs/fase-5-kwaliteit.md` | Mobiel, toegankelijkheid, prestaties, Lighthouse-gate | ⏳ |
+| 4 | `.claude/docs/fase-4-beweging.md` | Forge line + scroll-animaties per hoofdstuk | ✓ |
+| 5 | `.claude/docs/fase-5-kwaliteit.md` | Mobiel, toegankelijkheid, prestaties, Lighthouse-gate | 🔨 Huidig |
 | 6 | `.claude/docs/fase-6-lancering.md` | SEO, OG, Plausible, DNS, livegang | ⏳ |
 
 Overzicht en volgorde: `.claude/docs/README.md`.
 
-## Huidige fase: Fase 4 — Beweging
-**Doel:** de forge line als één SVG-laag die met het scrollen oplicht, en per hoofdstuk één bewegend idee (chaos → kaart → standaard → aan). Zonder JS of met reduced motion blijft alles in de eindtoestand van fase 2–3.
-**Taken:** zie `.claude/docs/fase-4-beweging.md`, stap 1 t/m 9. Branch: `fase-4-beweging`.
-- [ ] Stap 1–2: GSAP installeren, `motion/index.ts` (lazy, één `gsap.matchMedia()`)
-- [ ] Stap 3: SVG-laag in `ForgeLine.astro` + `motion/forge-line.ts` (verbindt ook hero ↔ Inzicht)
-- [ ] Stap 4–8: hoofdstukmodules in `motion/chapters/`
-- [ ] Stap 9: fallback-rail opruimen achter `html.forge-js`
+## Huidige fase: Fase 5 — Kwaliteit
+**Doel:** de site klopt op elk scherm, is bruikbaar met toetsenbord en screenreader, en haalt aantoonbaar Lighthouse ≥ 95 op alle vier categorieën, bewaakt in CI (ADR-010).
+**Taken:** zie `.claude/docs/fase-5-kwaliteit.md`, stap 1 t/m 5. Branch: `fase-5-kwaliteit`.
+- [ ] Stap 1: mobiele afwerking (audit alle secties; ook 900–1280px, zie session-log fase 2)
+- [ ] Stap 2: toegankelijkheid (audit + fixes)
+- [ ] Stap 3: prestaties (afbeeldingen, fonts, scripts; motion-chunk is 122 KB ongecomprimeerd)
+- [ ] Stap 4: `lighthouserc.json` + gate in CI
+- [ ] Stap 5 (optioneel): Lenis
 **Blokkades:** geen.
 
 ## Mijlpalen
@@ -78,6 +79,7 @@ Overzicht en volgorde: `.claude/docs/README.md`.
 - Fase 1 — Fundament: Astro 7, tokens, fonts, layout, nav, footer, tests, CI + deploy naar GitHub Pages (2026-10-12). ✓
 - Fase 2 — De statische pagina: acht hoofdstukken, statische forge line, nav-voortgang, desktop + mobiel (2026-10-13). ✓
 - Fase 3 — Interactie en formulier: verdict met klik en pijltjes, formulier met Nederlandse validatie en fetch, `/request-received`, `/privacy`, `/voorwaarden`, `404` (2026-10-13). ✓
+- Fase 4 — Beweging: forge line als SVG-laag over de hele pagina, één bewegend idee per hoofdstuk, Standaard en Automatisch gepind (2026-10-13). ✓
 
 ## Modulekaart
 
@@ -85,13 +87,13 @@ Overzicht en volgorde: `.claude/docs/README.md`.
 |---|---|---|---|
 | `src/styles/` | Tokens, Tailwind-koppeling, componentstijlen | 1–2 | ✓ |
 | `src/layouts/` | `BaseLayout.astro` (head, meta, fonts, nav, footer), `LegalLayout.astro` | 1–3 | ✓ |
-| `src/components/` | UI-bouwstenen (`ui/`) en site-chrome (`site/`) | 1–3 | ✓ (fase 4: SVG-laag in `ForgeLine`) |
+| `src/components/` | UI-bouwstenen (`ui/`) en site-chrome (`site/`) | 1–4 | ✓ |
 | `src/sections/` | De acht hoofdstukken | 2–3 | ✓ |
 | `src/i18n/` | Alle teksten, `t()`-helper | 1–2 | ✓ (`nl.ts` is nu de bron) |
 | `src/data/` | Bedrijfsgegevens, verdict-voorbeelden | 1–2 | ✓ |
-| `src/scripts/` | Verdict-interactie, formulier, motion | 2–4 | 🔨 (`nav-progress`, `verdict`, `contact-form` staan; `motion/` in fase 4) |
+| `src/scripts/` | Verdict-interactie, formulier, motion | 2–4 | ✓ |
 | `src/pages/` | Routes | 1–3 | ✓ |
-| `tests/` | Playwright, Vitest | 1–5 | 🔨 (tests fase 1–3) |
+| `tests/` | Playwright, Vitest | 1–5 | 🔨 (tests fase 1–4; Lighthouse in fase 5) |
 
 Elke map onder `src/` heeft een eigen `CLAUDE.md`, behalve `src/pages/`: daar heet hij `_CLAUDE.md`, omdat Astro elk `.md`-bestand in `pages/` als route bouwt.
 
