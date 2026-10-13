@@ -1,7 +1,7 @@
 # Module: components
 
 **Verantwoordelijkheid:** herbruikbare bouwstenen. `ui/` = componenten uit het design system; `site/` = site-chrome die één keer per pagina voorkomt. Niet: hoofdstukinhoud (dat is `src/sections/`).
-**Fase:** 1–3 — 🔨
+**Fase:** 1–3 — ✓ (fase 4: SVG-laag in `ForgeLine`)
 
 ## Inventaris
 
@@ -12,13 +12,13 @@
 | `ProcessNode.astro` | ui | ProcessNode | `name`, `index?`, `state: 'chaos' \| 'mapped' \| 'standard' \| 'automated'`, `port?: boolean`, `rotate?: number` | 2 |
 | `Badge.astro` | ui | VerdictCard (badge) | `verdict: 'go' \| 'wait' \| 'no'` | 2 |
 | `Icon.astro` | ui | Iconografie | `name: 'arrow' \| 'pause' \| 'no' \| 'check' \| 'alert'` | 2 |
-| `Field.astro` | ui | ContactForm (veld) | `id`, `name`, `label`, `type?`, `required?`, `autocomplete?`, `hint?`, `textarea?: boolean`, `optionalLabel?` | 3 |
+| `Field.astro` | ui | ContactForm (veld) | `id`, `name`, `label`, `type?`, `required?`, `autocomplete?`, `hint?`, `placeholder?`, `textarea?: boolean`, `optionalLabel?`, `full?`; rendert `[data-field]` met een verborgen `[data-error]` (`{id}-error`) voor `contact-form.ts` | 3 ✓ |
 | `ServiceCard.astro` | ui | ServiceStep | `num`, `kicker`, `title`, `text`, `items: string[]`, `meta`, `entry?: boolean` (mobiel compact via CSS, geen prop) | 2 ✓ |
 | `NavBar.astro` | site | NavBar | `locale`, `showChapters?`; laadt `nav-progress.ts` | 1 ✓, 2 ✓ |
 | `Footer.astro` | site | Footer | `locale` | 1 |
 | `ForgeLine.astro` | site | ForgeLine | `part: 'start' \| 'end'`, `locale?`: begin (Hero) en eindhaak (Contact); fase 4 voegt de SVG-laag toe | 2 ✓ (statisch), 4 (beweging) |
 | `Chapter.astro` | site | SectionHeader + raster | `id`, `num`, `theme`, `kicker`, `title`, `lead?`, `end?`; slot = inhoud | 2 ✓ |
-| `NextSteps.astro` | site | ContactForm (zijblok) | `locale` — staat in fase 2 nog inline in `Contact.astro` (`.fl-next`); fase 3 haalt hem eruit voor hergebruik op `/request-received` | 3 |
+| `NextSteps.astro` | site | ContactForm (zijblok) | `locale`, `id` (uniek per pagina), `level?: 2 \| 3` (kop: 3 in Contact, 2 op `/request-received`), `class?` | 3 ✓ |
 | `Analytics.astro` | site | — | geen; rendert Plausible alleen in productie | 6 |
 | `StructuredData.astro` | site | — | geen; JSON-LD op `/` | 6 |
 | `SkipLink.astro` | site | — | `locale` | 1 |

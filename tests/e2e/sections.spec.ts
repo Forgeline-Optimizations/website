@@ -67,9 +67,8 @@ test('form posts to Web3Forms', async ({ page }) => {
   await expect(form).toHaveAttribute('method', /post/i);
   await expect(form.locator('input[name="redirect"]')).toHaveValue(site.formRedirect);
   await expect(form.locator('input[name="botcheck"]')).toHaveCount(1);
-  // Fase 2: browservalidatie aan (novalidate pas in fase 3, met de JS-validatie).
-  await expect(form).not.toHaveAttribute('novalidate', /.*/);
-  for (const name of ['name', 'email', 'privacy']) {
+  // novalidate zet contact-form.ts pas met JS (zie contact.spec.ts).
+  for (const name of ['name', 'email', 'message', 'privacy']) {
     await expect(form.locator(`[name="${name}"]`)).toHaveAttribute('required', '');
   }
   await expect(form.locator('[data-forge-anchor="end"]')).toHaveAttribute('type', 'submit');

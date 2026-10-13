@@ -1,6 +1,6 @@
 ---
 // 05 · Eerlijk oordeel — design/storyboard/Oordeel.dc.html en MobielOordeel.dc.html.
-// Statisch: zonder JS staan alle vijf panelen onder elkaar; fase 3 voegt het wisselen toe.
+// Zonder JS staan alle vijf panelen onder elkaar; src/scripts/verdict.ts voegt het wisselen toe.
 import Chapter from '../components/site/Chapter.astro';
 import Badge from '../components/ui/Badge.astro';
 import { t, type Locale } from '../i18n';
@@ -35,7 +35,7 @@ const d = t(locale).oordeel;
           </li>
         ))}
       </ul>
-      <div class="fl-verdict__panels">
+      <div class="fl-verdict__panels" aria-live="polite">
         {verdicts.map((v) => (
           <div
             class="fl-verdict__panel"
@@ -53,6 +53,10 @@ const d = t(locale).oordeel;
     </div>
   </div>
 </Chapter>
+
+<script>
+  import '../scripts/verdict';
+</script>
 
 <style>
   .verdict__example {

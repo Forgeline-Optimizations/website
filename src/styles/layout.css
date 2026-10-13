@@ -108,3 +108,18 @@ html.forge-js .chapter__rail::before {
 .chapter--end .chapter__rail::before {
   display: none;
 }
+
+/* Losse pagina (/request-received, 404): één hoofdstuk zonder nummer. De rail komt van boven en eindigt in
+   een oranje eindvierkant onder de inhoud; niets loopt door naar de footer. */
+.chapter--page {
+  overflow: clip;
+  min-height: calc(100svh - var(--nav-height));
+}
+.chapter--page .chapter__rail::before {
+  bottom: 0;
+}
+.chapter__end {
+  left: 50%;
+  bottom: -6px;
+  margin-left: -6px;
+}

@@ -7,8 +7,8 @@
 | Bestand | Rol | Fase |
 |---|---|---|
 | `nav-progress.ts` | `initNavProgress()`: IntersectionObserver zet `aria-current="step"`/`is-done` en het `data-theme` van de nav; `--progress` voor de mobiele balk (scroll via `requestAnimationFrame`) | 2 ✓ |
-| `verdict.ts` | Stapknoppen ↔ paneel; `aria-pressed`, `data-active` op het paneel (niet `hidden`: `.fl-verdict__panel` heeft `display: flex`), pijltjestoetsen | 3 |
-| `contact-form.ts` | Validatie, foutmeldingen, `fetch` naar Web3Forms, redirect | 3 |
+| `verdict.ts` | `initVerdict(root)`: stapknoppen ↔ paneel; `aria-pressed`, `data-active` op het paneel (niet `hidden`: `.fl-verdict__panel` heeft `display: flex`), pijltjestoetsen over de zichtbare knoppen (mobiel slaat `inkoop` over). Na de eerste keuze zet hij `data-switched` op de root; alleen dan vervaagt een nieuw paneel in | 3 ✓ |
+| `contact-form.ts` | `initContactForm(form)`: zet zelf `novalidate` (zonder JS blijft browservalidatie het vangnet), Nederlandse fouten per `[data-field]` uit `data-messages`, `aria-invalid`/`aria-describedby`, `fetch` (JSON) naar Web3Forms, dan `location.assign` naar het **pad** van `redirect` (zelfde domein, ook lokaal); bij een fout de `[data-form-status]`-melding en velden behouden. E-mail strenger dan de browser: `naam@domein` zonder punt is fout | 3 ✓ |
 | `motion/index.ts` | Laadt GSAP + ScrollTrigger, `gsap.matchMedia()`, registreert hoofdstukken | 4 |
 | `motion/forge-line.ts` | Bouwt het pad van de forge line uit de sectieposities, tekent het mee met scrollen | 4 |
 | `motion/chapters/*.ts` | Eén bestand per hoofdstuk: `hero.ts`, `inzicht.ts`, `standaard.ts`, `automatisch.ts`, `aanbod.ts`, `over-mij.ts`, `contact.ts` | 4 |

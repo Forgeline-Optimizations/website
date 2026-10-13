@@ -1,0 +1,51 @@
+---
+// Doel van de formulier-redirect (ADR-003) en het Plausible-conversiedoel (ADR-007).
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+import NextSteps from '../components/site/NextSteps.astro';
+import { t } from '../i18n';
+
+const locale = 'nl';
+const d = t(locale).received;
+---
+
+<BaseLayout title={d.metaTitle} description={d.metaDescription} locale={locale} noindex>
+  <section
+    id="received"
+    class="chapter chapter--page fl-grid-bg"
+    data-theme="dark"
+    aria-labelledby="received-title"
+  >
+    <div class="chapter__inner">
+      <div class="chapter__rail" aria-hidden="true">
+        <span class="fl-tick chapter__end"></span>
+      </div>
+      <div class="chapter__body received">
+        <h1 class="fl-display received__title" id="received-title">
+          {d.title}
+        </h1>
+        <p class="fl-lead">{d.lead}</p>
+        <NextSteps locale={locale} id="received-next" level={2} class="received__next" />
+        <Button variant="secondary" href="/">
+          {d.back}
+        </Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .received {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-8);
+  }
+  .received__title {
+    font-size: clamp(40px, 2vw + 28px, 56px);
+    max-width: 18ch;
+  }
+  .received :global(.received__next) {
+    max-width: 420px;
+  }
+</style>

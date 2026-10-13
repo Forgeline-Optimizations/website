@@ -263,6 +263,7 @@ export const nl = {
   // /request-received
   received: {
     metaTitle: 'Aanvraag ontvangen · Forgeline Optimizations',
+    metaDescription: 'Je aanvraag is binnen. Ik reageer binnen twee werkdagen.',
     title: 'Bedankt, je aanvraag is binnen',
     lead: 'Ik lees je bericht persoonlijk en reageer binnen twee werkdagen.',
     back: 'Terug naar de site',
@@ -270,9 +271,43 @@ export const nl = {
 
   // 404
   notFound: {
+    metaTitle: 'Pagina niet gevonden · Forgeline Optimizations',
+    metaDescription: 'Deze pagina bestaat niet.',
     title: 'Deze pagina bestaat niet',
     lead: 'De lijn loopt hier dood. Ga terug naar het begin.',
     back: 'Naar de homepage',
+  },
+
+  // /privacy en /voorwaarden. De juridische tekst zelf schrijft Sander (docs/README.md, open punt 4–5).
+  legal: {
+    placeholder: '[TEKST VOLGT — Sander]',
+    updated: 'Laatst bijgewerkt',
+    privacy: {
+      metaTitle: 'Privacyverklaring · Forgeline Optimizations',
+      metaDescription: 'Hoe Forgeline Optimizations omgaat met de gegevens die je via de site deelt.',
+      title: 'Privacyverklaring',
+      sections: {
+        who: 'Wie we zijn',
+        data: 'Welke gegevens',
+        purpose: 'Waarvoor',
+        processors: 'Verwerkers',
+        retention: 'Bewaartermijn',
+        cookies: 'Cookies',
+        rights: 'Jouw rechten',
+        contact: 'Contact',
+      },
+      kvk: 'KvK',
+      processors: {
+        web3forms: 'Web3Forms (contactformulier)',
+        github: 'GitHub Pages (hosting)',
+        plausible: 'Plausible Analytics (cookieloze statistieken)',
+      },
+    },
+    terms: {
+      metaTitle: 'Algemene voorwaarden · Forgeline Optimizations',
+      metaDescription: 'De algemene voorwaarden van Forgeline Optimizations.',
+      title: 'Algemene voorwaarden',
+    },
   },
 
   footer: {

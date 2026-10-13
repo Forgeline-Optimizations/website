@@ -1,0 +1,72 @@
+---
+// Formulierveld uit design/design-system/components/ContactForm: label boven het veld, optionele hint,
+// en een (verborgen) foutmelding die src/scripts/contact-form.ts vult en via aria-describedby koppelt.
+import Icon from './Icon.astro';
+
+interface Props {
+  id: string;
+  name: string;
+  label: string;
+  type?: 'text' | 'email' | 'tel';
+  required?: boolean;
+  autocomplete?: string;
+  hint?: string;
+  placeholder?: string;
+  textarea?: boolean;
+  optionalLabel?: string;
+  /** Over beide kolommen van het formulier. */
+  full?: boolean;
+}
+
+const {
+  id,
+  name,
+  label,
+  type = 'text',
+  required = false,
+  autocomplete,
+  hint,
+  placeholder,
+  textarea = false,
+  optionalLabel,
+  full = false,
+} = Astro.props;
+const describedBy = hint ? `${id}-hint` : undefined;
+---
+
+<div class:list={['fl-field', { 'fl-form__full': full }]} data-field={name}>
+  <label class="fl-field__label" for={id}>
+    {optionalLabel ? `${label} ` : label}
+    {optionalLabel && <small>{optionalLabel}</small>}
+  </label>
+  {textarea ? (
+    <textarea
+      class="fl-input"
+      id={id}
+      name={name}
+      required={required}
+      placeholder={placeholder}
+      aria-describedby={describedBy}
+    />
+  ) : (
+    <input
+      class="fl-input"
+      id={id}
+      name={name}
+      type={type}
+      required={required}
+      autocomplete={autocomplete}
+      placeholder={placeholder}
+      aria-describedby={describedBy}
+    />
+  )}
+  {hint && (
+    <p class="fl-field__hint" id={`${id}-hint`}>
+      {hint}
+    </p>
+  )}
+  <p class="fl-field__msg" id={`${id}-error`} data-error hidden>
+    <Icon name="alert" />
+    <span></span>
+  </p>
+</div>
