@@ -1,5 +1,5 @@
 import AxeBuilder from '@axe-core/playwright';
-import { expect, test } from '@playwright/test';
+import { expect, test } from './fixtures';
 
 /** Axe op de hele pagina, met een bepaalde sectie in beeld (de nav wisselt mee van thema). */
 async function blockingViolations(page: import('@playwright/test').Page) {

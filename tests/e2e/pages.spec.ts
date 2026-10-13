@@ -1,6 +1,10 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './fixtures';
 import { nl } from '../../src/i18n/nl';
 import { site } from '../../src/data/site';
+import { readLegal } from '../support/legal';
+
+const privacy = readLegal('privacy').meta;
+const terms = readLegal('voorwaarden').meta;
 
 test('request-received', async ({ page }) => {
   const res = await page.goto('/request-received/');
@@ -17,20 +21,46 @@ test('request-received', async ({ page }) => {
 test('privacy', async ({ page }) => {
   const res = await page.goto('/privacy/');
   expect(res?.status()).toBe(200);
+  const main = page.locator('main');
   await expect(page.locator('h1')).toHaveText(nl.legal.privacy.title);
-  for (const name of ['Web3Forms', 'GitHub', 'Plausible'])
-    await expect(page.locator('main')).toContainText(name);
-  await expect(page.locator('main')).toContainText(`${site.address.postalCode} ${site.address.city}`);
-  await expect(page.locator('main')).toContainText(`${nl.legal.privacy.kvk} ${site.kvk}`);
-  await expect(page.locator('main h2')).toHaveCount(Object.keys(nl.legal.privacy.sections).length);
-  await expect(page.locator('main')).toContainText(nl.legal.placeholder);
+  await expect(page.locator('h1')).toHaveCount(1);
+  await expect(main.locator('h2')).toHaveCount(7);
+  for (const name of ['Web3Forms', 'GitHub', 'Plausible', 'Zoho Mail'])
+    await expect(main.locator('table').nth(1)).toContainText(name);
+  await expect(main).toContainText(`${site.address.postalCode} ${site.address.city}`);
+  await expect(main).toContainText(site.kvk);
+  await expect(main.locator('.legal__updated')).toHaveText(`${nl.legal.updated}: ${privacy.updated}`);
+  await expect(main).not.toContainText('[');
+  // Link naar artikel 11 komt aan op het artikel (het anker is de slug van de kop in de Markdown).
+  await main.getByRole('link', { name: /artikel 11/ }).click();
+  await expect(page.locator(':target')).toHaveText(/^Artikel 11/);
 });
 
 test('voorwaarden', async ({ page }) => {
   const res = await page.goto('/voorwaarden/');
   expect(res?.status()).toBe(200);
+  const main = page.locator('main');
   await expect(page.locator('h1')).toHaveText(nl.legal.terms.title);
-  await expect(page.locator('main')).toContainText(nl.legal.placeholder);
+  await expect(main.locator('h2')).toHaveCount(15);
+  await expect(main.locator('.legal__updated')).toHaveText(
+    `${nl.legal.updated}: ${terms.updated} · ${nl.legal.version} ${terms.version}`,
+  );
+  await expect(main).not.toContainText('[');
+});
+
+test('legal tables fit a small phone', async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 740 });
+  await page.goto('/privacy/');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(360);
+});
+
+test('plausible loads on every page, from site.ts', async ({ page }) => {
+  for (const path of ['/', '/privacy/', '/request-received/']) {
+    const request = page.waitForRequest(site.plausibleScriptSrc);
+    await page.goto(path);
+    await request; // onderschept en afgebroken door fixtures.ts
+    await expect(page.locator(`head script[src="${site.plausibleScriptSrc}"]`)).toHaveCount(1);
+  }
 });
 
 test('404', async ({ page }) => {

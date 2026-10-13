@@ -1,0 +1,22 @@
+---
+// Plausible, cookieloos (ADR-007). Snippet ongewijzigd uit Plausible → Site Installation; alleen de script-URL
+// komt uit site.ts. BaseLayout rendert dit alleen in een productie-build met een ingevulde URL. Plausible telt
+// zelf niet op localhost; de e2e-tests blokkeren plausible.io daarnaast (tests/e2e/fixtures.ts).
+import { site } from '../../data/site';
+---
+
+<!-- Privacy-friendly analytics by Plausible -->
+<script is:inline async src={site.plausibleScriptSrc}></script>
+<script is:inline>
+  ((window.plausible =
+    window.plausible ||
+    function () {
+      (plausible.q = plausible.q || []).push(arguments);
+    }),
+    (plausible.init =
+      plausible.init ||
+      function (i) {
+        plausible.o = i || {};
+      }));
+  plausible.init();
+</script>
