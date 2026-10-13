@@ -18,7 +18,7 @@ Alle teksten staan in `src/i18n/nl.ts`. Pas de tekst tussen de aanhalingstekens 
 
 | # | Punt | Nodig in | Placeholder tot die tijd |
 |---|---|---|---|
-| 1 | **Web3Forms access key** | fase 3 | `WEB3FORMS_ACCESS_KEY` in `src/data/site.ts` |
+| 1 | ~~Web3Forms access key~~ Opgelost (2026-10-13): staat in `src/data/site.ts`. Controleer in Web3Forms dat het domein is vastgezet. | fase 3 | — |
 | 2 | **Plausible-snippet** (Site settings → Site Installation) | fase 6 | Analytics-component rendert niets zolang `plausibleScriptSrc` leeg is |
 | 3 | ~~GitHub-gebruikersnaam~~ Opgelost: de repo staat in de organisatie `Forgeline-Optimizations`, dus `www` CNAME → `forgeline-optimizations.github.io.` | fase 1, stap 12 | — |
 | 4 | **Privacyverklaring** (tekst) | fase 3 | Pagina met koppen en `[TEKST VOLGT — Sander]` |
