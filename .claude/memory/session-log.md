@@ -4,6 +4,32 @@
 
 ---
 
+## Fase 3 — Sessie 1
+**Datum:** 2026-10-13
+**Doel:** fase 3 volledig: verdict-interactie, contactformulier met validatie en fetch, losse pagina's.
+**Gedaan:**
+- Branch `fase-3-interactie-en-formulier`, gemerged naar `main`.
+- `verdict.ts` (plan-code, plus `data-switched` zodat de fade alleen na een keuze speelt, niet bij het laden); `Oordeel.astro` met `aria-live="polite"` op `.fl-verdict__panels`.
+- `Field.astro`, `NextSteps.astro` (uit `Contact.astro` gehaald; `level` 2/3 voor de koppenvolgorde), `contact-form.ts`, `Contact.astro` omgezet (privacy-checkbox in een eigen `[data-field="privacy"]` met foutmelding, want een `<p>` mag niet in de `<label>`).
+- `/request-received` en `404` op het hoofdstukraster (`chapter--page` in `layout.css`); `LegalLayout.astro` + `/privacy` (koppen, bedrijfsgegevens en verwerkers ingevuld, verder `[TEKST VOLGT — Sander]`) en `/voorwaarden`.
+- `nl.ts`: `received.metaDescription`, `notFound.metaTitle/metaDescription`, nieuw blok `legal` (placeholder, koppen, verwerkers). Deze meta-teksten en koppen zijn door mij geschreven; geen juridische inhoud.
+**Afwijkingen van het plan (bewust, geen ADR):**
+- `novalidate` staat **niet** in de HTML maar wordt door `contact-form.ts` gezet. Zo houdt de no-JS-versie de browservalidatie (het plan zou die zonder JS helemaal uitzetten).
+- Bericht is nu **verplicht** (`required`): het plan test een fout bij "bericht"; in het design system was het optioneel. Sander kan dit terugdraaien door `required` weg te halen bij `contact-message` in `Contact.astro` (en de tests).
+- Na succes gaat de browser naar het **pad** van `redirect` (`/request-received`), niet naar de volle URL: zelfde domein, ook op localhost/preview.
+- E-mailcontrole strenger dan de browser: `marieke@domein` (zonder punt) is fout.
+- De NLdigital-notitie (open punt 5) staat als code-commentaar in `voorwaarden.astro`, niet zichtbaar op de pagina: interne notitie hoort niet op een publieke site.
+- "Laatst bijgewerkt" toont de placeholder; vul de datum in bij `updated=` in `privacy.astro`/`voorwaarden.astro` zodra de tekst er is.
+**Tests:** check 0 errors · unit 11/11 · e2e 94 groen + 4 bewust overgeslagen. Nieuw: `verdict.spec.ts` (7, incl. `aria-live`), `contact.spec.ts` (10, incl. "geen dubbele verzending" en "spatie vóór (optioneel)"), `pages.spec.ts` (5, incl. footerlinks); `a11y.spec.ts` ook met formulierfouten zichtbaar en op de vier losse pagina's. Web3Forms wordt in elke test onderschept (`beforeEach` → abort).
+**Visuele controle:** `/request-received`, `404`, `/privacy`, verdict en formulier (fouten + mislukte verzending) op 1440 en 390. Gevonden en opgelost: verdwenen spaties ("Telefoon(optioneel)", "1078 KGAmsterdam", "KvK42183249"; Astro laat witruimte tussen expressies op losse regels vallen → template strings) en lijst zonder opsommingstekens.
+**Niet af / bekend:**
+- Web3Forms access key is nog de placeholder (open punt 1): echt versturen werkt pas als Sander de key in `src/data/site.ts` zet en in Web3Forms het domein vastzet.
+- Juridische teksten (open punt 4–5).
+- Pushen nog steeds via SSH (zie fase 1).
+**Voor de volgende sessie:** fase 4 op branch `fase-4-beweging`. De statische rail (`.chapter__rail::before`) en de haak (`.fl-forge-end`) verdwijnen al onder `html.forge-js`; de SVG-laag moet ook de breuk hero ↔ Inzicht dichten. `/request-received` en `404` hebben een eigen rail (`chapter--page`) en krijgen geen motion.
+
+---
+
 ## Fase 2 — Sessie 1
 **Datum:** 2026-10-13
 **Doel:** fase 2 volledig: alle acht hoofdstukken statisch, desktop + mobiel, statische forge line, nav-voortgang.
