@@ -4,6 +4,7 @@ import saira700 from '@fontsource/saira/files/saira-latin-700-normal.woff2?url';
 import SkipLink from '../components/site/SkipLink.astro';
 import NavBar from '../components/site/NavBar.astro';
 import Footer from '../components/site/Footer.astro';
+import MotionLoader from '../components/site/MotionLoader.astro';
 import type { Locale } from '../i18n';
 
 interface Props {
@@ -13,7 +14,7 @@ interface Props {
   noindex?: boolean;
   ogImage?: string;
   showChapters?: boolean;
-  motion?: boolean; // fase 4: laadt src/scripts/motion lazy na `load`
+  motion?: boolean; // laadt src/scripts/motion lazy na `load` (alleen `/`)
 }
 
 const {
@@ -23,6 +24,7 @@ const {
   noindex = false,
   ogImage = '/og-image.png',
   showChapters = false,
+  motion = false,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -64,5 +66,6 @@ const ogLocale = locale === 'nl' ? 'nl_NL' : 'en_GB';
       <slot />
     </main>
     <Footer locale={locale} />
+    {motion && <MotionLoader />}
   </body>
 </html>

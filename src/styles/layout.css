@@ -77,6 +77,10 @@
 html.forge-js .chapter__rail::before {
   display: none;
 }
+/* De SVG-laag (ForgeLine part="layer") ligt over <main> en rekent in px vanaf de bovenkant ervan. */
+#main {
+  position: relative;
+}
 
 /* Tick per hoofdstuk, ter hoogte van de kicker (board: 38px onder de bovenkant van de kop). */
 .chapter__tick {
@@ -88,6 +92,10 @@ html.forge-js .chapter__rail::before {
   .chapter__tick {
     display: none;
   }
+}
+/* Met beweging heeft de SVG-lijn één eigen kopje; vaste ticks zouden een tweede lijn suggereren. */
+html.forge-js .chapter__tick {
+  display: none;
 }
 
 /* Blok onder de kop (proceskaart, kaarten, formulier). */

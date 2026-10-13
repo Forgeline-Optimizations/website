@@ -1,7 +1,7 @@
 # Module: components
 
 **Verantwoordelijkheid:** herbruikbare bouwstenen. `ui/` = componenten uit het design system; `site/` = site-chrome die één keer per pagina voorkomt. Niet: hoofdstukinhoud (dat is `src/sections/`).
-**Fase:** 1–3 — ✓ (fase 4: SVG-laag in `ForgeLine`)
+**Fase:** 1–4 — ✓
 
 ## Inventaris
 
@@ -16,7 +16,8 @@
 | `ServiceCard.astro` | ui | ServiceStep | `num`, `kicker`, `title`, `text`, `items: string[]`, `meta`, `entry?: boolean` (mobiel compact via CSS, geen prop) | 2 ✓ |
 | `NavBar.astro` | site | NavBar | `locale`, `showChapters?`; laadt `nav-progress.ts` | 1 ✓, 2 ✓ |
 | `Footer.astro` | site | Footer | `locale` | 1 |
-| `ForgeLine.astro` | site | ForgeLine | `part: 'start' \| 'end'`, `locale?`: begin (Hero) en eindhaak (Contact); fase 4 voegt de SVG-laag toe | 2 ✓ (statisch), 4 (beweging) |
+| `ForgeLine.astro` | site | ForgeLine | `part: 'start' \| 'end' \| 'layer'`, `locale?`: begin (Hero), eindhaak (Contact) en de SVG-laag (eerste kind van `<main>` op `/`, alleen zichtbaar onder `html.forge-js`) | 2 ✓, 4 ✓ |
+| `MotionLoader.astro` | site | — | geen; laadt `src/scripts/motion` na `load` + idle. Gerenderd door `BaseLayout` als `motion` aan staat (alleen `/`) | 4 ✓ |
 | `Chapter.astro` | site | SectionHeader + raster | `id`, `num`, `theme`, `kicker`, `title`, `lead?`, `end?`; slot = inhoud | 2 ✓ |
 | `NextSteps.astro` | site | ContactForm (zijblok) | `locale`, `id` (uniek per pagina), `level?: 2 \| 3` (kop: 3 in Contact, 2 op `/request-received`), `class?` | 3 ✓ |
 | `Analytics.astro` | site | — | geen; rendert Plausible alleen in productie | 6 |

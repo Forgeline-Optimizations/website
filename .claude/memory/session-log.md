@@ -4,6 +4,30 @@
 
 ---
 
+## Fase 4 — Sessie 1
+**Datum:** 2026-10-13
+**Doel:** fase 4 volledig: forge line als SVG-laag, één bewegend idee per hoofdstuk.
+**Vooraf (op `main`):** Web3Forms-key van Sander gecommit (`chore(contact)`), open punt 1 in `docs/README.md` afgesloten. Custom domain staat in GitHub Pages (`cname: forgelineoptimizations.nl`); "Enforce HTTPS" stond nog uit.
+**Gedaan:**
+- Branch `fase-4-beweging`, gemerged naar `main`. `gsap` 3.15.0 (plan noemt het; geen ADR nodig).
+- `src/scripts/motion/`: `index.ts`, `context.ts`, `forge-path.ts` (pure rekenkunde, unit-getest), `forge-line.ts`, `chapters/{hero,inzicht,standaard,automatisch,aanbod,over-mij,contact,pin}.ts`.
+- `ForgeLine.astro` `part="layer"` (SVG in `index.astro` als eerste kind van `<main>`); `MotionLoader.astro` (script in een eigen component: een `<script>` binnen een `{motion && …}`-expressie verwerkt Astro niet betrouwbaar); `BaseLayout` prop `motion`.
+- Markup-haakjes: `data-deviation` (Standaard), `data-old/-arrow/-new` + `.is-before` (Automatisch), `.fl-dawn` (Aanbod). CSS onder `html.forge-js`: ticks en statisch startvierkant weg, `.fl-node` zonder transform-transitie, `#main { position: relative }`.
+**Afwijkingen van het plan (bewust, geen ADR):**
+- Lijn: geen `getPointAtLength`-opzoektabel maar exacte rekenkunde op de H/V-polylijn; het opgelichte deel is een eigen `d`-pad i.p.v. dasharray. Bochten krijgen "virtuele" scrollhoogte (anders verschijnt de 586px horizontale bocht onder de hero in één frame); het kopje wijkt daardoor hooguit 120px af van het schermpunt (unit-test).
+- Pins op het **blok** (`center 55%`), niet op de sectie (`top top`): het blok blijft midden in beeld, ook op lage schermen. En alleen als het blok ≤ 80% van de schermhoogte is (`pin.ts`); op 1024 × 768 pint Automatisch dus niet (gestapeld te hoog), maar speelt wel mee.
+- Staten via `data-state` (Inzicht chaos → mapped, Standaard mapped → standard, Automatisch standard → automated) in plaats van getweende `borderColor`/`boxShadow`: de CSS-transities uit het design system doen de overgang.
+- `.fl-dawn`: verloop over de hoofdstuk-padding, niet 30vh (zou over het verdict-blok vallen).
+- Standaard: afwijkende chips eindigen op 25% (storyboard: "vervagen"); zonder beweging staan ze op 100% zoals het board.
+**Tests:** check 0 errors · unit 19/19 (nieuw: `forge-path.test.ts`, 8) · e2e 110 groen + 6 bewust overgeslagen. Nieuw `motion.spec.ts` (9: de 8 uit het plan + "lijn eindigt bij de verzendknop"). Bestaande tests (incl. axe) draaien nu mét beweging en blijven groen.
+**Visuele controle:** 1440 × 900 op 12 scrollposities, 390 × 844, 1024 × 768. Gevonden en opgelost: Inzicht-nodes bleven op −3° staan (`from()` las de chaos-rotatie als eindwaarde → `fromTo`), Automatisch-lijn koos de verkeerde richting als hij ingeklapt was, dubbele witruimte rond `→` in de chips.
+**Niet af / bekend:**
+- Motion-chunk 122 KB ongecomprimeerd (± 45 KB gzip); meten in fase 5 tegen het budget (ADR-010).
+- Juridische teksten (open punt 4–5): Sander vroeg waar die moeten; uitgelegd in het fase-4-rapport (`src/pages/privacy.astro` en `voorwaarden.astro`, of tekst aan Claude geven).
+**Voor de volgende sessie:** fase 5 op branch `fase-5-kwaliteit`. Let bij Lighthouse op de pins (CLS) en de motion-chunk; de e2e-test `no layout shift from motion` meet alleen na laden.
+
+---
+
 ## Fase 3 — Sessie 1
 **Datum:** 2026-10-13
 **Doel:** fase 3 volledig: verdict-interactie, contactformulier met validatie en fetch, losse pagina's.

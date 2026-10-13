@@ -1,0 +1,12 @@
+---
+// Laadt src/scripts/motion (GSAP) pas na `load` en in een rustig moment: beweging mag de eerste paint nooit
+// ophouden (ADR-005, ADR-010). Alleen gerenderd als BaseLayout `motion` krijgt, dus alleen op `/`.
+---
+
+<script>
+  const start = () => void import('../../scripts/motion/index');
+  const idle = (cb: () => void) =>
+    'requestIdleCallback' in window ? requestIdleCallback(cb, { timeout: 2000 }) : setTimeout(cb, 1);
+  if (document.readyState === 'complete') idle(start);
+  else addEventListener('load', () => idle(start), { once: true });
+</script>
