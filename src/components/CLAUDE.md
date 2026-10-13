@@ -20,7 +20,7 @@
 | `MotionLoader.astro` | site | — | geen; laadt `src/scripts/motion` na `load` + idle. Gerenderd door `BaseLayout` als `motion` aan staat (alleen `/`) | 4 ✓ |
 | `Chapter.astro` | site | SectionHeader + raster | `id`, `num`, `theme`, `kicker`, `title`, `lead?`, `end?`; slot = inhoud | 2 ✓ |
 | `NextSteps.astro` | site | ContactForm (zijblok) | `locale`, `id` (uniek per pagina), `level?: 2 \| 3` (kop: 3 in Contact, 2 op `/request-received`), `class?` | 3 ✓ |
-| `Analytics.astro` | site | — | geen; rendert Plausible alleen in productie | 6 |
+| `Analytics.astro` | site | — | geen; Plausible-snippet ongewijzigd, script-URL uit `site.plausibleScriptSrc`. `BaseLayout` rendert hem alleen als `import.meta.env.PROD` en de URL gevuld is | 6 ✓ (vervroegd) |
 | `StructuredData.astro` | site | — | geen; JSON-LD op `/` | 6 |
 | `SkipLink.astro` | site | — | `locale` | 1 |
 

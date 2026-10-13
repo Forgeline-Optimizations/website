@@ -4,6 +4,26 @@
 
 ---
 
+## Tussensessie — juridische teksten en Plausible
+**Datum:** 2026-10-13
+**Doel:** Sanders aangeleverde teksten (privacy, voorwaarden) en Plausible-snippet verwerken vóór fase 5.
+**Bron:** `.claude/docs/notes/` (door Sander neergezet, niet gecommit): `privecyverklaring.md`, `algemene-voorwaarden.md`, `plausible-snippet.txt`. Na verwerking is `src/i18n/legal/` de bron, niet die notes.
+**Gedaan:**
+- Branch `fase-6-teksten-en-plausible` (fase-6-werk vervroegd), gemerged naar `main`.
+- Teksten als Markdown in `src/i18n/legal/{privacy,voorwaarden}.nl.md`, gerenderd via `import { Content, frontmatter }` (Astro-standaard, geen pakket). Waarom geen `nl.ts`: 7 resp. 15 hoofdstukken met tabellen en geneste lijsten; Markdown kan Sander zelf bijwerken.
+- `LegalLayout`: prop `version?`, stijlen voor h3, ol, geneste lijsten, tabellen. `nl.ts` → `legal`: placeholder, koppen, verwerkers en `kvk` weg; `version` erbij.
+- `Analytics.astro` + `site.plausibleScriptSrc`; `BaseLayout` rendert hem als `PROD && url`. Alle pagina's, ook `/request-received` (doel) en 404.
+- Tests: `tests/e2e/fixtures.ts` (auto-fixture blokkeert plausible.io; alle specs importeren daaruit), `tests/support/legal.ts`, `tests/unit/legal.test.ts` (4: bedrijfsgegevens = `site.ts`, geen `[…]`-placeholders, datum/versie, verwerkers), `pages.spec.ts` herschreven (privacy, voorwaarden, tabel op 360, Plausible op elke pagina).
+**Wijzigingen aan Sanders tekst (met zijn akkoord, via vragen):**
+- Web3Forms: zijn tekst zei "slaat inhoud niet op, servers in de VS". Volgens de DPA van Web3Forms (web3forms.com/dpa, versie 1.0, juli 2026): Web3Creative zit in India, inzendingen hebben een TTL van 3 jaar op AWS, doorgifte via SCC's (in de DPA opgenomen). Alinea, tabelrij en doorgifte-zin daarop aangepast; "in de Verenigde Staten" → "buiten de EU".
+- Zoho Mail: EU (MX = `mx.zoho.eu`). Boekhoudpakket- en accountantrij weggelaten (nog geen). Datum 13 oktober 2026, voorwaarden versie 1.0.
+- Opmaak: link naar artikel 11 van de voorwaarden, link naar autoriteitpersoonsgegevens.nl, e-mailadressen als `<…>`-autolink.
+**Tests:** check 0 errors · unit 23/23 · e2e 114 groen + 6 bewust overgeslagen.
+**Niet af / bekend (aan Sander gemeld):**
+- Privacy belooft 12 maanden voor contactaanvragen, Web3Forms bewaart inzendingen tot 3 jaar: inzendingen in het Web3Forms-dashboard periodiek verwijderen, of de tekst aanpassen.
+- Plausible-doel "Aanvraag" zelf instellen; mailtest (MX/SPF ongewijzigd) zelf doen.
+**Voor de volgende sessie:** fase 5. Plausible laadt nu in de productie-build: Lighthouse (stap 4) meet het mee; het script is `async`, dus niet render-blokkerend.
+
 ## Fase 4 — Sessie 1
 **Datum:** 2026-10-13
 **Doel:** fase 4 volledig: forge line als SVG-laag, één bewegend idee per hoofdstuk.

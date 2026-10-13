@@ -101,7 +101,7 @@ Elke map onder `src/` heeft een eigen `CLAUDE.md`, behalve `src/pages/`: daar he
 
 **Bestanden:** componenten `PascalCase.astro`; scripts `kebab-case.ts`; secties heten naar hun anker (`Inzicht.astro` ↔ `#inzicht`).
 **Klassen:** componentklassen houden het `fl-`-prefix en de BEM-namen uit het design system (`fl-node__name`). Tailwind-utilities voor layout en spacing; kleuren alleen via token-utilities (`bg-surface`, `text-ink-muted`), nooit hex of Tailwind-standaardkleuren.
-**Tekst:** alleen in `src/i18n/nl.ts`. Typografische tekens: `–` (bereik), `·` (scheiding), `±`, `→`, `×`.
+**Tekst:** alleen in `src/i18n/nl.ts`; de juridische teksten (van Sander) als Markdown in `src/i18n/legal/*.nl.md`. Typografische tekens: `–` (bereik), `·` (scheiding), `±`, `→`, `×`.
 **Toegankelijkheid:** echte `<button>`/`<a>`; `aria-hidden="true"` op decoratieve SVG; één `<h1>` per pagina; koppen in volgorde.
 **Testen:** elke fase eindigt groen op `npm run check` (astro check + lint), `npm run test` (Vitest) en `npm run test:e2e` (Playwright + axe). Vanaf fase 5 ook `npm run lhci` (≥ 0,95 op alle vier categorieën).
 **Commits:** Conventional Commits in het Engels (`feat(sections): add inzicht chapter`). Eén logische wijziging per commit. Nooit direct op `main` als een fase half af is: branch `fase-N-*`, merge als de fase groen is.

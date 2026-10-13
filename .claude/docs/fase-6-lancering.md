@@ -64,6 +64,8 @@ Valideer met de Rich Results Test na livegang.
 
 ### Stap 4 — Plausible in `src/components/site/Analytics.astro`
 
+> **Status (2026-10-13): code gedaan, vervroegd.** Snippet staat erin (nieuw Plausible-script `pa-….js` + `plausible.init()`, `async` zoals de snippet, niet `defer`). Nog door Sander: doel "Aanvraag" in Plausible. Test: `pages.spec.ts` › `plausible loads on every page`.
+
 **Waarom:** cookieloos meten wat de site oplevert (ADR-007). **Vraag Sander om de snippet** (open punt 2).
 
 **Wat:** neem de snippet uit Plausible → Site settings → Site Installation **ongewijzigd** over; zet de script-URL in `site.plausibleScriptSrc`. Render alleen als `import.meta.env.PROD && site.plausibleScriptSrc`, met `defer`. In Plausible (door Sander): doel "Aanvraag" = pageview `/request-received`; outbound links en form submissions aan. Voeg in de privacypagina Plausible toe (staat er al als verwerker). Controleer dat de e2e-tests het script onderscheppen.
@@ -71,6 +73,8 @@ Valideer met de Rich Results Test na livegang.
 ---
 
 ### Stap 5 — Web3Forms definitief maken
+
+> **Status (2026-10-13): gedaan.** Key in `site.ts`, domein vastgezet en live getest door Sander.
 
 **Waarom:** het formulier is de enige conversie; hij moet gegarandeerd aankomen. **Vraag Sander om de access key** (open punt 1).
 
@@ -91,11 +95,11 @@ Valideer met de Rich Results Test na livegang.
 **Waarom:** het domein moet naar GitHub Pages wijzen zonder de mail te raken (ADR-002).
 
 **Wat:** loop de handmatige stappen uit fase 1, stap 12 na en vink af:
-- [ ] Pages-bron = GitHub Actions; custom domain ingesteld; domein geverifieerd.
-- [ ] A/AAAA op `@`, CNAME `www` → `<gebruikersnaam>.github.io.` bij TransIP.
-- [ ] MX/SPF/DKIM/DMARC ongewijzigd (test: stuur een mail naar info@ en van info@ naar een extern adres).
-- [ ] `https://forgelineoptimizations.nl` en `https://www.forgelineoptimizations.nl` laden, `www` stuurt door naar zonder `www`.
-- [ ] "Enforce HTTPS" aan; `http://` stuurt door naar `https://`.
+- [x] Pages-bron = GitHub Actions; custom domain ingesteld; domein geverifieerd.
+- [x] A/AAAA op `@`, CNAME `www` → `<gebruikersnaam>.github.io.` bij TransIP.
+- [ ] MX/SPF/DKIM/DMARC ongewijzigd (test: stuur een mail naar info@ en van info@ naar een extern adres). MX wijst nog naar `mx.zoho.eu` (2026-10-13); de mailtest zelf doet Sander.
+- [x] `https://forgelineoptimizations.nl` en `https://www.forgelineoptimizations.nl` laden, `www` stuurt door naar zonder `www`.
+- [x] "Enforce HTTPS" aan; `http://` stuurt door naar `https://` (gecontroleerd 2026-10-13, ook `www` → zonder `www`).
 
 ---
 
@@ -107,7 +111,7 @@ Valideer met de Rich Results Test na livegang.
 - [ ] Alle tests groen in de laatste CI-run op `main`; Lighthouse ≥ 0,95 desktop en mobiel op de live URL (PageSpeed Insights).
 - [ ] Alle teksten nog één keer door Sander gelezen op desktop en telefoon.
 - [ ] Footer: adres, KvK, btw, e-mail correct.
-- [ ] Privacy en voorwaarden: placeholders vervangen door Sanders tekst (open punten 4 en 5) — **zonder deze teksten niet live** met het formulier aan.
+- [x] Privacy en voorwaarden: placeholders vervangen door Sanders tekst (open punten 4 en 5), 2026-10-13.
 - [ ] Formulier: echte testaanvraag aangekomen; `/request-received` telt als doel in Plausible.
 - [ ] OG-preview op LinkedIn goed; favicon zichtbaar in tabblad en als bladwijzer op iOS.
 - [ ] Sitemap bereikbaar; site aangemeld in Google Search Console (Sander).

@@ -7,6 +7,7 @@
 - `nl.ts` — `export const nl = { … } as const` met de sleutels uit `docs/content-nl.md`.
 - `types.ts` — `export type Dictionary = Widen<typeof nl>;` (zelfde vorm als `nl`, maar letterlijke strings verbreed tot `string`, anders zou `en.ts` exact de Nederlandse tekst moeten bevatten). Later: `export const en: Dictionary = …`.
 - `index.ts` — `export type Locale = 'nl' | 'en'; export function t(locale: Locale): Dictionary` (valt terug op `nl`).
+- `legal/privacy.nl.md`, `legal/voorwaarden.nl.md` — juridische teksten van Sander, letterlijk overgenomen (koppen vanaf `##`; frontmatter `updated`, en `version` bij de voorwaarden). Te lang en te opgemaakt voor `nl.ts`; Claude schrijft hier geen juridische inhoud, alleen opmaak (links, `<e-mail>`-autolinks). Engels later als `*.en.md`.
 
 ## Ontwerpkeuzes
 - Geneste objecten per sectie (`hero`, `inzicht`, …), zoals de sleutels in `docs/content-nl.md`.

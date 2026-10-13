@@ -12,5 +12,6 @@
 
 ## Regels
 - Playwright draait tegen `astro preview` (de echte build), niet tegen `astro dev`.
-- Netwerk naar `api.web3forms.com` en Plausible wordt in e2e altijd onderschept (`page.route`); nooit echte aanvragen versturen.
+- Netwerk naar `api.web3forms.com` en Plausible wordt in e2e altijd onderschept; nooit echte aanvragen versturen. Plausible blokkeert `tests/e2e/fixtures.ts` automatisch: **elke spec importeert `test`/`expect` uit `./fixtures`, niet uit `@playwright/test`.** Web3Forms onderschept elke spec zelf (`page.route`).
+- `tests/support/legal.ts` leest de juridische Markdown (Vitest en Playwright kunnen geen `.md` importeren).
 - Elke fase voegt zijn tests toe in hetzelfde plan; een fase is pas af als alles groen is.
