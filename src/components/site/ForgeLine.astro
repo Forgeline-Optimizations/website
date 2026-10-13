@@ -1,20 +1,27 @@
 ---
-// Statische forge line (fase 2). De verticale lijn per hoofdstuk komt uit .chapter__rail::before
-// (layout.css); deze component levert de twee uiteinden:
+// De forge line. Zonder beweging (geen JS, reduced motion) komt de verticale lijn per hoofdstuk uit
+// .chapter__rail::before (layout.css) en levert deze component de twee uiteinden:
 // - `start`: het gloeiende vierkant onderaan de hero, met "Scroll · volg de lijn".
 // - `end`: de haak in Contact die van de rail met een rechte hoek naar de verzendknop loopt.
-// Fase 4 legt hier een SVG-laag overheen en zoekt de punten via data-forge-anchor.
+// Met beweging (html.forge-js) vervangt `layer` dat alles: één SVG over <main>, getekend door
+// src/scripts/motion/forge-line.ts via de data-forge-anchor-punten.
 import { t, type Locale } from '../../i18n';
 
 interface Props {
-  part: 'start' | 'end';
+  part: 'start' | 'end' | 'layer';
   locale?: Locale;
 }
 
 const { part, locale = 'nl' } = Astro.props;
 ---
 
-{part === 'start' ? (
+{part === 'layer' ? (
+  <svg class="fl-forge" aria-hidden="true" focusable="false" data-forge-svg>
+    <path class="fl-forge__track" data-forge-track />
+    <path class="fl-forge__lit" data-forge-lit />
+    <rect class="fl-forge__head" data-forge-head width="12" height="12" />
+  </svg>
+) : part === 'start' ? (
   <div class="fl-forge-start">
     <span class="fl-tick fl-forge-start__tick" data-forge-anchor="start" aria-hidden="true" />
     <p class="fl-tag fl-forge-start__cue">{t(locale).common.scrollCue}</p>
@@ -79,5 +86,39 @@ const { part, locale = 'nl' } = Astro.props;
   }
   html.forge-js .fl-forge-end {
     display: none;
+  }
+  /* Het SVG-kopje begint precies op het statische vierkant; dat vierkant maakt plaats. */
+  html.forge-js .fl-forge-start__tick {
+    visibility: hidden;
+  }
+
+  /* SVG-laag: alleen met beweging. Coördinaten in px t.o.v. <main> (position: relative in layout.css). */
+  .fl-forge {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+    z-index: 1;
+    display: none;
+  }
+  html.forge-js .fl-forge {
+    display: block;
+  }
+  .fl-forge__track,
+  .fl-forge__lit {
+    fill: none;
+    stroke-width: var(--line-width);
+  }
+  .fl-forge__track {
+    stroke: var(--forge-soft);
+  }
+  .fl-forge__lit {
+    stroke: var(--forge);
+  }
+  .fl-forge__head {
+    fill: var(--forge);
+    filter: drop-shadow(0 0 8px var(--forge)); /* geen kleurwaarde buiten de tokens */
   }
 </style>

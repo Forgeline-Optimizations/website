@@ -8,13 +8,15 @@ import Oordeel from '../sections/Oordeel.astro';
 import Aanbod from '../sections/Aanbod.astro';
 import OverMij from '../sections/OverMij.astro';
 import Contact from '../sections/Contact.astro';
+import ForgeLine from '../components/site/ForgeLine.astro';
 import { t } from '../i18n';
 
 const locale = 'nl';
 const d = t(locale);
 ---
 
-<BaseLayout title={d.meta.title} description={d.meta.description} locale={locale} showChapters>
+<BaseLayout title={d.meta.title} description={d.meta.description} locale={locale} showChapters motion>
+  <ForgeLine part="layer" />
   <Hero locale={locale} />
   <Inzicht locale={locale} />
   <Standaard locale={locale} />
