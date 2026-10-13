@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './fixtures';
 import { nl } from '../../src/i18n/nl';
 import { site } from '../../src/data/site';
 import { verdictsMobile } from '../../src/data/verdicts';

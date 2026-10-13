@@ -3,7 +3,7 @@
 **Verantwoordelijkheid:** `BaseLayout.astro`, de schil van elke pagina: `<html lang>`, `<head>` (meta, OG, favicon, canonical, fonts, Plausible), skip-link, `NavBar`, `<main id="main">`, `Footer`, en het inline `js`-klasse-script.
 **Fase:** 1–3 — ✓
 
-`LegalLayout.astro` (fase 3): `metaTitle`, `description`, `title`, `updated`, `locale?`; licht thema (`<section id="legal" data-theme="light">`, zodat de nav mee wisselt), één leeskolom op `--measure`, h1 + "Laatst bijgewerkt", koppen h2 in de slot.
+`LegalLayout.astro` (fase 3): `metaTitle`, `description`, `title`, `updated`, `version?`, `locale?`; licht thema (`<section id="legal" data-theme="light">`, zodat de nav mee wisselt), één leeskolom op `--measure`, h1 + "Laatst bijgewerkt" (+ "· Versie"). De slot krijgt gerenderde Markdown uit `src/i18n/legal/`; de layout stijlt h2, h3, p, ul, ol (genest), tabellen (blijven `display: table`, woorden breken af), vet en links.
 
 ## Props
 ```ts

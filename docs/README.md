@@ -19,10 +19,10 @@ Alle teksten staan in `src/i18n/nl.ts`. Pas de tekst tussen de aanhalingstekens 
 | # | Punt | Nodig in | Placeholder tot die tijd |
 |---|---|---|---|
 | 1 | ~~Web3Forms access key~~ Opgelost (2026-10-13): staat in `src/data/site.ts`. Controleer in Web3Forms dat het domein is vastgezet. | fase 3 | — |
-| 2 | **Plausible-snippet** (Site settings → Site Installation) | fase 6 | Analytics-component rendert niets zolang `plausibleScriptSrc` leeg is |
+| 2 | ~~Plausible-snippet~~ Opgelost (2026-10-13): URL in `src/data/site.ts`, snippet in `Analytics.astro`. Doel "Aanvraag" (pageview `/request-received`) zet Sander in Plausible. | fase 6 | — |
 | 3 | ~~GitHub-gebruikersnaam~~ Opgelost: de repo staat in de organisatie `Forgeline-Optimizations`, dus `www` CNAME → `forgeline-optimizations.github.io.` | fase 1, stap 12 | — |
-| 4 | **Privacyverklaring** (tekst) | fase 3 | Pagina met koppen en `[TEKST VOLGT — Sander]` |
-| 5 | **Algemene voorwaarden** — let op: de NLdigital Voorwaarden mogen in principe alleen door leden van NLdigital gebruikt worden. Check dit, of kies een alternatief (bijv. eigen voorwaarden of een sjabloon van KVK/een jurist). | fase 3 | Pagina met `[TEKST VOLGT — Sander]` |
+| 4 | ~~Privacyverklaring~~ Opgelost (2026-10-13): `src/i18n/legal/privacy.nl.md` | fase 3 | — |
+| 5 | ~~Algemene voorwaarden~~ Opgelost (2026-10-13): eigen voorwaarden (geen NLdigital), `src/i18n/legal/voorwaarden.nl.md`, versie 1.0 | fase 3 | — |
 | 6 | **Professionele portretfoto** | fase 6 | `src/assets/images/sander-portrait-tijdelijk.jpg` |
 | 7 | **Doelgroepgrootte**: board zegt 10–100, businessplan 10–50 | fase 2 | Board (10–100) is leidend |
 | 8 | **Voorbeeldgetallen** in 04 en 05 zijn verzonnen en gelabeld als *Voorbeeld*; vervangen door echte cases zodra die er zijn | later | Zoals op het board |

@@ -5,6 +5,8 @@ import SkipLink from '../components/site/SkipLink.astro';
 import NavBar from '../components/site/NavBar.astro';
 import Footer from '../components/site/Footer.astro';
 import MotionLoader from '../components/site/MotionLoader.astro';
+import Analytics from '../components/site/Analytics.astro';
+import { site } from '../data/site';
 import type { Locale } from '../i18n';
 
 interface Props {
@@ -30,6 +32,8 @@ const {
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImageUrl = new URL(ogImage, Astro.site);
 const ogLocale = locale === 'nl' ? 'nl_NL' : 'en_GB';
+// Alleen in de echte build: `astro dev` telt geen bezoeken.
+const analytics = import.meta.env.PROD && Boolean(site.plausibleScriptSrc);
 ---
 
 <!doctype html>
@@ -58,6 +62,7 @@ const ogLocale = locale === 'nl' ? 'nl_NL' : 'en_GB';
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <!-- Het 700-gewicht draagt de hero-kop; vooraf laden voorkomt een zichtbare fontwissel. -->
     <link rel="preload" href={saira700} as="font" type="font/woff2" crossorigin />
+    {analytics && <Analytics />}
   </head>
   <body data-theme="dark">
     <SkipLink locale={locale} />

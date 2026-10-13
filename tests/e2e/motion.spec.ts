@@ -1,4 +1,4 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Page } from './fixtures';
 
 /** Wacht tot motion/index.ts draait (lazy na `load`). */
 async function motionReady(page: Page) {
