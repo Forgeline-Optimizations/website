@@ -278,30 +278,14 @@ export const nl = {
     back: 'Naar de homepage',
   },
 
-  // /privacy en /voorwaarden. De juridische tekst zelf schrijft Sander (docs/README.md, open punt 4–5).
+  // /privacy en /voorwaarden: alleen titels en labels. De juridische tekst zelf (van Sander) staat in i18n/legal/*.md.
   legal: {
-    placeholder: '[TEKST VOLGT — Sander]',
     updated: 'Laatst bijgewerkt',
+    version: 'Versie',
     privacy: {
       metaTitle: 'Privacyverklaring · Forgeline Optimizations',
       metaDescription: 'Hoe Forgeline Optimizations omgaat met de gegevens die je via de site deelt.',
       title: 'Privacyverklaring',
-      sections: {
-        who: 'Wie we zijn',
-        data: 'Welke gegevens',
-        purpose: 'Waarvoor',
-        processors: 'Verwerkers',
-        retention: 'Bewaartermijn',
-        cookies: 'Cookies',
-        rights: 'Jouw rechten',
-        contact: 'Contact',
-      },
-      kvk: 'KvK',
-      processors: {
-        web3forms: 'Web3Forms (contactformulier)',
-        github: 'GitHub Pages (hosting)',
-        plausible: 'Plausible Analytics (cookieloze statistieken)',
-      },
     },
     terms: {
       metaTitle: 'Algemene voorwaarden · Forgeline Optimizations',

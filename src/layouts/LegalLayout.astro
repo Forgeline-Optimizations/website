@@ -1,6 +1,7 @@
 ---
 // Juridische pagina's (/privacy, /voorwaarden): licht, één leeskolom, h1 + "Laatst bijgewerkt", koppen h2.
-// De tekst zelf schrijft Sander; tot die tijd staat t().legal.placeholder onder elke kop.
+// De tekst zelf komt als Markdown uit src/i18n/legal/ (slot); de stijlen hieronder dekken wat die Markdown
+// oplevert: h2/h3, alinea's, genummerde en gewone lijsten, tabellen, vet en links.
 import BaseLayout from './BaseLayout.astro';
 import { t, type Locale } from '../i18n';
 
@@ -10,10 +11,12 @@ interface Props {
   title: string;
   /** Datum van de laatste wijziging, zoals hij op de pagina moet staan. */
   updated: string;
+  /** Versienummer (voorwaarden), komt achter de datum. */
+  version?: string;
   locale?: Locale;
 }
 
-const { metaTitle, description, title, updated, locale = 'nl' } = Astro.props;
+const { metaTitle, description, title, updated, version, locale = 'nl' } = Astro.props;
 const d = t(locale).legal;
 ---
 
@@ -24,7 +27,8 @@ const d = t(locale).legal;
         {title}
       </h1>
       <p class="fl-label legal__updated">
-        {d.updated}: {updated}
+        {`${d.updated}: ${updated}`}
+        {version && ` · ${d.version} ${version}`}
       </p>
       <slot />
     </article>
@@ -62,16 +66,57 @@ const d = t(locale).legal;
     font-weight: 600;
     margin: var(--space-12) 0 var(--space-4);
   }
+  .legal__inner :global(h3) {
+    font-family: var(--font-display);
+    font-size: 19px;
+    line-height: 26px;
+    font-weight: 600;
+    margin: var(--space-8) 0 var(--space-3);
+  }
   .legal__inner :global(p),
-  .legal__inner :global(ul) {
+  .legal__inner :global(ul),
+  .legal__inner :global(ol),
+  .legal__inner :global(table) {
     margin: 0 0 var(--space-4);
   }
   .legal__inner :global(ul) {
     list-style: square;
     padding-left: var(--space-6);
   }
+  .legal__inner :global(ol) {
+    list-style: decimal;
+    padding-left: var(--space-6);
+  }
+  .legal__inner :global(li) {
+    margin-bottom: var(--space-2);
+  }
+  .legal__inner :global(li > ul) {
+    margin: var(--space-2) 0 0;
+  }
   .legal__inner :global(li::marker) {
     color: var(--forge);
+  }
+  .legal__inner :global(strong) {
+    font-weight: 700;
+  }
+  /* Tabellen blijven tabellen (geen display: block, dan verliezen screenreaders de tabelrol);
+     lange woorden breken af zodat ook drie kolommen op 360 breed passen. */
+  .legal__inner :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    hyphens: auto;
+    overflow-wrap: anywhere;
+  }
+  .legal__inner :global(th),
+  .legal__inner :global(td) {
+    text-align: left;
+    vertical-align: top;
+    padding: var(--space-2) var(--space-3) var(--space-2) 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .legal__inner :global(th) {
+    font-weight: 700;
+    border-bottom-color: var(--line-strong);
   }
   .legal__inner :global(a) {
     color: var(--link);
