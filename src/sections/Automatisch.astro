@@ -10,6 +10,11 @@ interface Props {
 
 const { locale = 'nl' } = Astro.props;
 const d = t(locale).automatisch;
+// "25 → 4 min" → oud en nieuw apart, zodat de beweging eerst alleen de oude waarde kan tonen.
+const split = (result: string) => {
+  const [before, after] = result.split(' → ');
+  return after === undefined ? null : { before, after };
+};
 ---
 
 <Chapter id="automatisch" num="04" theme="dark" kicker={d.kicker} title={d.title} lead={d.lead}>
@@ -31,7 +36,15 @@ const d = t(locale).automatisch;
               name={step.name}
               port
             />
-            <span class="fl-chip">{step.result}</span>
+            {split(step.result) ? (
+              <span class="fl-chip auto__result">
+                <span data-old>{split(step.result)!.before}</span>
+                <span data-arrow>→</span>
+                <span data-new>{split(step.result)!.after}</span>
+              </span>
+            ) : (
+              <span class="fl-chip">{step.result}</span>
+            )}
           </li>
         ))}
       </ol>
@@ -75,6 +88,11 @@ const d = t(locale).automatisch;
   }
   .auto__step .fl-chip {
     margin-left: var(--space-12);
+  }
+  /* Beweging (automatisch.ts): vóór de node aangaat alleen de oude waarde. Zonder beweging: beide. */
+  .auto__result.is-before [data-arrow],
+  .auto__result.is-before [data-new] {
+    display: none;
   }
   /* Eén regel per index ("Stap 01 · Automatisch"), anders verschuift het midden waar de lijn loopt. */
   .auto__step :global(.auto__node) {

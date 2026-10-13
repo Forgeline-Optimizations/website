@@ -10,6 +10,9 @@ interface Props {
 
 const { locale = 'nl' } = Astro.props;
 const d = t(locale).standaard;
+// Een chip die niet in elke baan voorkomt, is een afwijking: die vervaagt in de beweging (fase 4).
+const inLanes = (chip: string) => d.lanes.filter((l) => (l.chips as readonly string[]).includes(chip)).length;
+const deviates = (chip: string) => inLanes(chip) < d.lanes.length;
 ---
 
 <Chapter id="standaard" num="03" theme="dark" kicker={d.kicker} title={d.title} lead={d.lead}>
@@ -19,7 +22,9 @@ const d = t(locale).standaard;
         <li class="std__lane">
           <span class="fl-label std__lane-label">{lane.label}</span>
           {lane.chips.map((chip) => (
-            <span class="fl-chip">{chip}</span>
+            <span class="fl-chip" data-deviation={deviates(chip) ? '' : undefined}>
+              {chip}
+            </span>
           ))}
         </li>
       ))}

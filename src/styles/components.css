@@ -1174,3 +1174,36 @@ html:not(.js) .fl-verdict__panel + .fl-verdict__panel {
   font-size: 13px;
   align-self: flex-start;
 }
+
+/* ======================================================================
+   Site-aanvullingen fase 4: beweging (alleen onder html.forge-js)
+   ====================================================================== */
+
+/* GSAP stuurt transform (zweven, op hun plek vallen); een CSS-transitie erop zou elk frame naijlen.
+   Rand en gloed blijven wel overgaan: daar wisselen de hoofdstukken data-state voor. */
+html.forge-js .fl-node {
+  transition-property: border-color, box-shadow;
+}
+
+/* "Het licht gaat aan": verloop naar licht over de onderrand van Oordeel, boven aan Aanbod gehangen.
+   Alleen met beweging zichtbaar; aanbod.ts scrubt de opacity. Zonder beweging: harde overgang (fase 2). */
+.fl-dawn {
+  display: none;
+}
+html.forge-js .fl-dawn {
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  height: var(--chapter-pad);
+  background: linear-gradient(to bottom, transparent, var(--surface));
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Oranje streep onder de foto: via een variabele, zodat over-mij.ts het pseudo-element kan laten groeien. */
+.fl-profile__photo::after {
+  transform: scaleX(var(--fl-stripe, 1));
+  transform-origin: left center;
+}
