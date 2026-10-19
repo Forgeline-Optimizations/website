@@ -4,6 +4,33 @@
 
 ---
 
+## Digitale visitekaart — `/visitekaart`
+**Datum:** 2026-10-19
+**Doel:** `.claude/docs/visitekaart-implementation-plan.md` volledig uitvoeren: verborgen pagina voor een digitale visitekaart, gedeeld via NFC-tik of QR, buiten de forge-line-pagina om.
+**Branch:** `feat-visitekaart` (van `main`, ná de fase-7-merge — zie vorige entry; local `main` liep een commit achter op `origin/main` bij de start van deze sessie, eerst `git pull --ff-only` gedaan).
+**Stap 1 — audit (geen code):**
+- `@astrojs/sitemap` is **niet geïnstalleerd**: er bestaat geen sitemap. Stap 5 van het plan (sitemap-filter in `astro.config.mjs`) oversla ik dus, zoals het plan zelf voorschrijft.
+- `public/robots.txt` **bestaat niet**. Stap 6 (auditen dat `/visitekaart` niet disallowed is) is dus triviaal voldaan; geen bestand aangemaakt.
+- Plausible laadt via een custom `window.plausible()`-shim (`Analytics.astro`), niet de "tagged-events"-scriptvariant. Doelen loggen daarom via `window.plausible('Doelnaam')` in een klein script, niet via `plausible-event-name=`-klassen.
+- Logo: `public/brand/logo-horizontal-white.svg` (bestaat al, geen aparte asset nodig). Kleuren/tokens: `--surface`, `--ink`, `--forge` uit `tokens.css`, geen aparte `--forge-bg/-fg` (die namen uit het plan zijn placeholders).
+- Project-conventie "tekst alleen in `src/i18n/nl.ts`" gevolgd in plaats van het plan's letterlijke hard-coded strings: nieuwe sleutel `nl.visitekaart`. Persoonlijke contactgegevens (naam, rol, telefoon) in een nieuw `src/data/visitekaart.ts`, los van `site.ts` (dat is bedrijfsbreed). E-mail en website van de kaart komen wél uit `site.ts`.
+**Gevraagd aan Sander:** rol (akkoord met de bestaande "Oprichter · procesautomatisering & AI" van Over mij), geen LinkedIn-knop, telefoonnummer `+31634475510` (weergave `06 34 47 55 10`).
+**Gedaan:**
+- `src/layouts/CardLayout.astro` (nieuw): minimale laag zonder `NavBar`/`ForgeLine`/`MotionLoader`, wel `Analytics` (productie) en `noindex, nofollow`.
+- `public/sander-forgeline.vcf` (nieuw): vCard 3.0, **CRLF** (geschreven met LF en daarna in Node omgezet; `file` bevestigt "vCard visiting card, version 3.0" zonder CRLF-waarschuwing).
+- `src/pages/visitekaart.astro` (nieuw): kaart met logo, naam, rol, tagline, vier knoppen (`Button.astro`/`fl-btn`, hergebruikt i.p.v. nieuwe `btn-primary/secondary`-klassen). Elke knop `data-plausible-goal="…"`; `src/scripts/visitekaart.ts` (nieuw) logt het doel bij een klik.
+- `scripts/generate-visitekaart-qr.mjs` (nieuw) + `qrcode`/`@types/qrcode` als dev-dependency (plan noemt dit expliciet, dus toegestaan zonder aparte ADR) + npm-script `qr:visitekaart`. QR-kleuren: smeedzwart op werkplaatswit (tokens.json), donker-op-licht voor betrouwbaar scannen. Gedraaid: `docs/visitekaart/visitekaart-qr.{svg,png}` staan in de repo.
+- `docs/visitekaart/README.md` (nieuw): NFC-/QR-links met `?ref=nfc`/`?ref=qr`, telefoon-instructies, hoe te regenereren, en een waarschuwing dat naam/rol/telefoon op twee plekken staan (`visitekaart.ts` + de statische `.vcf`) omdat de vCard geen gedeelde bron heeft.
+- Docs/CLAUDE.md's bijgewerkt: top-level `CLAUDE.md`, `src/pages/_CLAUDE.md` (nieuwe rij + eigen sectie, met de uitzondering dat deze route geen `BaseLayout` gebruikt), `src/layouts/CLAUDE.md`, `src/data/CLAUDE.md`, `src/i18n/CLAUDE.md`, `src/scripts/CLAUDE.md`.
+**Niet gedaan (buiten bereik van code, zie plan stap 9 en `docs/visitekaart/README.md`):**
+- Plausible-dashboarddoelen (`Contact Opslaan`, `Bellen`, `Mailen`, `Website Bekijken`) aanmaken — dat is dashboardconfiguratie, geen code.
+- Sitemap-exclusie en robots.txt-wijziging: niet van toepassing, zie Stap 1 hierboven.
+- Fysieke devicetests (NFC tussen telefoons, QR-scan, "Contact opslaan" op iPhone/Android) — kan niet vanuit deze sessie; checklist staat in het plan (§2b).
+**Tests:** `npm run check` groen · Vitest 24/24 · Playwright 143 groen + 7 bewust overgeslagen. Nieuw: `tests/e2e/visitekaart.spec.ts` (7 tests: noindex/geen nav, de vier knoppen met juiste `href`/tapgrootte ≥ 48px, Plausible-doel vuurt bij een klik, geen GSAP/ForgeLine-bundle, geen enkele hoofdpagina linkt naar `/visitekaart`, vCard CRLF + juiste velden, geen horizontale scroll op mobiel). `/visitekaart` toegevoegd aan `tests/e2e/a11y.spec.ts`'s axe-lijst (nul serious/critical).
+**Niet gemerged:** branch `feat-visitekaart` staat klaar voor review/merge naar `main`.
+
+---
+
 ## Fase 7 — Verhaal inkorten
 **Datum:** 2026-10-19
 **Doel:** `.claude/docs/fase-7-verhaal-inkorten.md` volledig uitvoeren: acht hoofdstukken naar vijf, Inzicht/Standaard/Automatisch/Oordeel samen in één abstract hoofdstuk Werkwijze. Besluit vastgelegd in [ADR-015](../decisions/ADR-015-verhaal-inkorten.md).

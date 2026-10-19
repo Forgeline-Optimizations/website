@@ -50,6 +50,7 @@ De `.dc.html`-bestanden zijn **referentie, geen broncode**. Ze gebruiken absolut
 - **De forge line** is één SVG-laag (`src/components/site/ForgeLine.astro`) die per sectie een segment tekent; `src/scripts/motion/` stuurt hem aan met ScrollTrigger. Zonder JS staat de lijn volledig getekend.
 - **Progressive enhancement:** HTML werkt zonder JS (formulier post direct naar Web3Forms, verdict toont de eerste stap open en de rest als lijst). JS voegt toe, verwijdert nooit inhoud.
 - **Motion-gates:** alle animatie zit in `gsap.matchMedia()` met `(prefers-reduced-motion: no-preference)`; onder 900px een vereenvoudigde set.
+- **`/visitekaart`** (los plan: `.claude/docs/visitekaart-implementation-plan.md`) is een verborgen digitale visitekaart, gedeeld via NFC-tik of QR. Eigen minimale `CardLayout.astro` (geen nav, geen forge line, geen GSAP), `noindex, nofollow`, nergens vanaf de site gelinkt. Zie `src/pages/_CLAUDE.md` en `docs/visitekaart/README.md`.
 
 ## Fases
 

@@ -11,6 +11,7 @@
 
 ## Ontwerpkeuzes
 - Geneste objecten per sectie (`hero`, `werkwijze`, …), zoals de sleutels in `docs/content-nl.md`. `werkwijze` is sinds fase 7 een lijst van vier stappen (`steps`, elk met zijn eigen velden) plus `verdict` (vier soorten werk); `inzicht`/`standaard`/`automatisch`/`oordeel` bestaan niet meer ([ADR-015](../../.claude/decisions/ADR-015-verhaal-inkorten.md)).
+- `visitekaart` (los plan, `.claude/docs/visitekaart-implementation-plan.md`): tekst voor de verborgen kaart op `/visitekaart` — hoort niet bij een fase/hoofdstuk van de forge line, maar volgt verder dezelfde regel (geen tekst in componenten). Persoonlijke contactgegevens (naam, rol, telefoon) staan niet hier maar in `src/data/visitekaart.ts`.
 - Lijsten (nodes, stappen, beloftes) als arrays van objecten, niet als losse sleutels.
 - Tekst met een link (privacy-checkbox) als drie delen: `before`, `linkText`, `after`.
 - Na fase 2 is `nl.ts` de bron; `docs/content-nl.md` krijgt bovenaan de regel "Vervangen door `src/i18n/nl.ts`".

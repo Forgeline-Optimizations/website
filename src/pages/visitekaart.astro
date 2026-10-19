@@ -1,0 +1,103 @@
+---
+// Verborgen digitale visitekaart. Gedeeld via NFC-tik (?ref=nfc) of QR (?ref=qr); zie
+// docs/visitekaart/README.md voor die links. NOOIT linken vanaf de site, nav, footer of een sitemap.
+import CardLayout from '../layouts/CardLayout.astro';
+import Button from '../components/ui/Button.astro';
+import { t } from '../i18n';
+import { site } from '../data/site';
+import { card } from '../data/visitekaart';
+
+const d = t('nl').visitekaart;
+---
+
+<CardLayout title={d.metaTitle} description={d.metaDescription}>
+  <main class="card">
+    <img class="card__logo" src="/brand/logo-horizontal-white.svg" width="140" height="42" alt={site.name} />
+
+    <h1 class="card__name">{card.name}</h1>
+    <p class="card__role">{card.role}</p>
+    <p class="card__tagline">{d.tagline}</p>
+
+    <nav class="card__actions" aria-label={d.contactNav}>
+      <Button
+        href="/sander-forgeline.vcf"
+        download
+        variant="primary"
+        class="card__btn"
+        data-plausible-goal="Contact Opslaan"
+      >
+        {d.actions.save}
+      </Button>
+      <Button
+        href={`tel:${card.phoneE164}`}
+        variant="secondary"
+        class="card__btn"
+        data-plausible-goal="Bellen"
+      >
+        {d.actions.call} · {card.phoneDisplay}
+      </Button>
+      <Button
+        href={`mailto:${site.email}`}
+        variant="secondary"
+        class="card__btn"
+        data-plausible-goal="Mailen"
+      >
+        {d.actions.email}
+      </Button>
+      <Button
+        href={`${site.url}/?ref=visitekaart`}
+        variant="secondary"
+        class="card__btn"
+        data-plausible-goal="Website Bekijken"
+      >
+        {d.actions.website}
+      </Button>
+    </nav>
+  </main>
+</CardLayout>
+
+<script>
+  import '../scripts/visitekaart';
+</script>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    min-height: 100svh;
+    max-width: 420px;
+    margin-inline: auto;
+    padding: var(--space-12) var(--space-6);
+    justify-content: center;
+  }
+  .card__logo {
+    height: 32px;
+    width: auto;
+    margin-bottom: var(--space-12);
+  }
+  .card__name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(28px, 4vw + 16px, 36px);
+    line-height: 1.15;
+    margin: 0;
+  }
+  .card__role {
+    margin: var(--space-2) 0 0;
+    color: var(--ink-muted);
+  }
+  .card__tagline {
+    margin: var(--space-6) 0 0;
+  }
+  .card__actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-top: var(--space-12);
+  }
+  .card__actions :global(.card__btn) {
+    width: 100%;
+    justify-content: center;
+    min-height: 48px;
+  }
+</style>

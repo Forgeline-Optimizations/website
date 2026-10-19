@@ -260,6 +260,21 @@ export const nl = {
     },
   },
 
+  // /visitekaart — verborgen digitale visitekaart, gedeeld via NFC-tik of QR (nooit gelinkt vanaf de site).
+  visitekaart: {
+    metaTitle: 'Sander Nales · Forgeline Optimizations',
+    metaDescription: 'Digitale visitekaart van Forgeline Optimizations.',
+    tagline:
+      'Ik help bedrijven van 10 tot 100 mensen slimmer werken, met eerlijk advies over wat wél en níet geautomatiseerd moet worden.',
+    actions: {
+      save: 'Contact opslaan',
+      call: 'Bellen',
+      email: 'Mailen',
+      website: 'Website bekijken',
+    },
+    contactNav: 'Contactopties',
+  },
+
   footer: {
     tagline: 'Procesautomatisering & AI voor het mkb.',
     contactTitle: 'Contact',
