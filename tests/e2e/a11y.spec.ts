@@ -25,7 +25,7 @@ test('no serious or critical axe violations with form errors shown', async ({ pa
   expect(await blockingViolations(page)).toEqual([]);
 });
 
-for (const path of ['/request-received/', '/privacy/', '/voorwaarden/', '/bestaat-niet']) {
+for (const path of ['/request-received/', '/privacy/', '/voorwaarden/', '/visitekaart/', '/bestaat-niet']) {
   test(`no serious or critical axe violations on ${path}`, async ({ page }) => {
     await page.goto(path);
     expect(await blockingViolations(page)).toEqual([]);

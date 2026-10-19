@@ -17,7 +17,8 @@
     "format": "prettier --write .",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "astro": "astro"
+    "astro": "astro",
+    "qr:visitekaart": "node scripts/generate-visitekaart-qr.mjs"
   },
   "dependencies": {
     "@fontsource/saira": "^5.3.0",
@@ -31,8 +32,10 @@
     "@axe-core/playwright": "^4.13.0",
     "@playwright/test": "^1.64.0",
     "@types/node": "^22.20.5",
+    "@types/qrcode": "^1.5.6",
     "prettier": "^3.9.10",
     "prettier-plugin-astro": "^1.1.1",
+    "qrcode": "^1.5.4",
     "typescript": "^6.0.3",
     "vitest": "^5.0.4"
   }
