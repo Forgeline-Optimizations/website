@@ -2,3 +2,6 @@
 *.png binary
 *.jpg binary
 *.woff2 binary
+# vCard spec vereist CRLF; "text=auto eol=lf" hierboven zou dat op elke checkout naar LF normaliseren
+# (precies wat op de Linux CI-runner gebeurde en de test "vcf is served with CRLF" liet falen).
+*.vcf -text
