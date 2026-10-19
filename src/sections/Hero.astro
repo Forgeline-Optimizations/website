@@ -30,7 +30,7 @@ const d = t(locale).hero;
         <Button variant="primary" href="#contact" arrow>
           {d.ctaPrimary}
         </Button>
-        <Button variant="link" href="#inzicht" class="hidden desk:inline-flex">
+        <Button variant="link" href="#werkwijze" class="hidden desk:inline-flex">
           {d.ctaSecondary}
         </Button>
       </div>
@@ -75,7 +75,7 @@ const d = t(locale).hero;
         <ProcessNode
           class="hero__node hero__node--mobile"
           state="chaos"
-          name={d.nodes[n.node]}
+          name={d.nodesMobile[n.node]}
           rotate={n.rotate}
           style={`left: ${n.x}px; top: ${n.y}px`}
         />

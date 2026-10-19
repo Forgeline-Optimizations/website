@@ -9,7 +9,7 @@ async function blockingViolations(page: import('@playwright/test').Page) {
     .map((v) => `${v.id}: ${v.help} (${v.nodes.map((n) => n.target.join(' ')).join(', ')})`);
 }
 
-for (const id of ['chaos', 'oordeel', 'aanbod', 'contact']) {
+for (const id of ['chaos', 'werkwijze', 'aanbod', 'contact']) {
   test(`no serious or critical axe violations with #${id} in view`, async ({ page }) => {
     await page.goto(`/#${id}`);
     await page.locator(`#${id}`).scrollIntoViewIfNeeded();

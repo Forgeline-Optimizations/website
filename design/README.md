@@ -11,6 +11,7 @@ Snapshots van de ontwerpartifacts op het moment dat het ontwerp is vastgelegd (2
 - `canvas.json` — indeling van het canvas, titels per artboard en de oranje notities (scroll-beweging).
 - `*.dc.html` — één artboard per hoofdstuk (desktop 1440 breed) en drie mobiele frames (390 breed). Gebruiken `styles/tokens.css`, `styles/site.css` en `ds/forgeline/components/bundle.css` (= `design-system/components/bundle.css`).
 - Absoluut gepositioneerd op een vast canvas: **referentie voor maten, volgorde en inhoud, geen code om te kopiëren.**
+- **`Inzicht.dc.html`, `Standaard.dc.html`, `Automatisch.dc.html`, `Oordeel.dc.html` (+ `MobielOordeel.dc.html`) zijn historisch** sinds fase 7 ([ADR-015](../.claude/decisions/ADR-015-verhaal-inkorten.md)): die vier hoofdstukken zijn vervangen door één hoofdstuk Werkwijze. Ze blijven als referentie staan, maar zijn niet meer leidend; de spec van Werkwijze staat in `docs/storyboard.md`.
 
 ### Afbeeldingen in de artboards
 De artboards verwijzen naar geüploade bestanden via `/_blob/<id>`. In de repo:

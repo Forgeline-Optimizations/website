@@ -1,6 +1,7 @@
 ---
 // Eigen lijniconen, 14 × 14, currentColor. Paden uit VerdictCard/preview.html en ContactForm/preview.html.
-export type IconName = 'arrow' | 'pause' | 'no' | 'check' | 'alert';
+// `ai`: eigen icoon (fase 7, ADR-015) voor "automatiseren · met AI", vier vierkantjes in een raster.
+export type IconName = 'arrow' | 'ai' | 'pause' | 'no' | 'check' | 'alert';
 
 interface Props {
   name: IconName;
@@ -13,6 +14,15 @@ const { name, class: className } = Astro.props;
 <svg class={className} width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" focusable="false">
   {name === 'arrow' && (
     <path d="M2 7h8M7 3.5 10.5 7 7 10.5" fill="none" stroke="currentColor" stroke-width="2" />
+  )}
+  {name === 'ai' && (
+    <>
+      <rect x="1.5" y="1.5" width="3.5" height="3.5" fill="none" stroke="currentColor" stroke-width="1.5" />
+      <rect x="9" y="1.5" width="3.5" height="3.5" fill="none" stroke="currentColor" stroke-width="1.5" />
+      <rect x="1.5" y="9" width="3.5" height="3.5" fill="none" stroke="currentColor" stroke-width="1.5" />
+      <rect x="9" y="9" width="3.5" height="3.5" fill="currentColor" />
+      <path d="M5 3.25h4M3.25 5v4M10.75 5v4M5 10.75h4" stroke="currentColor" stroke-width="1.5" />
+    </>
   )}
   {name === 'pause' && <path d="M4.5 2.5v9M9.5 2.5v9" fill="none" stroke="currentColor" stroke-width="2" />}
   {name === 'no' && (

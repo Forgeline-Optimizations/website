@@ -1,5 +1,5 @@
 ---
-// 06 · Aanbod (licht) — design/storyboard/Aanbod.dc.html en MobielAanbod.dc.html. Geen prijzen (ADR-009).
+// 03 · Aanbod (licht) — design/storyboard/Aanbod.dc.html en MobielAanbod.dc.html. Geen prijzen (ADR-009).
 import Chapter from '../components/site/Chapter.astro';
 import ServiceCard from '../components/ui/ServiceCard.astro';
 import Button from '../components/ui/Button.astro';
@@ -13,7 +13,7 @@ const { locale = 'nl' } = Astro.props;
 const d = t(locale).aanbod;
 ---
 
-<Chapter id="aanbod" num="06" theme="light" kicker={d.kicker} title={d.title} lead={d.lead}>
+<Chapter id="aanbod" num="03" theme="light" kicker={d.kicker} title={d.title} lead={d.lead}>
   <!-- "Het licht gaat aan" (fase 4): lichte laag over de onderrand van Oordeel; alleen met beweging. -->
   <div class="fl-dawn" data-theme="light" data-motion="dawn" aria-hidden="true"></div>
   <div class="chapter__visual" data-motion="aanbod">

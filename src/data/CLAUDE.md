@@ -19,9 +19,8 @@
     plausibleScriptSrc: '', // uit Plausible → Site Installation; leeg = geen analytics (ADR-007)
   } as const;
   ```
-- `verdicts.ts` — `{ id, verdict: 'go' | 'wait' | 'no' }[]` in volgorde; teksten via `t(locale).oordeel.items[id]`.
-- `verdicts.ts` exporteert ook `verdictsMobile` (welke vier mobiel zichtbaar zijn) en `defaultVerdict`.
-- `hero-chaos.ts` — posities, rotaties en curvepaden van het chaos-veld uit `Main.dc.html` (`chaosNodes`, `chaosWires`, doos 600 × 580) en `MobielHero.dc.html` (`chaosNodesMobile`, doos 334 × 200). Elke node verwijst met `node` naar de index in `t().hero.nodes`.
+- `verdicts.ts` — `{ id, verdict: 'rules' | 'ai' | 'wait' | 'no' }[]` in volgorde; teksten via `t(locale).werkwijze.verdict.items[id]`. Ook `defaultVerdict`. Mobiel toont alle vier (geen `verdictsMobile` meer, ADR-015).
+- `hero-chaos.ts` — posities, rotaties en curvepaden van het chaos-veld uit `Main.dc.html` (`chaosNodes`, `chaosWires`, doos 600 × 580) en `MobielHero.dc.html` (`chaosNodesMobile`, doos 334 × 200). `chaosNodes.node` verwijst naar de index in `t().hero.nodes`; `chaosNodesMobile.node` naar de index in `t().hero.nodesMobile` (apart, kortere lijst).
 
 ## Regel
 Wijzig bedrijfsgegevens alleen hier. Footer, privacypagina en structured data lezen allemaal uit `site.ts`.

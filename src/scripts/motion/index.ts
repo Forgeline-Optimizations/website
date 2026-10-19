@@ -8,9 +8,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { setupForgeLine } from './forge-line';
 import { readTokens, type MotionContext, type Setup } from './context';
 import * as hero from './chapters/hero';
-import * as inzicht from './chapters/inzicht';
-import * as standaard from './chapters/standaard';
-import * as automatisch from './chapters/automatisch';
+import * as werkwijze from './chapters/werkwijze';
 import * as aanbod from './chapters/aanbod';
 import * as overMij from './chapters/over-mij';
 import * as contact from './chapters/contact';
@@ -18,7 +16,7 @@ import * as contact from './chapters/contact';
 gsap.registerPlugin(ScrollTrigger);
 
 // Volgorde = volgorde op de pagina: pins moeten van boven naar beneden worden aangemaakt.
-const chapters: { setup: Setup }[] = [hero, inzicht, standaard, automatisch, aanbod, overMij, contact];
+const chapters: { setup: Setup }[] = [hero, werkwijze, aanbod, overMij, contact];
 
 const mm = gsap.matchMedia();
 mm.add(

@@ -9,7 +9,7 @@ interface Props {
 }
 
 const { verdict, label } = Astro.props;
-const icons: Record<Verdict, IconName> = { go: 'arrow', wait: 'pause', no: 'no' };
+const icons: Record<Verdict, IconName> = { rules: 'arrow', ai: 'ai', wait: 'pause', no: 'no' };
 ---
 
 <span class={`fl-badge fl-badge--${verdict}`}>

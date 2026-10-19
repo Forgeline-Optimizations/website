@@ -1,0 +1,527 @@
+---
+// 02 · Werkwijze — vervangt Inzicht, Standaard, Automatisch en Oordeel (ADR-015).
+// Vier stappen langs de forge line, abstract: geen concreet bedrijfsvoorbeeld en geen verzonnen getallen.
+import Chapter from '../components/site/Chapter.astro';
+import ProcessNode from '../components/ui/ProcessNode.astro';
+import Badge from '../components/ui/Badge.astro';
+import { t, type Locale } from '../i18n';
+import type { nl } from '../i18n/nl';
+import { verdicts, defaultVerdict } from '../data/verdicts';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'nl' } = Astro.props;
+const d = t(locale).werkwijze;
+// `Dictionary` verbreedt elke tuple tot een unie van zijn elementtypes (src/i18n/types.ts), waardoor de
+// vier verschillend opgebouwde stappen hun eigen velden (nodes/lanes/tags) verliezen. De runtime-vorm is
+// identiek aan `nl`; dit is alleen een type-cast terug naar de letterlijke tuple.
+const steps = d.steps as unknown as (typeof nl)['werkwijze']['steps'];
+const [kaart, standaard, automatisch, advies] = steps;
+// Drie knelpunten boven de verbindingen 1–2, 2–3 en 4–5 (knelpunt-tag per gap-index; leeg = geen tag).
+const kaartGaps = [kaart.tags[0], kaart.tags[1], '', kaart.tags[2]];
+---
+
+<Chapter id="werkwijze" num="02" theme="dark" kicker={d.kicker} title={d.title} lead={d.lead}>
+  <Fragment slot="rail">
+    {d.steps.map((step) => (
+      <span class="fl-tick wk-tick" data-forge-tick={step.id} aria-hidden="true"></span>
+    ))}
+  </Fragment>
+
+  <ol class="fl-steps">
+    <!-- 01 · In kaart -->
+    <li class="fl-step" data-step="kaart" data-motion="step-kaart">
+      <div class="fl-step__head">
+        <p class="fl-label fl-step__label">
+          {kaart.num} · {kaart.label}
+        </p>
+        <h3 class="fl-step__title">{kaart.title}</h3>
+        <p class="fl-step__text">{kaart.text}</p>
+      </div>
+      <div class="fl-step__visual wk-map">
+        <ol class="wk-map__row" tabindex="0">
+          {kaart.nodes.map((name, i) => (
+            <li class="wk-map__item">
+              <ProcessNode class="wk-map__node" state="mapped" name={name} port />
+              {i < kaart.nodes.length - 1 && (
+                <div class="wk-map__link">
+                  {kaartGaps[i] && <p class="fl-tag wk-map__pain">{kaartGaps[i]}</p>}
+                </div>
+              )}
+            </li>
+          ))}
+        </ol>
+      </div>
+    </li>
+
+    <!-- 02 · Standaardiseren -->
+    <li class="fl-step" data-step="standaard" data-motion="step-standaard">
+      <div class="fl-step__head">
+        <p class="fl-label fl-step__label">
+          {standaard.num} · {standaard.label}
+        </p>
+        <h3 class="fl-step__title">{standaard.title}</h3>
+        <p class="fl-step__text">{standaard.text}</p>
+      </div>
+      <div class="fl-step__visual wk-std" tabindex="0">
+        <ul class="wk-std__lanes">
+          {standaard.lanes.map((lane) => (
+            <li class="wk-std__lane">
+              <span class="fl-label wk-std__lane-label">{lane.who}</span>
+              {lane.chips.map((chip) => (
+                <span
+                  class="fl-chip"
+                  data-deviation={
+                    standaard.lanes.every((l) => (l.chips as readonly string[]).includes(chip))
+                      ? undefined
+                      : ''
+                  }
+                >
+                  {chip}
+                </span>
+              ))}
+            </li>
+          ))}
+        </ul>
+        <svg class="wk-std__merge" width="140" height="200" viewBox="0 0 140 200" aria-hidden="true">
+          <path class="fl-wire fl-wire--chaos" d="M0 40 C 50 40, 30 100, 80 100"></path>
+          <path class="fl-wire fl-wire--chaos" d="M0 100 H 80"></path>
+          <path class="fl-wire fl-wire--chaos" d="M0 160 C 50 160, 30 100, 80 100"></path>
+          <path class="fl-wire fl-wire--ink" d="M80 100 H 140"></path>
+        </svg>
+        <div class="wk-std__result">
+          <p class="fl-tag wk-std__result-label">{standaard.standardLabel}</p>
+          <ol class="wk-std__nodes">
+            {standaard.standard.map((name) => (
+              <li>
+                <ProcessNode state="standard" name={name} />
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </li>
+
+    <!-- 03 · Automatiseren -->
+    <li class="fl-step" data-step="automatisch" data-motion="step-automatisch">
+      <div class="fl-step__head">
+        <p class="fl-label fl-step__label">
+          {automatisch.num} · {automatisch.label}
+        </p>
+        <h3 class="fl-step__title">{automatisch.title}</h3>
+        <p class="fl-step__text">{automatisch.text}</p>
+      </div>
+      <div class="fl-step__visual wk-auto">
+        <span class="wk-auto__line" aria-hidden="true">
+          <span class="wk-auto__flow"></span>
+          <span class="wk-auto__end"></span>
+        </span>
+        <ol class="wk-auto__nodes" tabindex="0">
+          {automatisch.nodes.map((node) => (
+            <li class="wk-auto__item" data-mode={node.mode}>
+              <ProcessNode
+                class="wk-auto__node"
+                state={node.mode === 'auto' ? 'automated' : 'standard'}
+                index={automatisch.modeLabels[node.mode]}
+                name={node.name}
+                port
+              />
+            </li>
+          ))}
+        </ol>
+      </div>
+    </li>
+
+    <!-- 04 · Eerlijk advies -->
+    <li class="fl-step" data-step="advies" data-motion="step-advies">
+      <div class="fl-step__head">
+        <p class="fl-label fl-step__label">
+          {advies.num} · {advies.label}
+        </p>
+        <h3 class="fl-step__title">{advies.title}</h3>
+        <p class="fl-step__text">{advies.text}</p>
+      </div>
+      <div class="fl-step__visual wk-verdict">
+        <div class="fl-verdict" data-verdict-root>
+          <ul class="fl-verdict__steps" aria-label={d.verdict.stepsLabel}>
+            {verdicts.map((v, i) => (
+              <li>
+                <button
+                  type="button"
+                  class="fl-verdict__step"
+                  data-verdict-step={v.id}
+                  aria-pressed={v.id === defaultVerdict ? 'true' : 'false'}
+                  aria-controls={`verdict-${v.id}`}
+                >
+                  <span class="fl-verdict__long">{d.verdict.items[v.id].title}</span>
+                  <span class="fl-verdict__short">{d.verdict.items[v.id].shortTitle}</span>
+                  <span class="fl-label">{String(i + 1).padStart(2, '0')}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+          <div class="fl-verdict__panels" aria-live="polite">
+            {verdicts.map((v) => (
+              <div
+                class="fl-verdict__panel"
+                id={`verdict-${v.id}`}
+                data-verdict-panel={v.id}
+                data-active={v.id === defaultVerdict ? '' : undefined}
+              >
+                <h4 class="fl-verdict__title">{d.verdict.items[v.id].title}</h4>
+                <Badge verdict={v.verdict} label={d.verdict.labels[v.verdict]} />
+                <p class="fl-verdict__reason">{d.verdict.items[v.id].reason}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </li>
+  </ol>
+</Chapter>
+
+<script>
+  import '../scripts/verdict';
+</script>
+
+<style>
+  /* Vier stappen onder elkaar, mobiel en smal: tekst boven, visual eronder. */
+  .fl-steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .fl-step {
+    padding-block: var(--space-12);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+  .fl-step + .fl-step {
+    border-top: 1px solid var(--line);
+  }
+  .fl-step__label {
+    margin: 0 0 var(--space-4);
+  }
+  .fl-step__title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(24px, 1.4vw + 18px, 28px);
+    line-height: 1.2;
+    margin: 0 0 var(--space-4);
+  }
+  .fl-step__text {
+    margin: 0;
+    max-width: var(--measure);
+    color: var(--ink-muted);
+  }
+
+  /* Ticks op de rail: onzichtbaar zonder beweging (dan telt alleen de doorlopende lijn),
+     licht op wanneer werkwijze.ts ze passeert (fase 8). */
+  .wk-tick {
+    display: none;
+  }
+  @media (min-width: 900px) {
+    html.forge-js .wk-tick {
+      display: block;
+      left: 50%;
+      margin-left: -6px;
+      opacity: 0.3;
+      transition: opacity var(--dur-base) var(--ease-out);
+    }
+    html.forge-js .wk-tick[data-lit] {
+      opacity: 1;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .fl-step {
+      display: grid;
+      grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
+      column-gap: var(--space-12);
+      align-items: center;
+      min-height: 60vh;
+      padding-block: var(--space-16);
+    }
+    .fl-step__text {
+      max-width: 340px;
+    }
+  }
+
+  /* 01 · In kaart */
+  .wk-map__row {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .wk-map__item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .wk-map__link {
+    display: flex;
+    align-items: center;
+    min-height: var(--space-8);
+    margin-left: var(--space-6);
+    padding: var(--space-2) 0 var(--space-2) var(--space-4);
+    border-left: 1.5px solid var(--line-strong);
+  }
+  .wk-map__pain {
+    margin: 0;
+  }
+  @media (min-width: 1100px) {
+    .wk-map__row {
+      flex-direction: row;
+      align-items: center;
+      /* De kolom naast de kop is smaller dan de volle inhoudskolom; scrollt lokaal i.p.v. de pagina
+         breder te maken als vijf nodes niet allemaal passen. */
+      overflow-x: auto;
+      padding-bottom: var(--space-2);
+    }
+    .wk-map__item {
+      flex: 1 1 auto;
+      flex-direction: row;
+      align-items: center;
+    }
+    .wk-map__item:last-child {
+      flex: 0 0 auto;
+    }
+    .wk-map__item :global(.wk-map__node) {
+      min-width: 132px;
+      white-space: nowrap;
+    }
+    .wk-map__link {
+      position: relative;
+      flex: 1 0 var(--space-6);
+      min-height: 0;
+      margin: 0;
+      padding: 0;
+      border-left: 0;
+      border-top: 1.5px solid var(--line-strong);
+    }
+    .wk-map__pain {
+      position: absolute;
+      left: calc(-1 * var(--space-4));
+      bottom: var(--space-6);
+      white-space: nowrap;
+    }
+  }
+
+  /* 02 · Standaardiseren */
+  .wk-std {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+  .wk-std__lanes {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+  .wk-std__lane {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+  }
+  .wk-std__lane-label {
+    width: 100%;
+    color: var(--ink-muted);
+  }
+  .wk-std__merge {
+    display: none;
+  }
+  .wk-std__result-label {
+    margin: 0 0 var(--space-4);
+  }
+  .wk-std__nodes {
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-8);
+  }
+  .wk-std__nodes::before {
+    content: '';
+    position: absolute;
+    left: var(--space-6);
+    top: 0;
+    bottom: 0;
+    width: 1.5px;
+    background: var(--ink);
+  }
+  .wk-std__nodes li {
+    position: relative;
+  }
+  .wk-std__result {
+    position: relative;
+    padding-top: var(--space-8);
+  }
+  .wk-std__result::before {
+    content: '';
+    position: absolute;
+    left: var(--space-6);
+    top: calc(-1 * var(--space-8));
+    height: var(--space-12);
+    width: 1.5px;
+    background: var(--ink);
+  }
+  @media (min-width: 1100px) {
+    .wk-std {
+      display: grid;
+      grid-template-columns: max-content 140px max-content;
+      align-items: center;
+      gap: 0;
+      max-width: 100%;
+      overflow-x: auto;
+      padding-bottom: var(--space-2);
+    }
+    .wk-std__lanes {
+      gap: var(--space-8);
+    }
+    .wk-std__lane {
+      flex-wrap: nowrap;
+    }
+    .wk-std__lane-label {
+      width: 96px;
+    }
+    .wk-std__merge {
+      display: block;
+    }
+    .wk-std__result {
+      padding-top: 0;
+    }
+    .wk-std__result::before {
+      display: none;
+    }
+    .wk-std__result-label {
+      position: absolute;
+      top: calc(-1 * var(--space-8));
+      margin: 0;
+      white-space: nowrap;
+    }
+    .wk-std__nodes {
+      align-items: stretch;
+      gap: var(--space-8);
+    }
+    .wk-std__nodes::before {
+      left: 50%;
+    }
+    .wk-std__nodes li {
+      display: flex;
+    }
+    .wk-std__nodes :global(.fl-node) {
+      flex: 1;
+    }
+  }
+
+  /* 03 · Automatiseren */
+  .wk-auto {
+    --node-center: 34px;
+    position: relative;
+    padding-bottom: var(--space-8);
+  }
+  .wk-auto__nodes {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+  .wk-auto__item {
+    position: relative;
+    z-index: 1;
+  }
+  .wk-auto__item :global(.wk-auto__node) {
+    white-space: nowrap;
+  }
+  .wk-auto__line {
+    position: absolute;
+    left: var(--space-6);
+    top: var(--node-center);
+    bottom: 0;
+    width: var(--line-width);
+    background: var(--forge);
+  }
+  .wk-auto__flow {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(180deg, var(--ink) 0 8px, transparent 8px 80px);
+    animation: wk-auto-flow-y var(--dur-flow) linear infinite;
+  }
+  .wk-auto__end {
+    position: absolute;
+    left: -5px;
+    bottom: 0;
+    width: 12px;
+    height: 12px;
+    background: var(--forge);
+    box-shadow: var(--glow-forge);
+  }
+  @keyframes wk-auto-flow-y {
+    to {
+      background-position: 0 80px;
+    }
+  }
+  @keyframes wk-auto-flow-x {
+    to {
+      background-position: 80px 0;
+    }
+  }
+  @media (min-width: 1100px) {
+    .wk-auto__nodes {
+      flex-direction: row;
+      gap: var(--space-6);
+      overflow-x: auto;
+      padding-bottom: var(--space-2);
+    }
+    .wk-auto__line {
+      left: var(--space-6);
+      right: 0;
+      top: calc(var(--node-center) - 1px);
+      bottom: auto;
+      width: auto;
+      height: var(--line-width);
+    }
+    .wk-auto__flow {
+      background: repeating-linear-gradient(90deg, var(--ink) 0 8px, transparent 8px 80px);
+      animation-name: wk-auto-flow-x;
+    }
+    .wk-auto__end {
+      left: auto;
+      right: 0;
+      top: -5px;
+      bottom: auto;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .wk-auto__flow {
+      animation: none;
+    }
+  }
+
+  /* 04 · Eerlijk advies */
+  .wk-verdict .fl-verdict {
+    /* Een smalle kolom (label + visual naast elkaar) kan de grid-tracks van VerdictCard op hun eigen
+       intrinsieke breedte laten rekenen zonder dat dat zichtbaar wordt; dat mag niet de paginabreedte
+       meetrekken (document.documentElement.scrollWidth). */
+    overflow-x: hidden;
+  }
+  @media (min-width: 900px) {
+    .wk-verdict .fl-verdict {
+      grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+    }
+  }
+</style>

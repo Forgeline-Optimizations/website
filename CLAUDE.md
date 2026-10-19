@@ -42,7 +42,7 @@ De `.dc.html`-bestanden zijn **referentie, geen broncode**. Ze gebruiken absolut
 
 ## Architectuur
 
-- **Eén pagina, acht secties** in `src/sections/`, samengesteld in `src/pages/index.astro`. Volgorde en anker-id's: `#chaos` (hero), `#inzicht`, `#standaard`, `#automatisch`, `#oordeel`, `#aanbod`, `#over-mij`, `#contact`.
+- **Eén pagina, vijf secties** in `src/sections/`, samengesteld in `src/pages/index.astro`. Volgorde en anker-id's: `#chaos` (hero), `#werkwijze`, `#aanbod`, `#over-mij`, `#contact`. Sinds fase 7 ([ADR-015](.claude/decisions/ADR-015-verhaal-inkorten.md)) vervangt `#werkwijze` de vier losse hoofdstukken Inzicht, Standaard, Automatisch en Oordeel: één abstract hoofdstuk met vier stappen langs de forge line (In kaart → Standaardiseren → Automatiseren → Eerlijk advies).
 - **Losse pagina's:** `/request-received`, `/privacy`, `/voorwaarden`, `404`.
 - **Tekst staat nooit in componenten.** Secties lezen uit `src/i18n/nl.ts` via `t()`; bedrijfsgegevens uit `src/data/site.ts`; verdict-voorbeelden uit `src/data/verdicts.ts`.
 - **Tokens:** `scripts/sync-tokens.mjs` genereert `src/styles/tokens.css` uit `design/design-system/tokens.json` (draait vóór `dev` en `build`). Nooit `tokens.css` met de hand bewerken.
@@ -61,6 +61,7 @@ De `.dc.html`-bestanden zijn **referentie, geen broncode**. Ze gebruiken absolut
 | 4 | `.claude/docs/fase-4-beweging.md` | Forge line + scroll-animaties per hoofdstuk | ✓ |
 | 5 | `.claude/docs/fase-5-kwaliteit.md` | Mobiel, toegankelijkheid, prestaties, Lighthouse-gate | 🔨 Huidig |
 | 6 | `.claude/docs/fase-6-lancering.md` | SEO, OG, Plausible, DNS, livegang | ⏳ |
+| 7 | `.claude/docs/fase-7-verhaal-inkorten.md` | Verhaal inkorten: vier hoofdstukken (Inzicht/Standaard/Automatisch/Oordeel) samen tot één hoofdstuk Werkwijze; acht naar vijf hoofdstukken | ✓ |
 
 Overzicht en volgorde: `.claude/docs/README.md`.
 
@@ -75,6 +76,7 @@ Overzicht en volgorde: `.claude/docs/README.md`.
 **Blokkades:** geen.
 
 ## Mijlpalen
+- Fase 7 — Verhaal inkorten: acht hoofdstukken naar vijf; Inzicht/Standaard/Automatisch/Oordeel vervangen door één hoofdstuk Werkwijze met vier stappen en een verdict over soorten werk (met/zonder AI) (2026-10-19). ✓
 - Fase 0 — Ontwerp vastgelegd: design system, storyboard, geheugen-workspace. ✓
 - Fase 1 — Fundament: Astro 7, tokens, fonts, layout, nav, footer, tests, CI + deploy naar GitHub Pages (2026-10-12). ✓
 - Fase 2 — De statische pagina: acht hoofdstukken, statische forge line, nav-voortgang, desktop + mobiel (2026-10-13). ✓
@@ -88,7 +90,7 @@ Overzicht en volgorde: `.claude/docs/README.md`.
 | `src/styles/` | Tokens, Tailwind-koppeling, componentstijlen | 1–2 | ✓ |
 | `src/layouts/` | `BaseLayout.astro` (head, meta, fonts, nav, footer), `LegalLayout.astro` | 1–3 | ✓ |
 | `src/components/` | UI-bouwstenen (`ui/`) en site-chrome (`site/`) | 1–4 | ✓ |
-| `src/sections/` | De acht hoofdstukken | 2–3 | ✓ |
+| `src/sections/` | De vijf hoofdstukken (sinds fase 7: Chaos, Werkwijze, Aanbod, Over mij, Contact) | 2–3, 7 | ✓ |
 | `src/i18n/` | Alle teksten, `t()`-helper | 1–2 | ✓ (`nl.ts` is nu de bron) |
 | `src/data/` | Bedrijfsgegevens, verdict-voorbeelden | 1–2 | ✓ |
 | `src/scripts/` | Verdict-interactie, formulier, motion | 2–4 | ✓ |
@@ -122,6 +124,7 @@ Elke map onder `src/` heeft een eigen `CLAUDE.md`, behalve `src/pages/`: daar he
 - **ADR-012 Themazichtbaarheid via variabelen:** `fl-only-dark/-light` lezen `--fl-show-*`, zodat het dichtstbijzijnde `data-theme` wint; `components.css` staat in `@layer components`.
 - **ADR-013 Logo ≥ 140px breed:** horizontaal logo 140 × 42 in nav en footer, ook al tekent het board 34px hoog.
 - **ADR-014 Mobiel hoofdstukraster:** lijn op x = 16, inhoud op x = 40 (zoals het storyboard); nummer boven de kop.
+- **ADR-015 Verhaal inkorten:** vijf hoofdstukken i.p.v. acht; Inzicht/Standaard/Automatisch/Oordeel samen in één abstract hoofdstuk Werkwijze (vier stappen, verdict over soorten werk met/zonder AI), geen pinning meer in dat hoofdstuk.
 
 ## Wat NIET te doen
 - Geen teksten, kleuren of maten hard-coded in componenten.

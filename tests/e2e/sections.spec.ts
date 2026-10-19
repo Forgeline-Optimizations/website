@@ -1,14 +1,11 @@
 import { expect, test } from './fixtures';
 import { nl } from '../../src/i18n/nl';
 import { site } from '../../src/data/site';
-import { verdictsMobile } from '../../src/data/verdicts';
+import { verdicts, defaultVerdict } from '../../src/data/verdicts';
 
-const order = ['chaos', 'inzicht', 'standaard', 'automatisch', 'oordeel', 'aanbod', 'over-mij', 'contact'];
+const order = ['chaos', 'werkwijze', 'aanbod', 'over-mij', 'contact'];
 const titles: Record<string, string> = {
-  inzicht: nl.inzicht.title,
-  standaard: nl.standaard.title,
-  automatisch: nl.automatisch.title,
-  oordeel: nl.oordeel.title,
+  werkwijze: nl.werkwijze.title,
   aanbod: nl.aanbod.title,
   'over-mij': nl.overMij.title,
   contact: nl.contact.title,
@@ -37,18 +34,12 @@ test('themes', async ({ page }) => {
   }
 });
 
-test('example labels', async ({ page }) => {
-  await page.goto('/');
-  await expect(page.locator('#automatisch')).toContainText(nl.common.example);
-  await expect(page.locator('#oordeel')).toContainText(nl.common.example);
-});
-
 test('no JS shows all verdicts', async ({ browser }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
-  await page.goto('/#oordeel');
+  await page.goto('/#werkwijze');
   const panels = page.locator('.fl-verdict__panel');
-  await expect(panels).toHaveCount(5);
+  await expect(panels).toHaveCount(verdicts.length);
   for (const panel of await panels.all()) await expect(panel).toBeVisible();
   await expect(page.locator('.fl-verdict__steps')).toBeHidden();
   await context.close();
@@ -56,8 +47,11 @@ test('no JS shows all verdicts', async ({ browser }) => {
 
 test('with JS one verdict panel is open', async ({ page }) => {
   await page.goto('/');
+  // De kaart fadet in zodra stap "advies" in beeld komt (motion/chapters/werkwijze.ts).
+  await expect(page.locator('html')).toHaveClass(/forge-js/, { timeout: 10_000 });
+  await page.locator('[data-step="advies"]').scrollIntoViewIfNeeded();
   await expect(page.locator('.fl-verdict__panel:visible')).toHaveCount(1);
-  await expect(page.locator('#verdict-offerte')).toBeVisible();
+  await expect(page.locator(`#verdict-${defaultVerdict}`)).toBeVisible();
 });
 
 test('form posts to Web3Forms', async ({ page }) => {
@@ -85,15 +79,17 @@ test('nav follows scroll', async ({ page }, testInfo) => {
   await expect(nav).toHaveAttribute('data-theme', 'light');
   if (testInfo.project.name === 'desktop') {
     await expect(nav.getByRole('link', { name: 'Aanbod' })).toHaveAttribute('aria-current', 'step');
-    await expect(nav.getByRole('link', { name: 'Oordeel' })).toHaveClass(/is-done/);
+    await expect(nav.getByRole('link', { name: 'Werkwijze' })).toHaveClass(/is-done/);
   }
 
   await page.evaluate(() => {
-    const el = document.getElementById('over-mij')!;
+    const el = document.getElementById('contact')!;
     window.scrollTo({ top: el.offsetTop + 100, behavior: 'instant' });
   });
-  await expect(nav).toHaveAttribute('data-theme', 'dark');
+  await expect(nav).toHaveAttribute('data-theme', 'light');
   if (testInfo.project.name === 'desktop') {
+    // Contact heeft geen eigen navlabel (zoals Over mij hiervoor): dan staan alle gelabelde hoofdstukken
+    // op is-done.
     await expect(nav.locator('[data-nav-chapter].is-done')).toHaveCount(nl.nav.chapters.length);
   }
 });
@@ -103,8 +99,10 @@ test('mobile layout', async ({ page }, testInfo) => {
   await page.goto('/');
   expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(0);
   await expect(page.locator('#chaos .fl-node:visible')).toHaveCount(3);
+  await expect(page.locator('html')).toHaveClass(/forge-js/, { timeout: 10_000 });
+  await page.locator('[data-step="advies"]').scrollIntoViewIfNeeded();
   const steps = page.locator('.fl-verdict__step:visible');
-  await expect(steps).toHaveCount(verdictsMobile.length);
+  await expect(steps).toHaveCount(verdicts.length);
   const tops = await steps.evaluateAll((els) => els.map((e) => Math.round(e.getBoundingClientRect().top)));
   expect(new Set(tops).size).toBe(1); // één rij
 });

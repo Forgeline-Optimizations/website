@@ -346,6 +346,7 @@
   align-self: flex-start;
   align-items: center;
   gap: var(--space-2);
+  max-width: 100%; /* lange labels ("Automatiseren · met AI") wrappen i.p.v. de kolom te verbreden */
   padding: 7px 12px;
   border-radius: var(--radius-sm);
   border: 1px solid;
@@ -361,7 +362,8 @@
   height: 14px;
   flex: none;
 }
-.fl-badge--go {
+.fl-badge--rules,
+.fl-badge--ai {
   background: var(--verdict-go);
   border-color: var(--verdict-go);
   color: var(--on-forge);

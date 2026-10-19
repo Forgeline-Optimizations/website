@@ -10,12 +10,9 @@ export const nl = {
     skip: 'Ga naar de inhoud',
     cta: 'Kennismaken',
     chapters: [
-      { id: 'chaos', label: 'Chaos' },
-      { id: 'inzicht', label: 'Inzicht' },
-      { id: 'standaard', label: 'Standaard' },
-      { id: 'automatisch', label: 'Automatisch' },
-      { id: 'oordeel', label: 'Oordeel' },
+      { id: 'werkwijze', label: 'Werkwijze' },
       { id: 'aanbod', label: 'Aanbod' },
+      { id: 'over-mij', label: 'Over mij' },
     ],
   },
   common: {
@@ -34,140 +31,109 @@ export const nl = {
     nodeIndex: 'Stap ?',
     // Volgorde hoort bij de posities in src/data/hero-chaos.ts.
     nodes: [
-      'Order uit e-mail',
-      'Offerte in Word',
-      'Planning in Excel',
-      'Overtypen in ERP',
-      'Voorraad nabellen',
-      'Factuur handmatig',
+      'Handmatige stap',
+      'Kopiëren en plakken',
       'Welke versie klopt?',
+      'Overtypen',
+      'Wachten op antwoord',
+      'Losse lijstjes',
+      'Dubbel werk',
     ],
+    // Mobiel: drie labels, in de volgorde van src/data/hero-chaos.ts → chaosNodesMobile.
+    nodesMobile: ['Handmatige stap', 'Overtypen', 'Welke versie klopt?'],
   },
 
-  // 02 · Inzicht
-  inzicht: {
-    kicker: 'Hoofdstuk 02 · Inzicht',
-    title: 'Eerst de kaart, dan de machine',
-    lead: 'Ik loop mee met de mensen die het werk doen. Zo zie ik waar informatie wordt overgetypt, blijft liggen of kwijtraakt, en hoeveel tijd dat kost.',
-    // `painpoint` staat boven de verbinding ná deze stap; leeg = geen knelpunt.
+  // 02 · Werkwijze — vervangt Inzicht, Standaard, Automatisch en Oordeel (ADR-015).
+  werkwijze: {
+    kicker: 'Hoofdstuk 02 · Werkwijze',
+    title: 'Van losse stappen naar een proces dat loopt',
+    lead: 'Veel processen zijn gegroeid in plaats van ontworpen. Ik maak ze zichtbaar, maak ze eenduidig, en automatiseer alleen wat dat waard is.',
     steps: [
-      { index: 'Stap 01', name: 'Order uit e-mail', painpoint: 'Overgetypt 2×' },
-      { index: 'Stap 02', name: 'Overtypen in ERP', painpoint: 'Wacht ± 2 dagen' },
-      { index: 'Stap 03', name: 'Offerte in Word', painpoint: '' },
-      { index: 'Stap 04', name: 'Planning in Excel', painpoint: 'Kwijt in de mailbox' },
-      { index: 'Stap 05', name: 'Factuur handmatig', painpoint: '' },
-    ],
-    method: [
-      { label: 'Meelopen', text: 'Ik kijk mee op de werkvloer, niet alleen vanaf het organogram.' },
-      { label: 'Meten', text: 'Per stap: hoe vaak, hoe lang, in welk systeem.' },
-      { label: 'Vastleggen', text: 'Eén proceskaart waar je hele team zich in herkent.' },
-    ],
-  },
-
-  // 03 · Standaardiseren
-  standaard: {
-    kicker: 'Hoofdstuk 03 · Standaardiseren',
-    title: 'Geen standaard, geen automatisering',
-    lead: 'Doen drie mensen hetzelfde werk op drie manieren, dan automatiseer je de chaos. Eerst spreken we één werkwijze af. Pas daarna komt er software.',
-    lanes: [
-      { label: 'Planner 1', chips: ['Order lezen', 'Excel bijwerken', 'Mail werkplaats'] },
-      { label: 'Planner 2', chips: ['Order lezen', 'Werkplaats bellen', 'Excel bijwerken'] },
-      { label: 'Planner 3', chips: ['Briefje op bureau', 'Excel bijwerken', 'Order lezen'] },
-    ],
-    standardLabel: 'Eén werkwijze',
-    standard: [
-      { index: 'Stap 01', name: 'Order vastleggen' },
-      { index: 'Stap 02', name: 'Capaciteit checken' },
-      { index: 'Stap 03', name: 'Inplannen + melden' },
-    ],
-  },
-
-  // 04 · Automatiseren
-  automatisch: {
-    kicker: 'Hoofdstuk 04 · Automatiseren',
-    title: 'Dan gaat de lijn aan',
-    lead: 'Ik bouw de oplossing, test hem en documenteer hem. Geen demo die na een maand stilvalt, maar iets dat in productie blijft draaien.',
-    exampleLabel: 'Voorbeeld · orderverwerking',
-    // `automated: false` = blijft mensenwerk (andere nodestijl).
-    steps: [
-      { index: 'Stap 01 · Automatisch', name: 'Order inlezen', result: '25 → 4 min', automated: true },
       {
-        index: 'Stap 02 · Automatisch',
-        name: 'Offerte opstellen',
-        result: '2× overtypen → 0×',
-        automated: true,
+        id: 'kaart',
+        num: '01',
+        label: 'In kaart',
+        title: 'Eerst kijken, dan bouwen',
+        text: 'Ik loop mee met de mensen die het werk doen en breng elke stap in kaart: wat er gebeurt, hoe vaak, hoe lang en in welk systeem.',
+        nodes: ['Binnenkomst', 'Verwerken', 'Controleren', 'Vastleggen', 'Afronden'],
+        tags: ['Dubbel werk', 'Wachttijd', 'Zoekwerk'],
       },
       {
-        index: 'Stap 03 · Automatisch',
-        name: 'Inplannen',
-        result: '± 2 dagen → zelfde dag',
-        automated: true,
+        id: 'standaard',
+        num: '02',
+        label: 'Standaardiseren',
+        title: 'Eén werkwijze',
+        text: 'Doet iedereen het op zijn eigen manier, dan automatiseer je de chaos. Eerst spreken we samen één werkwijze af.',
+        lanes: [
+          { who: 'Collega A', chips: ['Binnenkomst', 'Verwerken', 'Vastleggen'] },
+          { who: 'Collega B', chips: ['Verwerken', 'Binnenkomst', 'Nabellen'] },
+          { who: 'Collega C', chips: ['Briefje', 'Vastleggen', 'Verwerken'] },
+        ],
+        standardLabel: 'Eén werkwijze',
+        standard: ['Binnenkomst', 'Verwerken', 'Vastleggen'],
       },
-      { index: 'Stap 04 · Mens', name: 'Controle planner', result: 'Blijft mensenwerk', automated: false },
-    ],
-    promises: [
       {
-        label: 'Getest',
-        text: 'Elke automatisering draait eerst op een testomgeving, met echte voorbeelden uit jouw bedrijf.',
+        id: 'automatisch',
+        num: '03',
+        label: 'Automatiseren',
+        title: 'Dan gaat de lijn aan',
+        text: 'Ik bouw wat zich terugverdient: getest, gedocumenteerd en overgedragen aan je team. Geen demo, maar iets dat blijft draaien.',
+        nodes: [
+          { name: 'Binnenkomst', mode: 'auto' },
+          { name: 'Verwerken', mode: 'auto' },
+          { name: 'Controleren', mode: 'human' },
+          { name: 'Vastleggen', mode: 'auto' },
+        ],
+        modeLabels: { auto: 'Automatisch', human: 'Mens' },
       },
       {
-        label: 'Gedocumenteerd',
-        text: 'Je krijgt een handleiding en een draaiboek voor als er iets misgaat.',
+        id: 'advies',
+        num: '04',
+        label: 'Eerlijk advies',
+        title: 'Niet alles moet automatisch. En niet alles heeft AI nodig.',
+        text: 'Je krijgt een rapport met per stap mijn advies: automatiseren, eerst standaardiseren, of gewoon mensenwerk laten. Klik op een soort werk en zie hoe ik het beoordeel.',
       },
-      { label: 'Overgedragen', text: 'Een overdrachtssessie met je team, en 30 dagen garantie.' },
     ],
-  },
-
-  // 05 · Eerlijk oordeel
-  oordeel: {
-    kicker: 'Hoofdstuk 05 · Eerlijk oordeel',
-    title: 'Niet alles moet automatisch',
-    lead: 'Klik op een processtap en zie mijn oordeel. Het lijstje met wat je níet moet automatiseren is net zo belangrijk als de rest van het rapport.',
-    exampleLabel: 'Voorbeeld · fictief productiebedrijf, 28 medewerkers',
-    stepsLabel: 'Processtappen',
-    verdictLabels: { go: 'Automatiseren', wait: 'Eerst standaardiseren', no: 'Niet automatiseren' },
-    // Welke stap welk oordeel krijgt staat in src/data/verdicts.ts.
-    items: {
-      offerte: {
-        title: 'Offerte opstellen',
-        shortTitle: 'Offerte opstellen',
-        meta: '± 40× per week · 25 min per offerte · 2 systemen',
-        reason:
-          'Elke week dezelfde stappen en de gegevens staan al in het ERP. Een sjabloon dat zichzelf vult scheelt ± 13 uur per week.',
+    verdict: {
+      stepsLabel: 'Soorten werk',
+      labels: {
+        rules: 'Automatiseren · zonder AI',
+        ai: 'Automatiseren · met AI',
+        wait: 'Eerst standaardiseren',
+        no: 'Niet automatiseren',
       },
-      factuur: {
-        title: 'Factuur naar boekhouding',
-        shortTitle: 'Facturen',
-        meta: '± 60× per maand · 10 min per factuur · gegevens al in ERP',
-        reason:
-          'Pure overdracht tussen twee systemen. Goed te automatiseren, met een controle op afwijkende bedragen.',
-      },
-      planning: {
-        title: 'Productieplanning',
-        shortTitle: 'Planning',
-        meta: 'Dagelijks · drie planners · in Excel',
-        reason:
-          'Iedere planner doet het anders. Eerst één werkwijze vastleggen; pas daarna loont automatiseren.',
-      },
-      klacht: {
-        title: 'Klachten afhandelen',
-        shortTitle: 'Klachten',
-        meta: '± 6× per week · veel maatwerk',
-        reason:
-          'Weinig volume, veel uitzonderingen, en de klant wil een mens spreken. Hier verdient automatiseren zich niet terug.',
-      },
-      inkoop: {
-        title: 'Leverancier kiezen',
-        shortTitle: 'Leverancier',
-        meta: 'Paar keer per maand · relatie en prijs',
-        reason: 'Dit is een afweging, geen proces. Ik maak de cijfers inzichtelijk; de keuze blijft bij jou.',
+      items: {
+        overtypen: {
+          title: 'Gegevens overtypen tussen systemen',
+          shortTitle: 'Overtypen',
+          reason:
+            'Vaste stappen en vaste regels. Een eenvoudige koppeling doet dit foutloos; AI zou hier alleen kosten en onzekerheid toevoegen.',
+        },
+        rommelig: {
+          title: 'Een proces dat iedereen anders doet',
+          shortTitle: 'Rommelig proces',
+          reason:
+            'Eerst samen één werkwijze afspreken. Wie chaos automatiseert, krijgt alleen snellere chaos.',
+        },
+        documenten: {
+          title: 'Wisselende documenten en e-mails lezen',
+          shortTitle: 'Documenten lezen',
+          reason:
+            'Hier helpt AI echt: informatie uit tekst halen die steeds anders is opgebouwd. Altijd met een moment waarop een mens meekijkt.',
+        },
+        persoonlijk: {
+          title: 'Persoonlijk contact en afwegingen',
+          shortTitle: 'Persoonlijk contact',
+          reason:
+            'Klanten willen een mens spreken, en afwegingen horen bij jou. Ik maak de informatie overzichtelijk; de beslissing blijft van jou.',
+        },
       },
     },
   },
 
-  // 06 · Aanbod (licht)
+  // 03 · Aanbod (licht)
   aanbod: {
-    kicker: 'Hoofdstuk 06 · Aanbod',
+    kicker: 'Hoofdstuk 03 · Aanbod',
     title: 'Drie stappen, één richting',
     lead: 'Je begint klein met een audit. Wat daaruit komt, bouw ik. Wat ik bouw, houd ik draaiend.',
     services: [
@@ -205,9 +171,9 @@ export const nl = {
     cta: 'Vraag een audit aan',
   },
 
-  // 07 · Over mij
+  // 04 · Over mij
   overMij: {
-    kicker: 'Hoofdstuk 07 · Wie ik ben',
+    kicker: 'Hoofdstuk 04 · Wie ik ben',
     title: 'Eén aanspreekpunt, van kaart tot code',
     name: 'Sander Nales',
     role: 'Oprichter · procesautomatisering & AI',
@@ -221,9 +187,9 @@ export const nl = {
     photoAlt: 'Sander Nales, oprichter van Forgeline Optimizations',
   },
 
-  // 08 · Contact (formulierdeel licht)
+  // 05 · Contact (formulierdeel licht)
   contact: {
-    kicker: 'Hoofdstuk 08 · Contact',
+    kicker: 'Hoofdstuk 05 · Contact',
     title: 'Welk proces kost jou te veel tijd?',
     lead: 'Vertel het in een paar zinnen.',
     fields: {

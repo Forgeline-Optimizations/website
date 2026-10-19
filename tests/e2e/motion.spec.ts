@@ -24,12 +24,14 @@ const litLength = (page: Page) =>
 
 async function expectEndState(page: Page) {
   await expect(page.locator('html')).not.toHaveClass(/forge-js/);
-  const nodes = page.locator('#automatisch .fl-node');
-  for (const i of [0, 1, 2]) await expect(nodes.nth(i)).toHaveAttribute('data-state', 'automated');
-  await expect(page.locator('#automatisch [data-new]').first()).toBeVisible();
+  const nodes = page.locator('#werkwijze [data-step="automatisch"] .fl-node');
+  await expect(nodes.nth(0)).toHaveAttribute('data-state', 'automated');
+  await expect(nodes.nth(1)).toHaveAttribute('data-state', 'automated');
+  await expect(nodes.nth(2)).toHaveAttribute('data-state', 'standard'); // "Mens"-node
+  await expect(nodes.nth(3)).toHaveAttribute('data-state', 'automated');
   await expect(page.locator('[data-forge-svg]')).toBeHidden();
   const rail = await page
-    .locator('#inzicht .chapter__rail')
+    .locator('#werkwijze .chapter__rail')
     .evaluate((el) => getComputedStyle(el, '::before').display);
   expect(rail).toBe('block');
 }
@@ -53,7 +55,7 @@ test('no JS = end state', async ({ browser }) => {
 test('forge line draws', async ({ page }) => {
   await motionReady(page);
   const atStart = await litLength(page);
-  await scrollToY(page, await sectionTop(page, 'oordeel'));
+  await scrollToY(page, await sectionTop(page, 'aanbod'));
   await expect.poll(() => litLength(page)).toBeGreaterThan(atStart + 1000);
 });
 
@@ -117,18 +119,26 @@ test('no layout shift from motion', async ({ page }) => {
 test('automatisch switches on', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'desktop', 'mobiel: geen node-choreografie');
   await motionReady(page);
-  const nodes = page.locator('#automatisch .fl-node');
-  await scrollToY(page, (await sectionTop(page, 'automatisch')) - 200);
-  for (const i of [0, 1, 2]) await expect(nodes.nth(i)).toHaveAttribute('data-state', 'standard');
-  await expect(page.locator('#automatisch [data-new]').first()).toBeHidden();
+  const step = page.locator('#werkwijze [data-step="automatisch"]');
+  const nodes = step.locator('.fl-node');
+  const stepTop = (s: Page) =>
+    s.evaluate(
+      () => document.querySelector('[data-step="automatisch"]')!.getBoundingClientRect().top + scrollY,
+    );
 
-  await scrollToY(page, await sectionTop(page, 'oordeel'));
-  for (const i of [0, 1, 2]) await expect(nodes.nth(i)).toHaveAttribute('data-state', 'automated');
-  await expect(page.locator('#automatisch [data-new]').first()).toBeVisible();
-  await expect(nodes.nth(3)).toHaveAttribute('data-state', 'standard'); // blijft mensenwerk
+  await scrollToY(page, (await stepTop(page)) - 800);
+  await expect(nodes.nth(0)).toHaveAttribute('data-state', 'standard');
+  await expect(nodes.nth(1)).toHaveAttribute('data-state', 'standard');
+  await expect(nodes.nth(3)).toHaveAttribute('data-state', 'standard');
 
-  await scrollToY(page, (await sectionTop(page, 'automatisch')) - 200);
-  for (const i of [0, 1, 2]) await expect(nodes.nth(i)).toHaveAttribute('data-state', 'standard');
+  await scrollToY(page, (await stepTop(page)) + 100);
+  await expect(nodes.nth(0)).toHaveAttribute('data-state', 'automated');
+  await expect(nodes.nth(1)).toHaveAttribute('data-state', 'automated');
+  await expect(nodes.nth(3)).toHaveAttribute('data-state', 'automated');
+  await expect(nodes.nth(2)).toHaveAttribute('data-state', 'standard'); // "Mens"-node blijft mensenwerk
+
+  await scrollToY(page, (await stepTop(page)) - 800);
+  await expect(nodes.nth(0)).toHaveAttribute('data-state', 'standard');
 });
 
 test('gsap only on home', async ({ page }) => {

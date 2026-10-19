@@ -1,5 +1,5 @@
 ---
-// 08 · Contact (licht) — design/storyboard/Contact.dc.html. Zonder JS: gewone POST naar Web3Forms met
+// 05 · Contact (licht) — design/storyboard/Contact.dc.html. Zonder JS: gewone POST naar Web3Forms met
 // browservalidatie en redirect (ADR-003). Met JS: src/scripts/contact-form.ts zet `novalidate`, valideert in het
 // Nederlands en verstuurt via fetch.
 import Chapter from '../components/site/Chapter.astro';
@@ -22,7 +22,7 @@ const fromName = new URL(site.url).hostname;
 const messages = JSON.stringify({ ...d.errors, sending: d.sending });
 ---
 
-<Chapter id="contact" num="08" theme="light" kicker={d.kicker} title={d.title} lead={d.lead} end>
+<Chapter id="contact" num="05" theme="light" kicker={d.kicker} title={d.title} lead={d.lead} end>
   <div class="chapter__visual contact" data-motion="contact">
     <form
       class="fl-form"

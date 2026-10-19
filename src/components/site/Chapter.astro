@@ -29,6 +29,8 @@ const titleId = `${id}-title`;
   <div class="chapter__inner">
     <div class="chapter__rail" data-forge-anchor="chapter" aria-hidden="true">
       <span class="fl-tick chapter__tick"></span>
+      <!-- Extra ticks voor een hoofdstuk met meerdere stappen (Werkwijze, ADR-015); leeg bij de rest. -->
+      <slot name="rail" />
     </div>
     <div class="fl-numeral chapter__num" aria-hidden="true">
       {num}

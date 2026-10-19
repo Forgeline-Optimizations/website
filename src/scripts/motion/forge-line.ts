@@ -7,8 +7,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import type { MotionContext } from './context';
 import { lengthAtY, makePath, partial, toD, type ForgePath, type Pt } from './forge-path';
 
-/** Hoe ver onder de bovenkant van Inzicht de lijn naar links buigt. */
-const BEND_BELOW_INZICHT = 80;
+/** Hoe ver onder de bovenkant van het eerste hoofdstuk (Werkwijze) de lijn naar links buigt. */
+const BEND_BELOW_FIRST_CHAPTER = 80;
 /** Het kopje (12 × 12) stopt met zijn rechterrand tegen de knop. */
 const HEAD = 12;
 
@@ -24,7 +24,7 @@ export function buildPoints(main: HTMLElement): Pt[] | null {
   const sy = start.top + start.height / 2 - box.top;
   const railX = rail.left + rail.width / 2 - box.left;
   const firstChapter = main.querySelector('[data-forge-anchor="chapter"]')!.closest('section')!;
-  const bendY = firstChapter.getBoundingClientRect().top - box.top + BEND_BELOW_INZICHT;
+  const bendY = firstChapter.getBoundingClientRect().top - box.top + BEND_BELOW_FIRST_CHAPTER;
   const endY = end.top + end.height / 2 - box.top;
   const endX = end.left - box.left - HEAD / 2;
   return [

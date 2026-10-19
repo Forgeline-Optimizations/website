@@ -1,6 +1,6 @@
 /**
  * Koppelt de stapknoppen aan de panelen van één verdict-blok.
- * Contract met de markup (Oordeel.astro): [data-verdict-root] > [data-verdict-step=id] + [data-verdict-panel=id].
+ * Contract met de markup (Werkwijze.astro, stap "advies"): [data-verdict-root] > [data-verdict-step=id] + [data-verdict-panel=id].
  * Zichtbaarheid via data-active: CSS toont met JS alleen het actieve paneel (`hidden` werkt niet, want
  * .fl-verdict__panel heeft display: flex). Zonder JS staan alle panelen open.
  */
@@ -35,7 +35,7 @@ export function initVerdict(root: HTMLElement): void {
             : 0;
       if (!next) return;
       e.preventDefault();
-      const visible = steps.filter((s) => s.offsetParent !== null); // mobiel: inkoop is verborgen
+      const visible = steps.filter((s) => s.offsetParent !== null); // overslaat verborgen knoppen, als die er zijn
       const at = visible.indexOf(b);
       const target = visible[(at + next + visible.length) % visible.length];
       choose(target.dataset.verdictStep!, true);

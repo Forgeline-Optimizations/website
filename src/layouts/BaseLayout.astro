@@ -71,6 +71,18 @@ const analytics = import.meta.env.PROD && Boolean(site.plausibleScriptSrc);
       <slot />
     </main>
     <Footer locale={locale} />
+    <script is:inline>
+      // Fase 7 (ADR-015): #inzicht/#standaard/#automatisch/#oordeel bestaan niet meer; wie een oude
+      // link had komt op #werkwijze terecht. Hier, ná <main>, zodat het element al bestaat en dit vóór
+      // het lazy laden van de motion (na `load`) klaar is.
+      (function () {
+        var old = ['inzicht', 'standaard', 'automatisch', 'oordeel'];
+        var hash = location.hash.slice(1);
+        if (old.indexOf(hash) === -1) return;
+        history.replaceState(null, '', '#werkwijze');
+        document.getElementById('werkwijze')?.scrollIntoView({ behavior: 'instant' });
+      })();
+    </script>
     {motion && <MotionLoader />}
   </body>
 </html>
