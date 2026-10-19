@@ -25,5 +25,6 @@ Alle teksten staan in `src/i18n/nl.ts`. Pas de tekst tussen de aanhalingstekens 
 | 5 | ~~Algemene voorwaarden~~ Opgelost (2026-10-13): eigen voorwaarden (geen NLdigital), `src/i18n/legal/voorwaarden.nl.md`, versie 1.0 | fase 3 | — |
 | 6 | **Professionele portretfoto** | fase 6 | `src/assets/images/sander-portrait-tijdelijk.jpg` |
 | 7 | **Doelgroepgrootte**: board zegt 10–100, businessplan 10–50 | fase 2 | Board (10–100) is leidend |
-| 8 | **Voorbeeldgetallen** in 04 en 05 zijn verzonnen en gelabeld als *Voorbeeld*; vervangen door echte cases zodra die er zijn | later | Zoals op het board |
+| 8 | ~~Voorbeeldgetallen in 04 en 05~~ Vervallen (2026-10-19, fase 7): die hoofdstukken bestaan niet meer, Werkwijze is abstract en heeft geen verzonnen getallen ([ADR-015](../.claude/decisions/ADR-015-verhaal-inkorten.md)). | — | — |
 | 9 | **Engelse versie** | later | i18n is ingericht, `en.ts` bestaat nog niet |
+| 10 | **Teksten Werkwijze en hero-labels** zijn nu letterlijk uit het fase-7-plan; Sander herschrijft ze later in eigen woorden | later | Zoals in `src/i18n/nl.ts` → `hero.nodes`/`hero.nodesMobile`/`werkwijze` |

@@ -27,11 +27,12 @@ export const chaosWires = [
   'M395 32 C 300 200, 470 280, 345 362',
 ] as const;
 
-// design/storyboard/MobielHero.dc.html — doos 334 × 200 (nodes zonder index)
+// design/storyboard/MobielHero.dc.html — doos 334 × 200 (nodes zonder index).
+// `node` is hier de positie in t().hero.nodesMobile (3 labels), niet in het grote hero.nodes.
 export const chaosBoxMobile = { width: 334, height: 200 };
 
 export const chaosNodesMobile = [
   { node: 0, x: 0, y: 0, rotate: -4 },
-  { node: 3, x: 150, y: 60, rotate: 3 },
+  { node: 1, x: 150, y: 60, rotate: 3 },
   { node: 2, x: 20, y: 130, rotate: -2 },
 ] as const;

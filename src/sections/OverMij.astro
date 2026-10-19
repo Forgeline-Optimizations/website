@@ -1,5 +1,5 @@
 ---
-// 07 · Over mij — design/storyboard/OverMij.dc.html.
+// 04 · Over mij — design/storyboard/OverMij.dc.html.
 import { Image } from 'astro:assets';
 import Chapter from '../components/site/Chapter.astro';
 import Button from '../components/ui/Button.astro';
@@ -15,7 +15,7 @@ const { locale = 'nl' } = Astro.props;
 const d = t(locale).overMij;
 ---
 
-<Chapter id="over-mij" num="07" theme="dark" kicker={d.kicker} title={d.title}>
+<Chapter id="over-mij" num="04" theme="dark" kicker={d.kicker} title={d.title}>
   <div class="chapter__visual fl-profile" data-motion="over-mij">
     <div class="fl-profile__photo">
       <Image src={portrait} alt={d.photoAlt} widths={[320, 640]} sizes="(min-width: 1200px) 320px, 280px" />

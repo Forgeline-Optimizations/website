@@ -1,34 +1,38 @@
 import { expect, test } from './fixtures';
 import { nl } from '../../src/i18n/nl';
-import { verdicts, verdictsMobile } from '../../src/data/verdicts';
+import { verdicts, defaultVerdict } from '../../src/data/verdicts';
 
 const pressed = '.fl-verdict__step[aria-pressed="true"]';
 const step = (id: string) => `[data-verdict-step="${id}"]`;
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('/#oordeel');
+  await page.goto('/#werkwijze');
+  // De kaart fadet in zodra stap "advies" in beeld komt (motion/chapters/werkwijze.ts): wachten tot
+  // motion geladen is en dan erheen scrollen, anders staat de knoppenrij nog op autoAlpha 0.
+  await expect(page.locator('html')).toHaveClass(/forge-js/, { timeout: 10_000 });
+  await page.locator('[data-step="advies"]').scrollIntoViewIfNeeded();
+  await page.waitForTimeout(150);
 });
 
 test('default open', async ({ page }) => {
-  await expect(page.locator(step('offerte'))).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator(step(defaultVerdict))).toHaveAttribute('aria-pressed', 'true');
   await expect(page.locator('.fl-verdict__panel:visible')).toHaveCount(1);
-  await expect(page.locator('#verdict-offerte')).toBeVisible();
+  await expect(page.locator(`#verdict-${defaultVerdict}`)).toBeVisible();
 });
 
 test('click switches', async ({ page }) => {
-  await page.locator(step('klacht')).click();
-  const panel = page.locator('#verdict-klacht');
+  await page.locator(step('persoonlijk')).click();
+  const panel = page.locator('#verdict-persoonlijk');
   await expect(panel).toBeVisible();
-  await expect(panel.locator('.fl-badge')).toHaveText(nl.oordeel.verdictLabels.no);
-  await expect(panel).toContainText(nl.oordeel.items.klacht.reason);
+  await expect(panel.locator('.fl-badge')).toHaveText(nl.werkwijze.verdict.labels.no);
+  await expect(panel).toContainText(nl.werkwijze.verdict.items.persoonlijk.reason);
   await expect(page.locator('.fl-verdict__panel:visible')).toHaveCount(1);
-  await expect(page.locator('#verdict-offerte')).toBeHidden();
+  await expect(page.locator(`#verdict-${defaultVerdict}`)).toBeHidden();
 });
 
 test('one pressed', async ({ page }) => {
   for (const { id } of verdicts) {
     const button = page.locator(step(id));
-    if (!(await button.isVisible())) continue; // mobiel: inkoop is verborgen
     await button.click();
     await expect(page.locator(pressed)).toHaveCount(1);
     await expect(button).toHaveAttribute('aria-pressed', 'true');
@@ -36,17 +40,27 @@ test('one pressed', async ({ page }) => {
   }
 });
 
+test('ai vs rules are told apart by text and icon', async ({ page }) => {
+  const badge = (id: string) => page.locator(`#verdict-${id} .fl-badge`);
+  await page.locator(step('overtypen')).click();
+  await expect(badge('overtypen')).toHaveText(/zonder AI/);
+  await page.locator(step('documenten')).click();
+  await expect(badge('documenten')).toHaveText(/met AI/);
+  const iconOf = (id: string) => badge(id).locator('svg').innerHTML();
+  expect(await iconOf('overtypen')).not.toEqual(await iconOf('documenten'));
+});
+
 test('arrow keys move selection and focus', async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== 'desktop', 'desktop: vijf stappen onder elkaar');
-  const first = page.locator(step('offerte'));
+  test.skip(testInfo.project.name !== 'desktop', 'desktop: vier stappen onder elkaar');
+  const first = page.locator(step('overtypen'));
   await first.focus();
   await page.keyboard.press('ArrowDown');
   await page.keyboard.press('ArrowDown');
-  const planning = page.locator(step('planning'));
-  await expect(planning).toBeFocused();
-  await expect(planning).toHaveAttribute('aria-pressed', 'true');
-  await expect(page.locator('#verdict-planning')).toBeVisible();
-  await expect(page.locator('#verdict-planning .fl-badge')).toHaveText(nl.oordeel.verdictLabels.wait);
+  const documenten = page.locator(step('documenten'));
+  await expect(documenten).toBeFocused();
+  await expect(documenten).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('#verdict-documenten')).toBeVisible();
+  await expect(page.locator('#verdict-documenten .fl-badge')).toHaveText(nl.werkwijze.verdict.labels.ai);
 
   await page.keyboard.press('ArrowUp');
   await page.keyboard.press('ArrowUp');
@@ -58,14 +72,13 @@ test('arrow keys move selection and focus', async ({ page }, testInfo) => {
 
 test('mobile chips', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile', 'alleen mobiel');
-  await expect(page.locator('.fl-verdict__step:visible')).toHaveCount(verdictsMobile.length);
-  await expect(page.locator(step('inkoop'))).toBeHidden();
-  // Laatste zichtbare chip (klacht) → ArrowRight springt over de verborgen inkoop terug naar de eerste.
-  await page.locator(step('klacht')).focus();
+  await expect(page.locator('.fl-verdict__step:visible')).toHaveCount(verdicts.length);
+  // Laatste chip (persoonlijk) → ArrowRight springt terug naar de eerste.
+  await page.locator(step('persoonlijk')).focus();
   await page.keyboard.press('ArrowRight');
-  await expect(page.locator(step('offerte'))).toBeFocused();
+  await expect(page.locator(step(defaultVerdict))).toBeFocused();
   await expect(page.locator(pressed)).toHaveCount(1);
-  await expect(page.locator(step('offerte'))).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator(step(defaultVerdict))).toHaveAttribute('aria-pressed', 'true');
 });
 
 test('badge never color-only', async ({ page }) => {

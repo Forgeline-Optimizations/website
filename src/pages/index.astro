@@ -1,10 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../sections/Hero.astro';
-import Inzicht from '../sections/Inzicht.astro';
-import Standaard from '../sections/Standaard.astro';
-import Automatisch from '../sections/Automatisch.astro';
-import Oordeel from '../sections/Oordeel.astro';
+import Werkwijze from '../sections/Werkwijze.astro';
 import Aanbod from '../sections/Aanbod.astro';
 import OverMij from '../sections/OverMij.astro';
 import Contact from '../sections/Contact.astro';
@@ -18,10 +15,7 @@ const d = t(locale);
 <BaseLayout title={d.meta.title} description={d.meta.description} locale={locale} showChapters motion>
   <ForgeLine part="layer" />
   <Hero locale={locale} />
-  <Inzicht locale={locale} />
-  <Standaard locale={locale} />
-  <Automatisch locale={locale} />
-  <Oordeel locale={locale} />
+  <Werkwijze locale={locale} />
   <Aanbod locale={locale} />
   <OverMij locale={locale} />
   <Contact locale={locale} />

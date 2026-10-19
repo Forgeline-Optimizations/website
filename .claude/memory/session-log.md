@@ -4,6 +4,37 @@
 
 ---
 
+## Fase 7 — Verhaal inkorten
+**Datum:** 2026-10-19
+**Doel:** `.claude/docs/fase-7-verhaal-inkorten.md` volledig uitvoeren: acht hoofdstukken naar vijf, Inzicht/Standaard/Automatisch/Oordeel samen in één abstract hoofdstuk Werkwijze. Besluit vastgelegd in [ADR-015](../decisions/ADR-015-verhaal-inkorten.md).
+**Branch:** `fase-7-verhaal-inkorten` (van `main`, na de fase-6-merge `56e24e8`).
+**Stap 0 — afwijkingen van het plan gevonden vóór het bouwen:**
+- Het plan noemt `ADR-011-verhaal-inkorten.md`, maar `ADR-011` t/m `ADR-014` bestaan al (fase 1/2/4/5-werk, van na dit plan geschreven is). Besluit vastgelegd als **ADR-015** in plaats van ADR-011.
+- Verder kwamen alle genoemde bestandsnamen exact overeen met de huidige code (`Inzicht/Standaard/Automatisch/Oordeel.astro`, `verdict.ts`, `verdicts.ts`, `Badge.astro`, `Icon.astro`, `hero-chaos.ts`, `nl.ts`-sleutels) — geen verdere afwijkingen.
+**Gedaan (volgt de stappen uit het plan):**
+- `nl.ts`: `inzicht`/`standaard`/`automatisch`/`oordeel` eruit, `werkwijze` erbij (vier stappen + verdict met vier soorten werk); `nav.chapters` naar `werkwijze, aanbod, over-mij`; `hero.nodes` abstracte labels + nieuwe `hero.nodesMobile` (losse lijst van 3, niet meer een subset-index van de 7 desktoplabels); hoofdstuknummers Aanbod/Over mij/Contact naar 03/04/05.
+- `verdicts.ts`: vier ids (`overtypen, rommelig, documenten, persoonlijk`), type `rules | ai | wait | no`; `verdictsMobile` vervallen (mobiel toont alle vier).
+- `hero-chaos.ts`: `chaosNodesMobile.node` wijst nu naar `hero.nodesMobile` (eigen 3-lijst) i.p.v. een index in de 7-lijst.
+- `Icon.astro`/`Badge.astro`/`components.css`: icoon + badge-variant `ai` erbij (`rules` deelt de stijl van de oude `go`).
+- `Hero.astro`: `ctaSecondary` linkt naar `#werkwijze`; mobiele labels uit `hero.nodesMobile`.
+- **`Chapter.astro` kreeg een named slot `rail`** (leeg bij de meeste hoofdstukken): niet in het plan letterlijk zo genoemd, maar nodig omdat het plan's Werkwijze-schets de chapter-shell (rail/nummer/kop) handmatig overtypte terwijl die al in `Chapter.astro` zit. Werkwijze gebruikt de slot voor vier extra `fl-tick`s (rail-markeringen per stap).
+- **Nieuw `src/sections/Werkwijze.astro`**: vier stappen (`kaart, standaard, automatisch, advies`) met hergebruikte visuals (ProcessNode-rijen, chip-banen, verdictcard). `src/data/verdicts.ts`'s `Verdict`-type is heterogeen per stap in `nl.ts` (`steps: [...]`); de `Widen<T>`-helper in `src/i18n/types.ts` verbreedt een tuple tot de unie van zijn elementtypes (bestaand gedrag, nooit eerder een probleem omdat geen sectie vóór Werkwijze een tuple met verschillende vormen per stap had). Opgelost met een expliciete `as unknown as (typeof nl)['werkwijze']['steps']`-cast in `Werkwijze.astro`, niet door `Widen` aan te passen (zou andere i18n-aannames kunnen raken).
+- Oude secties verwijderd: `Inzicht.astro`, `Standaard.astro`, `Automatisch.astro`, `Oordeel.astro`. `index.astro` nieuwe volgorde.
+- `verdict.ts`: contract-commentaar bijgewerkt (verwijst niet meer naar Oordeel); de "sla verborgen knoppen over"-logica was al generiek (geen `inkoop`-specifieke code om te verwijderen, alleen het commentaar klopte niet meer).
+- `BaseLayout.astro`: oude ankers (`#inzicht/#standaard/#automatisch/#oordeel`) → `#werkwijze`. **Niet** met `DOMContentLoaded` + gewone `scrollIntoView()` in `<head>` (zoals het plan schetst): dat races met het lazy laden van motion/fonts en faalt ongeveer de helft van de tijd (headless Chromium animeert `scroll-behavior: smooth` nauwelijks). Opgelost door het script ná `<main>`/`<Footer>` te zetten (synchroon, vóórdat `MotionLoader` lazy laadt) én `scrollIntoView({ behavior: 'instant' })` te gebruiken.
+- `motion/chapters/werkwijze.ts` (nieuw, vervangt `inzicht.ts`/`standaard.ts`/`automatisch.ts`): per stap scrubt (`top 80%` → `center 50%`), geen pin. `pin.ts` is daardoor dood en verwijderd (niets pint meer sinds fase 7). `motion/index.ts` registreert `werkwijze` i.p.v. de drie oude modules.
+- Docs bijgewerkt: `docs/storyboard.md` (sectie 02 herschreven, pagina-opbouw/beweging-tabellen), `docs/README.md` (open punt 8 vervallen, punt 10 toegevoegd: teksten nog in plan-vorm, Sander herschrijft later), `design/README.md` (oude artboards historisch), `CLAUDE.md`, `src/sections/CLAUDE.md`, `src/scripts/CLAUDE.md`, `src/components/CLAUDE.md`, `src/i18n/CLAUDE.md`.
+**Twee layoutbugs gevonden tijdens het testen (niet in het plan, wel een gevolg ervan):**
+- Werkwijze's stappen hebben een smallere inhoudskolom dan de oude, volle-breedte Inzicht/Automatisch (340px label + gap gaan er al af). Rijen van nodes/de 3-koloms grid van "Standaardiseren" overflowden de pagina tussen 900–1280px. Opgelost met lokale `overflow-x: auto` + `tabindex="0"` (axe `scrollable-region-focusable`) op `.wk-map__row`, `.wk-std`, `.wk-auto__nodes`, in plaats van de rij te laten passen (kon niet: vijf nodes × 132px past niet in de smalle kolom, ook niet op 1440).
+- `.fl-badge` had geen `max-width`; in de smalle verdict-kolom overflowde het langste label ("Automatiseren · met AI") de pagina. `max-width: 100%` toegevoegd aan `.fl-badge` in `components.css` (geldt voor alle badges, niet alleen Werkwijze).
+**Tests:** `npm run check` groen (astro check + prettier) · Vitest 24/24 · Playwright 127 groen + 7 bewust overgeslagen (mobiel/desktop-specifieke tests). `tests/e2e/werkwijze.spec.ts` nieuw (7 tests). Bestaande specs die naar oude ankers/secties verwezen bijgewerkt: `sections.spec.ts`, `verdict.spec.ts`, `motion.spec.ts`, `a11y.spec.ts`, `tests/unit/i18n.test.ts`. Testen die het verdict-blok direct na `page.goto()` aanspraken moesten eerst naar stap "advies" scrollen: die stap fadet in (`autoAlpha`) zodra hij in beeld komt, en dat gebeurt nu standaard ver onder de vouw (Werkwijze is ± 2,5 scherm, niet meer één scherm zoals het oude Oordeel).
+**Niet af / bekend:**
+- **Lighthouse-gate** (`npm run lhci`) bestaat nog niet — dat is fase 5, stap 4, en stond al open vóór deze sessie. Acceptatiecriterium "Lighthouse groen" kon daardoor niet gecheckt worden; wel `npm run check`, Vitest en Playwright (incl. axe) groen.
+- Teksten in `werkwijze` en de hero-labels zijn letterlijk uit het plan overgenomen (Sander herschrijft ze later zelf, zoals het plan voorschrijft) — `docs/README.md`, open punt 10.
+- Niet gemerged naar `main`; branch staat klaar voor review.
+
+---
+
 ## Tussensessie — juridische teksten en Plausible
 **Datum:** 2026-10-13
 **Doel:** Sanders aangeleverde teksten (privacy, voorwaarden) en Plausible-snippet verwerken vóór fase 5.
