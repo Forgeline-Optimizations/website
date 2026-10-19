@@ -24,7 +24,7 @@ export const nl = {
   hero: {
     kicker: 'Procesautomatisering & AI voor het mkb',
     kickerShort: 'Procesautomatisering & AI',
-    title: 'Automatiseer wat het waard is. Ik help te vinden wat dat is.',
+    title: 'Eerst het proces op orde. Dan automatisering die de praktijk overleeft.',
     lead: 'Voor productie-, handels- en dienstverlenende bedrijven met 10 tot 100 mensen. Eerst je processen in kaart, dan pas de software.',
     ctaPrimary: 'Plan een kennismaking',
     ctaSecondary: 'Hoe ik werk',
@@ -265,7 +265,7 @@ export const nl = {
     metaTitle: 'Sander Nales · Forgeline Optimizations',
     metaDescription: 'Digitale visitekaart van Forgeline Optimizations.',
     tagline:
-      'Ik help bedrijven van 10 tot 100 mensen slimmer werken, met eerlijk advies over wat wél en níet geautomatiseerd moet worden.',
+      'Ik help bedrijven en ondernemers slimmer werken, met eerlijk advies over wat wél en níet geautomatiseerd moet worden.',
     actions: {
       save: 'Contact opslaan',
       call: 'Bellen',
